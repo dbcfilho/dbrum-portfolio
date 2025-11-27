@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 
 const projects = [
   {
-    title: "Casa da Cultura",
+    title: "Culture House",
     tagline: "Social Project Management System",
     description:
       "Web platform designed to help NGOs manage social assistance records efficiently. It tracks individuals and their interactions, automates WhatsApp messages for birthdays and special dates, and generates comprehensive CSV and PDF statistical reports. This project showcases full-stack development, database modeling, role-based access control, and containerization.",
