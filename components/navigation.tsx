@@ -41,9 +41,9 @@ export default function Navigation() {
             <Image
               src="/images/dbrum-logo.png"
               alt="Douglas Brum Logo"
-              width={180}
-              height={60}
-              className="transition-transform group-hover:scale-105 h-auto w-[160px] sm:w-[190px] md:w-[220px]"
+              width={150}
+              height={50}
+              className="transition-transform group-hover:scale-105 h-auto w-[120px] sm:w-[140px] md:w-[160px]"
               priority
             />
           </Link>
