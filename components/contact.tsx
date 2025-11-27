@@ -85,12 +85,12 @@ export default function Contact() {
             <div className="glass-card rounded-lg p-6 sm:p-8">
               <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Let's Work Together</h3>
               <p className="text-gray-300 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
-                I'm actively seeking backend developer roles at junior to mid-level, freelance projects, and remote
+                I'm actively seeking backend developer roles at junior to mid level, freelance projects, and remote
                 opportunities. If you're building secure, scalable systems and need someone who brings both technical
-                depth and a security-conscious mindset, I'd love to hear from you.
+                depth and a security conscious mindset, I'd love to hear from you.
               </p>
               <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                Whether it's a full-time position, contract work, or collaboration on an exciting project, I'm open to
+                Whether it's a full time position, contract work, or collaboration on an exciting project, I'm open to
                 discussing how I can contribute to your team.
               </p>
             </div>
