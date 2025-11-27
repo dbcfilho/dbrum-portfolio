@@ -9,13 +9,13 @@ export default function About() {
           </h2>
           <div className="space-y-4 sm:space-y-6 text-gray-300 leading-relaxed text-base sm:text-lg">
             <p>
-              I'm a backend developer—and increasingly full-stack—who enjoys building web applications from the ground
-              up. My go-to tools are Java with Spring Boot and Python with Django, and I'm comfortable handling
+              I'm a backend developer and increasingly fullstack who enjoys building web applications from the ground
+              up. My go to tools are Java with Spring Boot and Python with Django, and I'm comfortable handling
               everything from database design to API endpoints. I work with Docker for containerization and have
-              hands-on experience deploying applications to AWS-like environments.
+              hands on experience deploying applications to AWS like environments.
             </p>
             <p>
-              Recently, I've been focused on systems for social projects and NGOs—platforms that track assisted
+              Recently, I've been focused on systems for social projects and NGOs platforms that track assisted
               individuals, automate communication flows (like WhatsApp birthday messages), and generate meaningful CSV
               and PDF reports. These aren't just CRUD apps; they solve real problems for organizations that need
               reliable, scalable solutions on tight budgets.
