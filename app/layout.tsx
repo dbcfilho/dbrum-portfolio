@@ -57,6 +57,7 @@ export const metadata: Metadata = {
         type: "image/svg+xml",
       },
     ],
+  },
 }
 
 export default function RootLayout({
