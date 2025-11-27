@@ -80,31 +80,35 @@ pnpm start
 npm run build
 npm start
 
-🧱 Customization
+---
 
-You can adapt this portfolio to your own profile by editing:
+## 🧱 Customization
 
-Content sections inside app/ (hero, about, skills, projects, experience, education, contact).
+You can adapt this portfolio to fit your own profile by updating:
 
-Projects list (titles, descriptions, tech stack and GitHub links).
+- **Content sections** inside `app/`  
+  *(hero, about, skills, projects, experience, education, contact)*
+- **Projects list**  
+  *(titles, descriptions, tech stack, GitHub links)*
+- **Skills & certifications**  
+  *(data structures to match your stack)*
+- **Branding**  
+  *(logo and color scheme in `public/` and `styles/`)*
 
-Skills and certifications data structures to match your stack.
+---
 
-Branding (logo and colors) inside public/ and styles/.
+## 📬 Contact
 
-📬 Contact
+If you'd like to get in touch:
 
-If you’d like to get in touch:
+- **Email:** `dbcfilho01@gmail.com`
+- **LinkedIn:** https://www.linkedin.com/in/dbcfilho  
+- **Portfolio:** https://dbrum-portfolio.vercel.app/
 
-Email: dbcfilho01@gmail.com 
-Douglas Brum Portfolio
+---
 
-LinkedIn: https://www.linkedin.com/in/dbcfilho
- 
-Douglas Brum Portfolio
+## 📄 License
 
-Live portfolio: https://dbrum-portfolio.vercel.app/
+This project is licensed under the **MIT License**.
 
-📄 License
-
-This project is licensed under the MIT License.
+---
