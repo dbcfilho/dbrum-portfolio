@@ -21,7 +21,7 @@ export default function Hero() {
             <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-2xl">
               I'm a backend developer who focuses on building robust APIs and web systems using Java with Spring Boot
               and Python with Django. Comfortable working with Linux environments, Docker containers, and AWS
-              fundamentals. What sets me apart is my strong interest in cybersecurity and secure application design—I
+              fundamentals. What sets me apart is my strong interest in cybersecurity and secure application design I
               bring that mindset to every project I touch.
             </p>
 
