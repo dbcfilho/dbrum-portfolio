@@ -23,13 +23,13 @@ export default function About() {
             <p>
               Beyond development, I also work as an IT instructor. Teaching Linux, MySQL, and general computing to
               students of all ages has sharpened my ability to break down complex topics and communicate clearly. It's
-              taught me patience, adaptability, and how to work with people from different backgrounds—skills that
+              taught me patience, adaptability, and how to work with people from different backgrounds skills that
               translate directly to collaborating with teams and stakeholders.
             </p>
             <p>
               What drives me is writing clean, maintainable code that doesn't just work today but holds up tomorrow. I
               care deeply about security, scalability, and making sure what I build actually delivers business value. If
-              you're looking for someone who brings both technical depth and a practical, security-conscious mindset to
+              you're looking for someone who brings both technical depth and a practical, security conscious mindset to
               backend development, let's talk.
             </p>
           </div>
