@@ -1,109 +1,137 @@
-# dbrum-portfolio
+# Douglas Brum — Backend & Cybersecurity-Oriented Developer
 
-Personal portfolio website for **Douglas Brum**, a backend & cybersecurity-oriented developer from Rio de Janeiro, Brazil. It showcases technical skills, real-world projects, professional experience and education using a modern, responsive UI/UX. :contentReference[oaicite:0]{index=0}
+> Backend-focused engineer with a strong security mindset, building reliable systems and meaningful digital products.
 
-## 🌐 Live Demo
+This repository contains the source code of my **personal portfolio**, designed not only as a presentation website, but as a **living product** that reflects how I think, build, version and ship software.
 
-- **Website:** https://dbrum-portfolio.vercel.app/ :contentReference[oaicite:1]{index=1}
-
----
-
-## ✨ Features
-
-- Hero section with role, short bio and call-to-action buttons (view projects / contact). :contentReference[oaicite:2]{index=2}  
-- Detailed **About** section focused on backend, security mindset and work with social projects/NGOs. :contentReference[oaicite:3]{index=3}  
-- Structured **Skills** grouped by backend & languages, frameworks, databases, infrastructure/DevOps and tooling. :contentReference[oaicite:4]{index=4}  
-- **Certifications & Badges** highlighting Google Cybersecurity, Cisco, Python, Java and more. :contentReference[oaicite:5]{index=5}  
-- **Highlighted Projects** with short descriptions, tech stack chips and direct links to GitHub. :contentReference[oaicite:6]{index=6}  
-- **Experience** and **Education** timeline with concise bullet points. :contentReference[oaicite:7]{index=7}  
-- Contact section with email, LinkedIn and a contact form.
+🌐 **Live:** [https://dbrum.com.br](https://dbrum.com.br)
 
 ---
 
-## 🧰 Tech Stack
+## 🚀 About This Project
 
-This project is built as a modern React/Next.js app with TypeScript and a component-based design system.
+This portfolio showcases my background as a **backend-oriented software engineer** with experience across **Java/Spring**, **Python/Django**, databases, Linux-based environments and cloud-ready architectures.
 
-- **Framework:** Next.js (App Router)
-- **Language:** TypeScript :contentReference[oaicite:8]{index=8}  
-- **Styling:** CSS / utility-first styling (Tailwind-like structure)  
-- **UI Components:** `@/components/ui/*` (shadcn/ui-style components), icons from `lucide-react`  
-- **Build Tooling:** PostCSS, pnpm :contentReference[oaicite:9]{index=9}  
-- **Deployment:** Vercel
+More than a static website, it follows real-world engineering practices:
+
+* Clear project structure
+* Versioned evolution (v1 → v2)
+* Modern frontend architecture
+* Security-aware dependency management
+* Production-grade deployment pipeline
+
+It is intentionally kept **clean, fast and focused on substance**, not gimmicks.
+
+---
+
+## 🧠 What You’ll Find Here
+
+* **Professional narrative** focused on backend engineering and problem-solving
+* **Skills & tooling** organized by real-world usage, not buzzwords
+* **Selected projects** with context, stack and GitHub links
+* **Certifications** in cybersecurity, programming and infrastructure
+* **Experience & education timeline** with concise, relevant details
+
+---
+
+## 🛠 Tech Stack
+
+This project is built with a modern, production-ready stack:
+
+* **Framework:** Next.js (App Router)
+* **Language:** TypeScript
+* **UI & Styling:** Component-based architecture with utility-first styling
+* **Components:** shadcn/ui-style components, `lucide-react` icons
+* **Package Manager:** pnpm
+* **Build & Tooling:** PostCSS
+* **Deployment:** Vercel
+
+The focus is on **maintainability, clarity and performance**.
 
 ---
 
 ## 📁 Project Structure
 
-High-level folder structure: :contentReference[oaicite:10]{index=10}  
-
 ```text
-app/            # Next.js app router pages & sections
+app/            # Next.js App Router (pages & sections)
 components/     # Reusable UI components
 hooks/          # Custom React hooks
-lib/            # Utilities, config and helpers
-public/         # Static assets (logo, favicons, images)
+lib/            # Utilities, helpers and shared logic
+public/         # Static assets (images, icons)
 styles/         # Global styles
 ```
 
-🚀 Getting Started
-Prerequisites
-
-Node.js 18+ (recommended 20+)
-
-pnpm (preferred, since the repo includes pnpm-lock.yaml) 
-GitHub
-
-Installation
-# Clone this repository
-git clone https://github.com/dbcfilho/dbrum-portfolio.git
-
-cd dbrum-portfolio
-
-# Install dependencies
-pnpm install
-# or
-npm install
-
-Running the development server
-pnpm dev
-# or
-npm run dev
-
-Then open:
-http://localhost:3000
-
-Production build
-pnpm build
-pnpm start
-# or
-npm run build
-npm start
+The structure mirrors how I organize **real applications**, not just demos.
 
 ---
 
-## 🧱 Customization
+## 🔄 Versioning Strategy
 
-You can adapt this portfolio to fit your own profile by updating:
+This portfolio follows a **versioned evolution approach**:
 
-- **Content sections** inside `app/`  
-  *(hero, about, skills, projects, experience, education, contact)*
-- **Projects list**  
-  *(titles, descriptions, tech stack, GitHub links)*
-- **Skills & certifications**  
-  *(data structures to match your stack)*
-- **Branding**  
-  *(logo and color scheme in `public/` and `styles/`)*
+* **v1** – Initial stable version
+* **v2** – Structural redesign, new pages, refined content and improved architecture
+
+This reflects how I handle **product iteration** in real projects.
+
+---
+
+## 🧪 Local Development
+
+### Prerequisites
+
+* Node.js 18+ (20+ recommended)
+* pnpm
+
+### Installation
+
+```bash
+git clone https://github.com/dbcfilho/dbrum-portfolio.git
+cd dbrum-portfolio
+pnpm install
+```
+
+### Development Server
+
+```bash
+pnpm dev
+```
+
+Open:
+
+```
+http://localhost:3000
+```
+
+### Production Build
+
+```bash
+pnpm build
+pnpm start
+```
+
+---
+
+## 🎨 Customization
+
+If you want to adapt this portfolio:
+
+* Update content sections inside `app/`
+* Edit project data (titles, descriptions, stacks, links)
+* Adjust skills and certifications to your profile
+* Customize branding (colors, assets) in `public/` and `styles/`
+
+The codebase is intentionally straightforward to modify.
 
 ---
 
 ## 📬 Contact
 
-If you'd like to get in touch:
+If you’d like to connect, collaborate or discuss opportunities:
 
-- **Email:** `dbcfilho01@gmail.com`
-- **LinkedIn:** https://www.linkedin.com/in/dbcfilho  
-- **Portfolio:** https://dbrum-portfolio.vercel.app/
+* **Email:** [dbcfilho01@gmail.com](mailto:dbcfilho01@gmail.com)
+* **LinkedIn:** [https://www.linkedin.com/in/dbcfilho](https://www.linkedin.com/in/dbcfilho)
+* **Website:** [https://dbrum.com.br](https://dbrum.com.br)
 
 ---
 
@@ -112,3 +140,5 @@ If you'd like to get in touch:
 This project is licensed under the **MIT License**.
 
 ---
+
+> *“Software engineering is not about writing code — it’s about building systems that last.”*
