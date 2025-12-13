@@ -9,28 +9,24 @@ export default function About() {
           </h2>
           <div className="space-y-4 sm:space-y-6 text-gray-300 leading-relaxed text-base sm:text-lg">
             <p>
-              I'm a backend developer and increasingly fullstack who enjoys building web applications from the ground
-              up. My go to tools are Java with Spring Boot and Python with Django, and I'm comfortable handling
-              everything from database design to API endpoints. I work with Docker for containerization and have
-              hands on experience deploying applications to AWS like environments.
+              I am a backend developer focused on Java with Spring Boot and Python with Django, building secure, well
+              structured and reliable web applications. I enjoy working close to the core of systems, designing
+              architecture, databases and APIs, and deploying solutions in Linux environments using Docker.
             </p>
             <p>
-              Recently, I've been focused on systems for social projects and NGOs platforms that track assisted
-              individuals, automate communication flows (like WhatsApp birthday messages), and generate meaningful CSV
-              and PDF reports. These aren't just CRUD apps; they solve real problems for organizations that need
-              reliable, scalable solutions on tight budgets.
+              I have hands on experience with real world projects, especially platforms with social impact, where
+              reliability, organization and scalability truly matter. I do not just write code that works, I build
+              solutions designed to last.
             </p>
             <p>
-              Beyond development, I also work as an IT instructor. Teaching Linux, MySQL, and general computing to
-              students of all ages has sharpened my ability to break down complex topics and communicate clearly. It's
-              taught me patience, adaptability, and how to work with people from different backgrounds skills that
-              translate directly to collaborating with teams and stakeholders.
+              I also work as an IT instructor, teaching Linux, MySQL and core computing concepts. This experience has
+              strengthened my communication skills, architectural thinking and ability to make clear technical
+              decisions, which are essential for strong team collaboration.
             </p>
             <p>
-              What drives me is writing clean, maintainable code that doesn't just work today but holds up tomorrow. I
-              care deeply about security, scalability, and making sure what I build actually delivers business value. If
-              you're looking for someone who brings both technical depth and a practical, security conscious mindset to
-              backend development, let's talk.
+              I enjoy writing technical articles and sharing knowledge, reflecting my commitment to continuous learning
+              and best practices. If you are looking for a backend developer with a strong Linux foundation, a security
+              conscious mindset and clean, well designed code, I would be glad to connect.
             </p>
           </div>
         </div>

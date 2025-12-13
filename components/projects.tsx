@@ -1,9 +1,10 @@
 import { ExternalLink, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import CaseStudies from "@/components/case-studies"
 
 const projects = [
   {
-    title: "Culture House",
+    title: "Culture House - Social Management Platform",
     tagline: "Social Project Management System",
     description:
       "Web platform designed to help NGOs manage social assistance records efficiently. It tracks individuals and their interactions, automates WhatsApp messages for birthdays and special dates, and generates comprehensive CSV and PDF statistical reports. This project showcases full-stack development, database modeling, role-based access control, and containerization.",
@@ -30,73 +31,77 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-12 sm:py-16 lg:py-20 relative">
+    <section id="portfolio" className="py-12 sm:py-16 relative">
       <div className="accent-line absolute top-0 left-0 right-0" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 sm:mb-16 animate-in fade-in slide-in-from-bottom duration-700">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Highlighted Projects
+        <div className="text-center mb-8 sm:mb-12 animate-in fade-in slide-in-from-bottom duration-700">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
+            Portfolio
           </h2>
-          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4">
+          <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
             Real-world applications solving practical problems with clean, maintainable code
           </p>
         </div>
 
-        <div className="space-y-6 sm:space-y-8">
-          {projects.map((project, index) => (
-            <div
-              key={project.title}
-              className="glass-card rounded-lg p-6 sm:p-8 hover:border-purple-500/50 transition-all duration-300 animate-in fade-in slide-in-from-bottom"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-6">
-                <div className="flex-1 min-w-0">
-                  <div className="mb-4">
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{project.title}</h3>
-                    <p className="text-purple-400 font-medium text-sm sm:text-base">{project.tagline}</p>
+        <div className="mb-10 sm:mb-12">
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-5 sm:mb-6 tracking-wide">Highlighted Projects</h3>
+          <div className="space-y-5 sm:space-y-6">
+            {projects.map((project, index) => (
+              <div
+                key={project.title}
+                className="glass-card rounded-lg p-5 sm:p-6 hover:border-purple-500/50 transition-all duration-300 animate-in fade-in slide-in-from-bottom"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-5">
+                  <div className="flex-1 min-w-0">
+                    <div className="mb-3">
+                      <h4 className="text-lg sm:text-xl font-bold text-white mb-1.5">{project.title}</h4>
+                      <p className="text-purple-400 font-medium text-sm">{project.tagline}</p>
+                    </div>
+                    <p className="text-gray-300 leading-normal mb-4 text-sm sm:text-base">{project.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.stack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2.5 py-1 text-xs rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-gray-300 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
-                    {project.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2.5 sm:px-3 py-1 text-xs rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3 shrink-0">
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent w-full lg:w-auto"
-                  >
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2"
+                  <div className="flex flex-col gap-3 shrink-0">
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent w-full lg:w-auto"
                     >
-                      <Github className="w-4 h-4" />
-                      View on GitHub
-                    </a>
-                  </Button>
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2"
+                      >
+                        <Github className="w-4 h-4" />
+                        View on GitHub
+                      </a>
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        <div className="text-center mt-8 sm:mt-12">
+        <CaseStudies />
+
+        <div className="text-center mt-6 sm:mt-8">
           <a
             href="https://github.com/dbcfilho"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors text-sm sm:text-base"
+            className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors text-sm"
           >
             <ExternalLink className="w-4 h-4" />
             More projects on GitHub

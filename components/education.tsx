@@ -8,13 +8,6 @@ const education = [
     description:
       "Focused on software development, algorithms, database systems, and web technologies. Covers full-stack development, software engineering principles, and practical application building.",
   },
-  {
-    degree: "Technology Degree in Artificial Intelligence and Machine Learning",
-    institution: "UniCesumar",
-    period: "Sep 2024 – Jul 2026 (In Progress)",
-    description:
-      "Fundamentals of artificial intelligence, machine learning models, data-driven systems, and neural networks. Covers both theoretical foundations and practical implementation.",
-  },
 ]
 
 export default function Education() {

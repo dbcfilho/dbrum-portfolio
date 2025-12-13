@@ -90,7 +90,7 @@ export default function Contact() {
                 depth and a security conscious mindset, I'd love to hear from you.
               </p>
               <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                Whether it's a full time position, contract work, or collaboration on an exciting project, I'm open to
+                Whether it's a fulltime position, contract work, or collaboration on an exciting project, I'm open to
                 discussing how I can contribute to your team.
               </p>
             </div>

@@ -4,13 +4,13 @@ import Link from "next/link"
 
 export default function Hero() {
   return (
-    <section id="home" className="min-h-screen flex items-center pt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+    <section id="home" className="min-h-screen flex items-center pt-16 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 w-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Side - Content */}
-          <div className="space-y-4 sm:space-y-6 animate-in fade-in slide-in-from-left duration-700">
+          <div className="space-y-3 sm:space-y-5 animate-in fade-in slide-in-from-left duration-700">
             <p className="text-xs sm:text-sm text-purple-400 font-medium tracking-wide uppercase">Hello, I'm</p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-balance leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-balance leading-tight">
               <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 Douglas Brum
               </span>
@@ -18,15 +18,15 @@ export default function Hero() {
             <h2 className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-medium">
               Backend & Cybersecurity-Oriented Developer
             </h2>
-            <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-2xl">
-              I'm a backend developer who focuses on building robust APIs and web systems using Java with Spring Boot
-              and Python with Django. Comfortable working with Linux environments, Docker containers, and AWS
-              fundamentals. What sets me apart is my strong interest in cybersecurity and secure application design I
-              bring that mindset to every project I touch.
+            <p className="text-base sm:text-lg text-gray-400 leading-normal max-w-2xl">
+              I'm a backend developer who focuses on building robust APIs and web systems using Java with Spring Boot 
+              and Python with Django. Comfortable working with Linux environments, Docker containers, and AWS fundamentals. 
+              What sets me apart is my strong interest in cybersecurity and secure application design. 
+              I bring that mindset to every project I touch.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 pt-3">
               <Button
                 asChild
                 size="lg"
@@ -45,7 +45,7 @@ export default function Hero() {
             </div>
 
             {/* Social Links */}
-            <div className="flex gap-3 sm:gap-4 pt-4">
+            <div className="flex gap-3 pt-3">
               <a
                 href="https://github.com/dbcfilho"
                 target="_blank"
@@ -81,7 +81,7 @@ export default function Hero() {
               </div>
 
               {/* Code Content */}
-              <div className="p-4 sm:p-6 font-mono text-xs sm:text-sm leading-relaxed overflow-x-auto">
+              <div className="p-3 sm:p-5 font-mono text-xs leading-relaxed overflow-x-auto">
                 <pre className="text-gray-300">
                   <code>
                     <span className="text-purple-400">const</span>{" "}
@@ -127,12 +127,12 @@ export default function Hero() {
             </div>
 
             {/* Tech Stack Pills */}
-            <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3">
+            <div className="mt-3 sm:mt-5 space-y-2">
               <div className="flex flex-wrap gap-2">
                 {["Java", "Spring Boot", "Django", "MySQL"].map((tech) => (
                   <span
                     key={tech}
-                    className="px-2.5 sm:px-3 py-1 text-xs rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300"
+                    className="px-2.5 py-1 text-xs rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300"
                   >
                     {tech}
                   </span>
@@ -142,14 +142,14 @@ export default function Hero() {
                 {["Docker", "AWS Fundamentals", "Linux"].map((tech) => (
                   <span
                     key={tech}
-                    className="px-2.5 sm:px-3 py-1 text-xs rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300"
+                    className="px-2.5 py-1 text-xs rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
               <div className="flex items-center gap-2">
-                <span className="px-2.5 sm:px-3 py-1 text-xs rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">
+                <span className="px-2.5 py-1 text-xs rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">
                   🔒 Security-minded development
                 </span>
               </div>

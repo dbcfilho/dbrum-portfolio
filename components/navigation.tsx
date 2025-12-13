@@ -9,11 +9,8 @@ import { Menu, X, Download } from "lucide-react"
 const navItems = [
   { href: "#home", label: "Home" },
   { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#certifications", label: "Certifications" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#education", label: "Education" },
+  { href: "#portfolio", label: "Portfolio" },
+  { href: "#content", label: "Content" },
   { href: "#contact", label: "Contact" },
 ]
 
@@ -35,15 +32,15 @@ export default function Navigation() {
         scrolled ? "bg-[oklch(0.12_0.05_250)]/80 backdrop-blur-md border-b border-purple-500/20" : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="#home" className="group -ml-2">
+          <Link href="#home" className="group flex-shrink-0">
             <Image
               src="/images/dbrum-logo.png"
               alt="Douglas Brum Logo"
-              width={150}
-              height={50}
-              className="transition-transform group-hover:scale-105 h-auto w-[120px] sm:w-[140px] md:w-[160px]"
+              width={220}
+              height={73}
+              className="transition-transform group-hover:scale-105 h-auto w-[140px] sm:w-[150px] md:w-[160px]"
               priority
             />
           </Link>
@@ -79,7 +76,7 @@ export default function Navigation() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-300 hover:text-purple-400 transition-colors"
+            className="md:hidden text-gray-300 hover:text-purple-400 transition-colors flex-shrink-0"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

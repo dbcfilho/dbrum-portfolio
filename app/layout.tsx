@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://douglasbrum.dev",
+    url: "https://dbrum.com.br",
     title: "Douglas Brum | Backend & Cybersecurity Developer",
     description:
       "Backend developer focused on building robust APIs and web systems with a strong interest in cybersecurity.",
@@ -53,8 +53,8 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/icon.png",
-        type: "image/svg+xml",
+        url: "/images/ico.png",
+        type: "image/png",
       },
     ],
   },
