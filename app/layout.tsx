@@ -83,7 +83,7 @@ export default function RootLayout({
                 addressRegion: "Rio de Janeiro",
                 addressCountry: "Brazil",
               },
-              url: "https://douglasbrum.dev",
+              url: "https://dbrum.com.br",
               sameAs: ["https://github.com/dbcfilho", "https://www.linkedin.com/in/dbcfilho/"],
             }),
           }}
