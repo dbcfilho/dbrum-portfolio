@@ -2,12 +2,22 @@ import { NextResponse } from "next/server"
 
 export const dynamic = "force-dynamic"
 
-const BASE_URL = "https://dbrum-portfolio.vercel.app"
+function getBaseUrl() {
+  // Vercel Preview ou Production
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+
+  // Local dev
+  return "http://localhost:3000"
+}
 
 export async function GET() {
   try {
+    const baseUrl = getBaseUrl()
+
     const res = await fetch(
-      `${BASE_URL}/recommendations.json?v=${Date.now()}`,
+      `${baseUrl}/recommendations.json?v=${Date.now()}`,
       { cache: "no-store" }
     )
 
