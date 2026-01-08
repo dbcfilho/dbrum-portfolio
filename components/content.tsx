@@ -37,7 +37,7 @@ export default function Content() {
 
   useEffect(() => {
     // Fetch Medium articles via API route
-    fetch("/api/medium-rss")
+    fetch("/api/medium-rss", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (data.articles && data.articles.length > 0) {
@@ -50,7 +50,7 @@ export default function Content() {
       .finally(() => setArticlesLoading(false))
 
     // Fetch LinkedIn recommendations from internal API (with caching & fallback)
-    fetch("/api/recommendations")
+    fetch("/api/recommendations", { cache: "no-store" })
       .then((res) => res.json())
       .then((payload) => {
         const data: LinkedInRecommendation[] = payload?.recommendations || payload
