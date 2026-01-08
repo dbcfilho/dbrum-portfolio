@@ -50,7 +50,7 @@ export default function Content() {
       .finally(() => setArticlesLoading(false))
 
     // Fetch LinkedIn recommendations from internal API (with caching & fallback)
-    fetch("/api/recommendations", { cache: "no-store" })
+    fetch("https://dbrum-portfolio.vercel.app/api/recommendations", {cache: "no-store",})
       .then((res) => res.json())
       .then((payload) => {
         const data: LinkedInRecommendation[] = payload?.recommendations || payload
