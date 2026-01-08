@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server"
 
-const MEDIUM_RSS_URL = "https://medium.com/feed/@dbrum_"
-const CACHE_DURATION = 6 * 60 * 60 * 1000 // 6 hours in milliseconds
+export const dynamic = "force-dynamic"
 
-let cachedData: { articles: any[]; timestamp: number } | null = null
+const MEDIUM_RSS_URL = "https://medium.com/feed/@dbrum_"
+const ARTICLES_LIMIT = 3
 
 function stripHtml(html: string): string {
   return html
@@ -17,66 +17,61 @@ function stripHtml(html: string): string {
 }
 
 function extractThumbnail(content: string): string | null {
-  // Try to find og:image or first img tag in content
-  const ogImageMatch = content.match(/<img[^>]+src="([^">]+)"/i)
-  if (ogImageMatch && ogImageMatch[1]) {
-    return ogImageMatch[1]
-  }
-  return null
+  const match = content.match(/<img[^>]+src="([^">]+)"/i)
+  return match?.[1] ?? null
 }
 
 export async function GET() {
   try {
-    // Check cache
-    if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
-      return NextResponse.json({ articles: cachedData.articles })
-    }
-
-    // Fetch RSS feed
     const response = await fetch(MEDIUM_RSS_URL, {
+      cache: "no-store",
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; PortfolioBot/1.0)",
       },
     })
 
     if (!response.ok) {
-      throw new Error("Failed to fetch RSS feed")
+      throw new Error(`Medium RSS fetch failed: ${response.status}`)
     }
 
-    const xmlText = await response.text()
+    const xml = await response.text()
+    const items = xml.match(/<item>[\s\S]*?<\/item>/g) ?? []
 
-    // Simple XML parsing for RSS
-    const items = xmlText.match(/<item>[\s\S]*?<\/item>/g) || []
+    const articles = items.slice(0, ARTICLES_LIMIT).map((item) => {
+      const title =
+        item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1] ?? ""
 
-    const articles = items.slice(0, 3).map((item) => {
-      const title = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1] || ""
-      const link = item.match(/<link>(.*?)<\/link>/)?.[1] || ""
-      const pubDate = item.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || ""
-      const description = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/)?.[1] || ""
-      const content = item.match(/<content:encoded><!\[CDATA\[(.*?)\]\]><\/content:encoded>/)?.[1] || description
+      const link =
+        item.match(/<link>(.*?)<\/link>/)?.[1] ?? ""
 
-      // Strip HTML and limit excerpt
-      const excerpt = stripHtml(description).substring(0, 150) + "..."
-      const thumbnail = extractThumbnail(content)
+      const pubDate =
+        item.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] ?? ""
+
+      const description =
+        item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/)?.[1] ??
+        ""
+
+      const content =
+        item.match(
+          /<content:encoded><!\[CDATA\[(.*?)\]\]><\/content:encoded>/
+        )?.[1] ?? description
 
       return {
         title,
         link,
         pubDate,
-        excerpt,
-        thumbnail, // Added thumbnail field
+        excerpt: `${stripHtml(description).slice(0, 150)}...`,
+        thumbnail: extractThumbnail(content),
       }
     })
 
-    // Update cache
-    cachedData = {
-      articles,
-      timestamp: Date.now(),
-    }
-
     return NextResponse.json({ articles })
   } catch (error) {
-    console.error("[v0] Error fetching Medium RSS:", error)
-    return NextResponse.json({ articles: [], error: "Failed to fetch articles" }, { status: 500 })
+    console.error("[API][Medium RSS]", error)
+
+    return NextResponse.json(
+      { articles: [], error: "Failed to fetch Medium articles" },
+      { status: 500 }
+    )
   }
 }
