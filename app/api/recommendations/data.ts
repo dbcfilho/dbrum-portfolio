@@ -1,0 +1,32 @@
+export const recommendations = [
+  {
+    id: "rec-1",
+    author: "Igor Brandão",
+    company: "Grupo DPSP",
+    role: "Pharmacist",
+    text: "A fully capable professional qualified to work in any area of technology. Responsible for solving numerous day-to-day problems, versatile, agile, skilled, and highly competent.",
+    authorAvatar: "/images/recommendations/igor.jpeg",
+    linkedinUrl: "https://www.linkedin.com/in/dbcfilho/",
+    date: "2023-09-18T00:00:00Z",
+  },
+  {
+    id: "rec-2",
+    author: "Geysa Carvalho",
+    company: "Prefeitura Municipal de Duque de Caxias",
+    role: "Coordinator of Administrative Affairs",
+    text: "An extremely qualified professional with a strong ability to work across different areas of technology. Demonstrates a high sense of responsibility, agility in solving challenges, and admirable versatility in daily work.",
+    authorAvatar: "/images/recommendations/geysa.jpeg",
+    linkedinUrl: "https://www.linkedin.com/in/dbcfilho/",
+    date: "2025-12-18T00:00:00Z",
+  },
+  {
+    id: "rec-3",
+    author: "Carlos Alexandre Campos Xavier",
+    company: "A4PM",
+    role: "IT user support technician",
+    text: "Working with Douglas means witnessing, in practice, someone who takes technology and professional responsibility seriously...",
+    authorAvatar: "/images/recommendations/carlos.jpeg",
+    linkedinUrl: "https://www.linkedin.com/in/dbcfilho/",
+    date: "2026-01-18T00:00:00Z",
+  },
+]
