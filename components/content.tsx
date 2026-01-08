@@ -55,7 +55,9 @@ export default function Content() {
       .then((payload) => {
         const data: LinkedInRecommendation[] = payload?.recommendations || payload
         if (Array.isArray(data) && data.length > 0) {
-          const sorted = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          const sorted = [...data].sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+          )
           setRecommendations(sorted.slice(0, 3))
         } else {
           setRecsError(true)
