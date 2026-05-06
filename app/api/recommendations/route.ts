@@ -30,7 +30,7 @@ export async function GET() {
         author: "Carlos Alexandre Campos Xavier",
         company: "A4PM",
         role: "Técnico de suporte ao usuário de TI",
-        text: "Trabalhar com o Douglas é testemunhar, na prática, alguém que leva tecnologia e responsabilidade profissional a sério. Ele tem uma base técnica sólida, raciocínio lógico apurado e uma mentalidade orientada à resolução de problemas, sempre buscando eficiência, qualidade e melhoria contínua. O que mais se destaca é sua mentalidade de crescimento constante...",
+        text: "Trabalhar com o Douglas é acompanhar, na prática, alguém que leva tecnologia e responsabilidade profissional a sério. Ele possui uma base técnica consistente, raciocínio lógico apurado e uma postura orientada à solução de problemas, sempre buscando eficiência, qualidade e melhoria contínua. O que mais se destaca é sua mentalidade de evolução constante: Douglas está sempre estudando, se atualizando e explorando novas abordagens para entregar melhores resultados. Além da capacidade técnica, demonstra maturidade profissional, organização e uma visão clara de como a tecnologia pode gerar valor real para o negócio. É inspirador dividir o ambiente de trabalho com alguém que transforma desafios em aprendizado e execução. Sem dúvida, um profissional comprometido, confiável e com grande potencial de crescimento dentro da empresa.",
         authorAvatar: "/images/recommendations/carlos.jpg",
         linkedinUrl: "https://www.linkedin.com/in/dbcfilho/",
         date: "2026-01-18T00:00:00Z",
