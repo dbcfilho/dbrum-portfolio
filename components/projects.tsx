@@ -1,8 +1,17 @@
-import { ExternalLink, Github } from "lucide-react"
+import { ExternalLink, Github, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import CaseStudies from "@/components/case-studies"
 
 const projects = [
+  {
+    title: "Corefarma — ERP para Farmácias",
+    tagline: "Sistema Completo de Gestão Farmacêutica",
+    description:
+      "ERP completo desenvolvido para o segmento farmacêutico, cobrindo toda a operação da farmácia: PDV com emissão de cupons fiscais, gestão de estoque, geração de notas fiscais, controle de entregas, cadastro de clientes e funcionários e integração com SNGPC para notificação de medicamentos controlados. Arquitetura backend robusta com NestJS, autenticação segura, logging estruturado com Winston e documentação completa via Swagger. Além do desenvolvimento, defini todo o fluxo e arquitetura do sistema.",
+    stack: ["TypeScript", "NestJS", "Node.js", "React", "PostgreSQL", "Prisma", "Supabase", "Nginx", "Swagger", "Winston"],
+    liveUrl: "https://corefarma.com",
+    appUrl: "https://app.corefarma.com",
+  },
   {
     title: "Culture House – Plataforma de Gestão Social",
     tagline: "Sistema de Gestão para Projetos Sociais",
@@ -71,22 +80,59 @@ export default function Projects() {
                     </div>
                   </div>
                   <div className="flex flex-col gap-3 shrink-0">
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent w-full lg:w-auto"
-                    >
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2"
+                    {"liveUrl" in project && project.liveUrl && (
+                      <Button
+                        asChild
+                        size="sm"
+                        className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-full lg:w-auto"
                       >
-                        <Github className="w-4 h-4" />
-                        Ver no GitHub
-                      </a>
-                    </Button>
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2"
+                        >
+                          <Globe className="w-4 h-4" />
+                          Ver site
+                        </a>
+                      </Button>
+                    )}
+                    {"appUrl" in project && project.appUrl && (
+                      <Button
+                        asChild
+                        variant="outline"
+                        size="sm"
+                        className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent w-full lg:w-auto"
+                      >
+                        <a
+                          href={project.appUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          Acessar sistema
+                        </a>
+                      </Button>
+                    )}
+                    {"github" in project && project.github && (
+                      <Button
+                        asChild
+                        variant="outline"
+                        size="sm"
+                        className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent w-full lg:w-auto"
+                      >
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2"
+                        >
+                          <Github className="w-4 h-4" />
+                          Ver no GitHub
+                        </a>
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>

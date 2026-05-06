@@ -10,7 +10,7 @@ const navItems = [
   { href: "#home", label: "Início" },
   { href: "#about", label: "Sobre" },
   { href: "#portfolio", label: "Portfólio" },
-  { href: "#content", label: "Conteúdo" },
+  { href: "#content", label: "Publicações" },
   { href: "#contact", label: "Contato" },
 ]
 
