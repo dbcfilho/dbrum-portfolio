@@ -15,27 +15,27 @@ import {
 const skillGroups = [
   {
     icon: Code,
-    title: "Backend & Languages",
-    description: "Core programming languages for building robust server-side applications.",
+    title: "Backend & Linguagens",
+    description: "Linguagens de programação para aplicações server-side robustas.",
     skills: ["Java", "Python", "JavaScript", "TypeScript", "Go", "C/C++"],
   },
   {
     icon: Server,
-    title: "Frameworks & Ecosystem",
-    description: "Modern frameworks and tools for efficient backend development.",
+    title: "Frameworks & Ecossistema",
+    description: "Frameworks e ferramentas modernas para desenvolvimento backend eficiente.",
     skills: ["Spring Boot", "Django", "Node.js", "React"],
   },
   {
     icon: Database,
-    title: "Databases",
-    description: "SQL and NoSQL databases for data persistence and management.",
+    title: "Bancos de Dados",
+    description: "Bancos de dados SQL e NoSQL para persistência e gerenciamento de dados.",
     skills: ["MySQL", "SQLite", "MongoDB"],
   },
   {
     icon: Globe,
-    title: "Infrastructure & DevOps",
-    description: "Containerization, cloud services, and API development.",
-    skills: ["Docker", "AWS (foundations)", "Linux", "RESTful APIs", "HTML", "CSS", "Bootstrap"],
+    title: "Infraestrutura & DevOps",
+    description: "Conteinerização, serviços em nuvem e desenvolvimento de APIs.",
+    skills: ["Docker", "AWS (fundamentos)", "Linux", "RESTful APIs", "HTML", "CSS", "Bootstrap"],
   },
 ]
 
@@ -84,7 +84,7 @@ const certifications = [
   },
   {
     icon: Award,
-    title: "Computer Technician",
+    title: "Técnico em Informática",
     issuer: "Senac",
     year: "2018",
   },
@@ -93,60 +93,60 @@ const certifications = [
 const experiences = [
   {
     company: "A4PM",
-    role: "Software Support Analyst",
-    period: "2025 – Present",
+    role: "Analista de Suporte de Software",
+    period: "2025 – Presente",
     points: [
-      "Support end users in configuring and effectively using business software across multiple departments.",
-      "Investigate and troubleshoot technical issues, documenting incidents and collaborating with development teams to resolve bugs.",
-      "Ensure system availability and smooth user experience, bridging the gap between technical and non-technical stakeholders.",
+      "Suportar usuários finais na configuração e uso eficaz de softwares de gestão em múltiplos departamentos.",
+      "Investigar e solucionar problemas técnicos, documentar incidentes e colaborar com equipes de desenvolvimento para resolução de bugs.",
+      "Garantir disponibilidade dos sistemas e boa experiência do usuário, atuando como ponte entre stakeholders técnicos e não-técnicos.",
     ],
   },
   {
     company: "FUNDEC",
-    role: "IT Instructor",
+    role: "Instrutor de TI",
     period: "2022 – 2025",
     points: [
-      "Teach practical classes in Linux, MySQL, and general computing to students of varying ages and skill levels.",
-      "Develop engaging didactic materials and hands-on exercises that translate complex concepts into accessible learning experiences.",
-      "Evaluate student progress and provide guidance for entry-level opportunities in the IT market.",
+      "Ministrar aulas práticas de Linux, MySQL e informática geral para alunos de diferentes idades e níveis de conhecimento.",
+      "Desenvolver materiais didáticos e exercícios práticos que traduzem conceitos complexos em experiências de aprendizado acessíveis.",
+      "Avaliar o progresso dos alunos e orientá-los para oportunidades de entrada no mercado de TI.",
     ],
   },
   {
     company: "Dbrum Tech",
-    role: "Technical Support & Freelance Developer",
-    period: "2020 – Present",
+    role: "Suporte Técnico & Desenvolvedor Freelance",
+    period: "2020 – Presente",
     points: [
-      "Perform hardware and software maintenance, diagnostics, and repairs for diverse client environments.",
-      "Develop custom software solutions and small-scale systems tailored to specific client requirements.",
-      "Work through the full development lifecycle from requirements analysis to delivery, focusing on scalable and maintainable solutions.",
+      "Realizar manutenção, diagnóstico e reparo de hardware e software em diferentes ambientes de clientes.",
+      "Desenvolver soluções de software personalizadas e sistemas de pequeno porte adequados às necessidades específicas de cada cliente.",
+      "Atuar em todo o ciclo de desenvolvimento, desde a análise de requisitos até a entrega, com foco em soluções escaláveis e de fácil manutenção.",
     ],
   },
 ]
 
 const education = [
   {
-    degree: "Associate Degree in Systems Analysis and Development",
+    degree: "Tecnólogo em Análise e Desenvolvimento de Sistemas",
     institution: "UNIASSELVI",
-    period: "Aug 2022 – Jul 2025",
+    period: "Ago 2022 – Jul 2025",
     description:
-      "Focused on software development, algorithms, database systems, and web technologies. Covers full-stack development, software engineering principles, and practical application building.",
+      "Foco em desenvolvimento de software, algoritmos, sistemas de banco de dados e tecnologias web. Abrange desenvolvimento full-stack, princípios de engenharia de software e construção prática de aplicações.",
   },
 ]
 
 const languages = [
   {
-    label: "Portuguese",
-    level: "Native",
+    label: "Português",
+    level: "Nativo",
     badgeClass: "bg-green-500/10 border border-green-500/30 text-green-300",
   },
   {
-    label: "English",
-    level: "Intermediate",
+    label: "Inglês",
+    level: "Intermediário",
     badgeClass: "bg-blue-500/10 border border-blue-500/30 text-blue-300",
   },
   {
-    label: "Spanish",
-    level: "Basic",
+    label: "Espanhol",
+    level: "Básico",
     badgeClass: "bg-yellow-500/10 border border-yellow-500/30 text-yellow-300",
   },
 ]
@@ -156,45 +156,45 @@ export default function AboutUnified() {
     <section id="about" className="py-12 sm:py-16 relative">
       <div className="accent-line absolute top-0 left-0 right-0" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* About Text */}
+        {/* Texto Sobre */}
         <div className="max-w-4xl mx-auto mb-10 sm:mb-14">
           <div className="glass-card rounded-lg p-5 sm:p-6 md:p-8 animate-in fade-in slide-in-from-bottom duration-700">
             <h2 className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
-              About
+              Sobre
             </h2>
             <div className="space-y-3 sm:space-y-4 text-gray-300 leading-normal text-sm sm:text-base">
               <p>
-                I am a backend developer focused on Java with Spring Boot and Python with Django, building secure, well
-                structured and reliable web applications. I enjoy working close to the core of systems, designing
-                architecture, databases and APIs, and deploying solutions in Linux environments using Docker.
+                Sou um desenvolvedor backend com foco em Java com Spring Boot e Python com Django, construindo aplicações
+                web seguras, bem estruturadas e confiáveis. Gosto de trabalhar próximo ao núcleo dos sistemas, projetando
+                arquiteturas, bancos de dados e APIs, e entregando soluções em ambientes Linux com Docker.
               </p>
               <p>
-                I have hands on experience with real world projects, especially platforms with social impact, where
-                reliability, organization and scalability truly matter. I do not just write code that works, I build
-                solutions designed to last.
+                Tenho experiência prática com projetos reais, especialmente plataformas de impacto social, onde
+                confiabilidade, organização e escalabilidade fazem diferença de verdade. Não me limito a escrever código
+                que funciona — construo soluções pensadas para durar.
               </p>
               <p>
-                I also work as an IT instructor, teaching Linux, MySQL and core computing concepts. This experience has
-                strengthened my communication skills, architectural thinking and ability to make clear technical
-                decisions, which are essential for strong team collaboration.
+                Também atuo como instrutor de TI, ensinando Linux, MySQL e conceitos fundamentais de computação. Essa
+                experiência fortaleceu minhas habilidades de comunicação, raciocínio arquitetural e capacidade de tomar
+                decisões técnicas claras — essenciais para uma boa colaboração em equipe.
               </p>
               <p>
-                I enjoy writing technical articles and sharing knowledge, reflecting my commitment to continuous learning
-                and best practices. If you are looking for a backend developer with a strong Linux foundation, a security
-                conscious mindset and clean, well designed code, I would be glad to connect.
+                Gosto de escrever artigos técnicos e compartilhar conhecimento, o que reflete meu compromisso com o
+                aprendizado contínuo e as boas práticas. Se você está buscando um desenvolvedor backend com sólida base
+                em Linux, mentalidade voltada à segurança e código limpo e bem projetado, ficaria feliz em conversar.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Skills */}
+        {/* Habilidades */}
         <div className="mb-10 sm:mb-14">
           <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
             <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
-              Skills
+              Habilidades
             </h3>
             <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
-              A comprehensive toolkit for building secure, scalable backend systems
+              Um conjunto completo de ferramentas para sistemas backend seguros e escaláveis
             </p>
           </div>
 
@@ -232,14 +232,14 @@ export default function AboutUnified() {
           </div>
         </div>
 
-        {/* Certifications */}
+        {/* Certificações */}
         <div className="mb-10 sm:mb-14">
           <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
             <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
-              Certifications
+              Certificações
             </h3>
             <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
-              Continuous learning in cybersecurity and software engineering
+              Aprendizado contínuo em cibersegurança e engenharia de software
             </p>
           </div>
 
@@ -266,19 +266,19 @@ export default function AboutUnified() {
           </div>
         </div>
 
-        {/* Experience */}
+        {/* Experiência */}
         <div>
           <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
             <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
-              Experience
+              Experiência
             </h3>
             <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
-              Professional journey combining support, education, and development
+              Trajetória profissional combinando suporte, educação e desenvolvimento
             </p>
           </div>
 
           <div className="relative max-w-5xl mx-auto">
-            {/* Timeline Line */}
+            {/* Linha do Tempo */}
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 via-blue-500 to-purple-500 md:transform md:-translate-x-1/2" />
 
             <div className="space-y-6 sm:space-y-8">
@@ -292,7 +292,6 @@ export default function AboutUnified() {
                     className={`pl-12 md:pl-0 md:w-1/2 ${index % 2 === 0 ? "md:ml-auto md:pl-12" : "md:mr-auto md:pr-12"}`}
                   >
                     <div className="glass-card rounded-lg p-4 sm:p-5 hover:border-purple-500/50 transition-all duration-300 relative">
-                      {/* Timeline Dot - Fixed positioning */}
                       <div
                         className="absolute w-4 h-4 bg-purple-500 rounded-full border-4 border-[oklch(0.12_0.05_250)] glow-purple"
                         style={{
@@ -327,14 +326,14 @@ export default function AboutUnified() {
           </div>
         </div>
 
-        {/* Education */}
+        {/* Educação */}
         <div className="mt-10 sm:mt-14">
           <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
             <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
-              Education
+              Educação
             </h3>
             <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
-              Academic foundation in software development and emerging technologies
+              Base acadêmica em desenvolvimento de software e tecnologias emergentes
             </p>
           </div>
 
@@ -366,7 +365,7 @@ export default function AboutUnified() {
                 <Languages className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Languages</h4>
+                <h4 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Idiomas</h4>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
                   {languages.map((lang) => (
                     <div key={lang.label} className="flex items-center gap-2">

@@ -7,11 +7,11 @@ import { Button } from "@/components/ui/button"
 import { Menu, X, Download } from "lucide-react"
 
 const navItems = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#content", label: "Content" },
-  { href: "#contact", label: "Contact" },
+  { href: "#home", label: "Início" },
+  { href: "#about", label: "Sobre" },
+  { href: "#portfolio", label: "Portfólio" },
+  { href: "#content", label: "Conteúdo" },
+  { href: "#contact", label: "Contato" },
 ]
 
 export default function Navigation() {
@@ -68,7 +68,7 @@ export default function Navigation() {
                 rel="noopener noreferrer"
               >
                 <Download className="w-4 h-4 mr-2" />
-                Resume
+                Currículo
               </a>
             </Button>
           </div>
@@ -77,7 +77,7 @@ export default function Navigation() {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-gray-300 hover:text-purple-400 transition-colors flex-shrink-0"
-            aria-label="Toggle menu"
+            aria-label="Abrir menu"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -111,7 +111,7 @@ export default function Navigation() {
                 onClick={() => setIsOpen(false)}
               >
                 <Download className="w-4 h-4 mr-2" />
-                Download Resume
+                Baixar Currículo
               </a>
             </Button>
           </div>

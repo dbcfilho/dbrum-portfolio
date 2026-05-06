@@ -4,13 +4,13 @@ import { Diagram } from "@/components/diagram"
 
 const caseStudies = [
   {
-    title: "Intelligent Educational Learning Gap Diagnosis Platform",
-    role: "Full Stack Developer & BI Architect",
-    projectType: "Business Intelligence Web System (College Graduation Project)",
+    title: "Plataforma Inteligente de Diagnóstico de Lacunas de Aprendizagem",
+    role: "Desenvolvedor Full Stack & Arquiteto de BI",
+    projectType: "Sistema Web de Business Intelligence (Projeto de Conclusão de Curso)",
     problem:
-      "Public schools in Brazil often struggle with fragmented data, lack of dashboards, and limited insight into student learning gaps. Educational staff typically rely on spreadsheets or manual processes, making it difficult to identify students at risk, trends in specific subjects or grades, classes with structural performance gaps, and geographical patterns of educational challenges. A centralized BI solution was needed to support data-driven decision-making.",
+      "Escolas públicas no Brasil frequentemente enfrentam dados fragmentados, ausência de dashboards e visibilidade limitada sobre as lacunas de aprendizagem dos alunos. Profissionais da educação geralmente dependem de planilhas ou processos manuais, o que dificulta identificar alunos em risco, tendências em disciplinas ou séries específicas, turmas com déficits estruturais de desempenho e padrões geográficos de dificuldades educacionais. Era necessária uma solução de BI centralizada para apoiar decisões baseadas em dados.",
     solution:
-      "Designed and implemented a full BI platform with a Django REST API for structured and secure data access, a Vue.js + Vite frontend for fast responsive UI, interactive dashboards built with Plotly.js, geospatial visualizations using Leaflet, JWT-based authentication for protected access, and a synthetic data generator for development and demos. The system allows teachers, coordinators, and administrators to visualize trends, compare performance between classes or schools, and detect learning gaps early.",
+      "Projetei e implementei uma plataforma completa de BI com API Django REST para acesso estruturado e seguro aos dados, frontend Vue.js + Vite para interface responsiva e rápida, dashboards interativos com Plotly.js, visualizações geoespaciais com Leaflet, autenticação JWT para acesso protegido e um gerador de dados sintéticos para desenvolvimento e demos. O sistema permite que professores, coordenadores e administradores visualizem tendências, comparem desempenhos entre turmas ou escolas e detectem lacunas de aprendizagem precocemente.",
     stack: [
       "Django 4",
       "Django REST Framework",
@@ -25,22 +25,22 @@ const caseStudies = [
       "Tailwind CSS",
     ],
     features: [
-      "JWT-based authentication with token refresh mechanism",
-      "Complete CRUD operations for Schools, Classes, Students, and Teachers",
-      "Interactive dashboards with Plotly.js for performance analysis",
-      "Geospatial analysis using Leaflet and real mapping tiles",
-      "REST API built with Django + DRF for structured data access",
-      "Performance insights via Plotly.js visualizations",
-      "Synthetic dataset generator for testing scenarios",
-      "Responsive, fast frontend using Vue 3 + Vite",
-      "Early-warning insights for at-risk students",
-      "Demographic and geographic pattern analysis",
+      "Autenticação baseada em JWT com mecanismo de refresh de token",
+      "Operações CRUD completas para Escolas, Turmas, Alunos e Professores",
+      "Dashboards interativos com Plotly.js para análise de desempenho",
+      "Análise geoespacial com Leaflet e tiles reais de mapa",
+      "API REST construída com Django + DRF para acesso estruturado aos dados",
+      "Insights de desempenho via visualizações Plotly.js",
+      "Gerador de dataset sintético para cenários de teste",
+      "Frontend responsivo e rápido com Vue 3 + Vite",
+      "Alertas antecipados para alunos em risco",
+      "Análise de padrões demográficos e geográficos",
     ],
     github: "https://github.com/dbcfilho/plataforma-diagnostico",
     diagrams: {
       architecture: `graph TD
     subgraph User
-        A[Browser / Client]
+        A[Browser / Cliente]
     end
 
     subgraph Frontend
@@ -49,7 +49,7 @@ const caseStudies = [
 
     subgraph Backend
         C[Django REST Framework API]
-        D[JWT Authentication]
+        D[Autenticação JWT]
     end
 
     subgraph Database
@@ -106,32 +106,32 @@ const caseStudies = [
     },
   },
   {
-    title: "Culture House — Social Management Platform",
-    role: "Full Stack Developer",
-    projectType: "Social NGO Management System",
+    title: "Culture House — Plataforma de Gestão Social",
+    role: "Desenvolvedor Full Stack",
+    projectType: "Sistema de Gestão para ONG Social",
     problem:
-      "NGOs managing social assistance programs need to track assisted individuals, automate communications, and generate comprehensive reports, but lack affordable and scalable technical solutions.",
+      "ONGs que gerenciam programas de assistência social precisam acompanhar os indivíduos atendidos, automatizar comunicações e gerar relatórios completos, mas carecem de soluções técnicas acessíveis e escaláveis.",
     solution:
-      "Built a full-stack web platform using Python/Django with MySQL for data persistence, Docker for containerization, and integrated WhatsApp API for automated birthday messages. Implemented role-based access control, CSV/PDF report generation, and a responsive Bootstrap 5 interface.",
+      "Desenvolvi uma plataforma web full-stack usando Python/Django com MySQL para persistência de dados, Docker para conteinerização e integração com a API do WhatsApp para envio automático de mensagens de aniversário. Implementei controle de acesso por papéis, geração de relatórios em CSV/PDF e uma interface responsiva com Bootstrap 5.",
     stack: ["Python", "Django", "MySQL", "Docker", "Bootstrap 5", "WhatsApp API"],
     features: [
-      "Individual tracking and case management with comprehensive profiles",
-      "Automated WhatsApp messaging for birthdays and special events",
-      "Statistical report generation in CSV and PDF formats",
-      "Role-based access control for administrators and staff",
-      "Docker Compose deployment for easy setup and scalability",
+      "Acompanhamento individual e gestão de casos com perfis completos",
+      "Envio automatizado de mensagens no WhatsApp para aniversários e eventos especiais",
+      "Geração de relatórios estatísticos nos formatos CSV e PDF",
+      "Controle de acesso por papéis para administradores e funcionários",
+      "Deploy com Docker Compose para configuração fácil e escalabilidade",
     ],
     github: "https://github.com/dbcfilho/casa-da-cultura-v3",
     diagrams: {
       architecture: `graph TB
-    A[User Browser] -->|HTTPS| B[Nginx Reverse Proxy]
-    B --> C[Django Application]
-    C --> D[MySQL Database]
-    C --> E[WhatsApp API]
-    C --> F[PDF Generator]
-    C --> G[CSV Exporter]
-    D -->|Data| C
-    E -->|Notifications| H[End Users]
+    A[Navegador do Usuário] -->|HTTPS| B[Nginx Reverse Proxy]
+    B --> C[Aplicação Django]
+    C --> D[Banco de Dados MySQL]
+    C --> E[API do WhatsApp]
+    C --> F[Gerador de PDF]
+    C --> G[Exportador CSV]
+    D -->|Dados| C
+    E -->|Notificações| H[Usuários Finais]
     style C fill:#8b5cf6,stroke:#a78bfa,color:#fff
     style D fill:#3b82f6,stroke:#60a5fa,color:#fff`,
       erd: `erDiagram
@@ -167,10 +167,10 @@ export default function CaseStudies() {
     <div className="mt-8 sm:mt-12">
       <div className="text-center mb-6 sm:mb-8">
         <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
-          Case Studies
+          Estudos de Caso
         </h3>
         <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
-          Deep dives into real-world projects and technical solutions
+          Análises aprofundadas de projetos reais e soluções técnicas
         </p>
       </div>
 
@@ -181,12 +181,12 @@ export default function CaseStudies() {
             className="glass-card rounded-lg p-5 sm:p-6 animate-in fade-in slide-in-from-bottom"
             style={{ animationDelay: `${index * 100}ms` }}
           >
-            {/* Header */}
+            {/* Cabeçalho */}
             <div className="mb-4">
               <h4 className="text-xl sm:text-2xl font-bold text-white mb-3">{study.title}</h4>
-              {study.role && <p className="text-gray-300 text-sm sm:text-base mb-2">Role: {study.role}</p>}
+              {study.role && <p className="text-gray-300 text-sm sm:text-base mb-2">Função: {study.role}</p>}
               {study.projectType && (
-                <p className="text-gray-300 text-sm sm:text-base mb-3">Project Type: {study.projectType}</p>
+                <p className="text-gray-300 text-sm sm:text-base mb-3">Tipo de Projeto: {study.projectType}</p>
               )}
               <div className="flex flex-wrap gap-2 mb-3">
                 {study.stack.map((tech) => (
@@ -206,26 +206,26 @@ export default function CaseStudies() {
               >
                 <a href={study.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <Github className="w-4 h-4" />
-                  View Repository
+                  Ver Repositório
                 </a>
               </Button>
             </div>
 
-            {/* Problem & Solution */}
+            {/* Problema & Solução */}
             <div className="grid md:grid-cols-2 gap-4 mb-4">
               <div>
-                <h5 className="text-base font-bold text-purple-400 mb-2">Problem</h5>
+                <h5 className="text-base font-bold text-purple-400 mb-2">Problema</h5>
                 <p className="text-gray-300 leading-normal text-sm sm:text-base">{study.problem}</p>
               </div>
               <div>
-                <h5 className="text-base font-bold text-blue-400 mb-2">Solution</h5>
+                <h5 className="text-base font-bold text-blue-400 mb-2">Solução</h5>
                 <p className="text-gray-300 leading-normal text-sm sm:text-base">{study.solution}</p>
               </div>
             </div>
 
-            {/* Key Features */}
+            {/* Principais Funcionalidades */}
             <div className="mb-4">
-              <h5 className="text-base font-bold text-white mb-2">Key Features</h5>
+              <h5 className="text-base font-bold text-white mb-2">Principais Funcionalidades</h5>
               <ul className="space-y-1.5">
                 {study.features.map((feature, i) => (
                   <li key={i} className="text-gray-300 text-sm flex items-start">
@@ -236,15 +236,15 @@ export default function CaseStudies() {
               </ul>
             </div>
 
-            {/* Diagrams */}
+            {/* Diagramas */}
             {study.diagrams && (
               <div className="space-y-4">
                 <div>
-                  <h5 className="text-base font-bold text-white mb-3">System Architecture</h5>
+                  <h5 className="text-base font-bold text-white mb-3">Arquitetura do Sistema</h5>
                   <Diagram code={study.diagrams.architecture} />
                 </div>
                 <div>
-                  <h5 className="text-base font-bold text-white mb-3">Database Schema (ERD)</h5>
+                  <h5 className="text-base font-bold text-white mb-3">Esquema do Banco de Dados (ERD)</h5>
                   <Diagram code={study.diagrams.erd} />
                 </div>
               </div>

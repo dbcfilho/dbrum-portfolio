@@ -4,26 +4,26 @@ import CaseStudies from "@/components/case-studies"
 
 const projects = [
   {
-    title: "Culture House - Social Management Platform",
-    tagline: "Social Project Management System",
+    title: "Culture House – Plataforma de Gestão Social",
+    tagline: "Sistema de Gestão para Projetos Sociais",
     description:
-      "Web platform designed to help NGOs manage social assistance records efficiently. It tracks individuals and their interactions, automates WhatsApp messages for birthdays and special dates, and generates comprehensive CSV and PDF statistical reports. This project showcases full-stack development, database modeling, role-based access control, and containerization.",
+      "Plataforma web criada para ajudar ONGs a gerenciar registros de assistência social com eficiência. Rastreia indivíduos e suas interações, automatiza mensagens no WhatsApp para aniversários e datas especiais, e gera relatórios estatísticos completos em CSV e PDF. O projeto demonstra desenvolvimento full-stack, modelagem de banco de dados, controle de acesso por papéis e conteinerização.",
     stack: ["Python", "Django 4+", "MySQL 8+", "Bootstrap 5", "Docker", "Docker Compose"],
     github: "https://github.com/dbcfilho/casa-da-cultura-v3",
   },
   {
-    title: "Product Management CRUD",
-    tagline: "Java & Spring Boot Application",
+    title: "CRUD de Gerenciamento de Produtos",
+    tagline: "Aplicação Java & Spring Boot",
     description:
-      "Robust CRUD application for managing products with a clean, intuitive web interface. Demonstrates backend architecture with Spring Boot, persistence with relational databases, and server-side rendering with Thymeleaf. Built with enterprise-grade patterns and best practices for maintainability.",
+      "Aplicação CRUD robusta para gerenciamento de produtos com interface web limpa e intuitiva. Demonstra arquitetura backend com Spring Boot, persistência com bancos de dados relacionais e renderização server-side com Thymeleaf. Construída com padrões enterprise e boas práticas de manutenibilidade.",
     stack: ["Java", "Spring Boot", "Thymeleaf", "SQL", "REST APIs"],
     github: "https://github.com/dbcfilho/CRUD-Java",
   },
   {
-    title: "User Registration Platform",
+    title: "Plataforma de Cadastro de Usuários",
     tagline: "Full-Stack Node, React & MySQL",
     description:
-      "Complete web application for user registration with full CRUD operations. Uses a modern three-tier architecture with a Node.js backend API, React frontend for dynamic UI, and MySQL database for data persistence. Highlights ability to integrate multiple technologies into a cohesive, working system.",
+      "Aplicação web completa para cadastro de usuários com operações CRUD completas. Utiliza arquitetura moderna de três camadas com API backend em Node.js, frontend React para interface dinâmica e banco de dados MySQL para persistência. Demonstra a capacidade de integrar múltiplas tecnologias em um sistema coeso e funcional.",
     stack: ["Node.js", "Express.js", "React", "MySQL", "REST APIs"],
     github: "https://github.com/dbcfilho/User-registration",
   },
@@ -36,15 +36,15 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-12 animate-in fade-in slide-in-from-bottom duration-700">
           <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
-            Portfolio
+            Portfólio
           </h2>
           <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
-            Real-world applications solving practical problems with clean, maintainable code
+            Aplicações reais que resolvem problemas práticos com código limpo e de fácil manutenção
           </p>
         </div>
 
         <div className="mb-10 sm:mb-12">
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-5 sm:mb-6 tracking-wide">Highlighted Projects</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-5 sm:mb-6 tracking-wide">Projetos em Destaque</h3>
           <div className="space-y-5 sm:space-y-6">
             {projects.map((project, index) => (
               <div
@@ -84,7 +84,7 @@ export default function Projects() {
                         className="flex items-center justify-center gap-2"
                       >
                         <Github className="w-4 h-4" />
-                        View on GitHub
+                        Ver no GitHub
                       </a>
                     </Button>
                   </div>
@@ -104,7 +104,7 @@ export default function Projects() {
             className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors text-sm"
           >
             <ExternalLink className="w-4 h-4" />
-            More projects on GitHub
+            Mais projetos no GitHub
           </a>
         </div>
       </div>

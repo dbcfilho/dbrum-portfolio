@@ -5,7 +5,6 @@ import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "@/components/ui/toaster"
 import "./globals.css"
 
-// <CHANGE> Updated fonts to Space Grotesk for headings and Inter for body
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-heading",
@@ -18,37 +17,36 @@ const inter = Inter({
   display: "swap",
 })
 
-// <CHANGE> Updated metadata for SEO optimization
 export const metadata: Metadata = {
-  title: "Douglas Brum | Backend & Cybersecurity Developer",
+  title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
   description:
-    "Backend developer focused on building robust APIs and web systems using Java/Spring Boot and Python/Django. Strong interest in cybersecurity and secure application design.",
+    "Desenvolvedor backend focado na construção de APIs robustas e sistemas web usando Java/Spring Boot e Python/Django. Grande interesse em cibersegurança e design de aplicações seguras.",
   keywords: [
-    "Backend Developer",
+    "Desenvolvedor Backend",
     "Java",
     "Spring Boot",
     "Python",
     "Django",
-    "Cybersecurity",
-    "Software Engineer",
+    "Cibersegurança",
+    "Engenheiro de Software",
     "Douglas Brum",
   ],
   authors: [{ name: "Douglas Brum" }],
   creator: "Douglas Brum",
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "pt_BR",
     url: "https://dbrum.com.br",
-    title: "Douglas Brum | Backend & Cybersecurity Developer",
+    title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
     description:
-      "Backend developer focused on building robust APIs and web systems with a strong interest in cybersecurity.",
-    siteName: "Douglas Brum Portfolio",
+      "Desenvolvedor backend focado na construção de APIs robustas e sistemas web, com grande interesse em cibersegurança.",
+    siteName: "Douglas Brum Portfólio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Douglas Brum | Backend & Cybersecurity Developer",
+    title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
     description:
-      "Backend developer focused on building robust APIs and web systems with a strong interest in cybersecurity.",
+      "Desenvolvedor backend focado na construção de APIs robustas e sistemas web, com grande interesse em cibersegurança.",
   },
   icons: {
     icon: [
@@ -66,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="scroll-smooth dark">
+    <html lang="pt-BR" className="scroll-smooth dark">
       <head>
         <script
           type="application/ld+json"
@@ -76,7 +74,7 @@ export default function RootLayout({
               "@type": "Person",
               name: "Douglas Brum",
               alternateName: "dbrum_dev",
-              jobTitle: "Backend & Cybersecurity-Oriented Developer",
+              jobTitle: "Desenvolvedor Backend com Foco em Cibersegurança",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Duque de Caxias",

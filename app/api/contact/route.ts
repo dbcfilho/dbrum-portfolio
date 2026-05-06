@@ -1,31 +1,28 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(request: Request) {
+  const resend = new Resend(process.env.RESEND_API_KEY)
   try {
     const body = await request.json()
     const { name, email, company, subject, message } = body
 
-    // Validate required fields
     if (!name || !email || !subject || !message) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+      return NextResponse.json({ error: "Campos obrigatórios ausentes" }, { status: 400 })
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
+      return NextResponse.json({ error: "Formato de e-mail inválido" }, { status: 400 })
     }
 
     const toEmail = process.env.CONTACT_EMAIL_TO || "dbcfilho01@gmail.com"
 
     await resend.emails.send({
-      from: "onboarding@resend.dev", // Resend verified sender for testing
+      from: "onboarding@resend.dev",
       to: toEmail,
       replyTo: email,
-      subject: `Portfolio Contact: ${subject}`,
+      subject: `Contato pelo Portfólio: ${subject}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -45,38 +42,38 @@ export async function POST(request: Request) {
           <body>
             <div class="container">
               <div class="header">
-                <h1 style="margin: 0;">New Contact Form Submission</h1>
-                <p style="margin: 10px 0 0 0; opacity: 0.9;">From your portfolio website</p>
+                <h1 style="margin: 0;">Nova Mensagem de Contato</h1>
+                <p style="margin: 10px 0 0 0; opacity: 0.9;">Recebida pelo seu portfólio</p>
               </div>
               <div class="content">
                 <div class="field">
-                  <div class="label">Name:</div>
+                  <div class="label">Nome:</div>
                   <div class="value">${name}</div>
                 </div>
                 <div class="field">
-                  <div class="label">Email:</div>
+                  <div class="label">E-mail:</div>
                   <div class="value"><a href="mailto:${email}">${email}</a></div>
                 </div>
                 ${
                   company
                     ? `
                 <div class="field">
-                  <div class="label">Company:</div>
+                  <div class="label">Empresa:</div>
                   <div class="value">${company}</div>
                 </div>
                 `
                     : ""
                 }
                 <div class="field">
-                  <div class="label">Subject:</div>
+                  <div class="label">Assunto:</div>
                   <div class="value">${subject}</div>
                 </div>
                 <div class="field">
-                  <div class="label">Message:</div>
+                  <div class="label">Mensagem:</div>
                   <div class="value" style="white-space: pre-wrap;">${message}</div>
                 </div>
                 <div class="footer">
-                  <p>This email was sent from your portfolio contact form at ${new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })} (Brazil time).</p>
+                  <p>Esta mensagem foi enviada pelo formulário de contato do seu portfólio em ${new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })} (horário de Brasília).</p>
                 </div>
               </div>
             </div>
@@ -85,9 +82,9 @@ export async function POST(request: Request) {
       `,
     })
 
-    return NextResponse.json({ message: "Contact form submitted successfully" }, { status: 200 })
+    return NextResponse.json({ message: "Mensagem enviada com sucesso" }, { status: 200 })
   } catch (error) {
-    console.error("Contact form error:", error)
-    return NextResponse.json({ error: "Failed to process contact form submission" }, { status: 500 })
+    console.error("Erro no formulário de contato:", error)
+    return NextResponse.json({ error: "Falha ao processar o envio do formulário" }, { status: 500 })
   }
 }

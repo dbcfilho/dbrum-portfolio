@@ -20,7 +20,7 @@ export default function Contact() {
     message: "",
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -42,8 +42,8 @@ export default function Contact() {
 
       if (response.ok) {
         toast({
-          title: "Message sent successfully!",
-          description: "I'll get back to you as soon as possible.",
+          title: "Mensagem enviada com sucesso!",
+          description: "Entrarei em contato o mais breve possível.",
         })
         setFormData({
           name: "",
@@ -55,10 +55,10 @@ export default function Contact() {
       } else {
         throw new Error("Failed to send message")
       }
-    } catch (error) {
+    } catch {
       toast({
-        title: "Failed to send message",
-        description: "Please try again or contact me directly via email.",
+        title: "Falha ao enviar mensagem",
+        description: "Tente novamente ou entre em contato diretamente pelo e-mail.",
         variant: "destructive",
       })
     } finally {
@@ -72,30 +72,30 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 animate-in fade-in slide-in-from-bottom duration-700">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Contact
+            Contato
           </h2>
           <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4">
-            Let's build something great together
+            Vamos construir algo incrível juntos
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
-          {/* Left Side - Information */}
+          {/* Lado Esquerdo - Informações */}
           <div className="space-y-6 sm:space-y-8 animate-in fade-in slide-in-from-left duration-700">
             <div className="glass-card rounded-lg p-6 sm:p-8">
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Let's Work Together</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Vamos Trabalhar Juntos</h3>
               <p className="text-gray-300 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
-                I'm actively seeking backend developer roles at junior to mid level, freelance projects, and remote
-                opportunities. If you're building secure, scalable systems and need someone who brings both technical
-                depth and a security conscious mindset, I'd love to hear from you.
+                Estou buscando ativamente vagas de desenvolvedor backend em nível júnior a pleno, projetos freelance e
+                oportunidades remotas. Se você está construindo sistemas seguros e escaláveis e precisa de alguém que
+                alia profundidade técnica a uma mentalidade voltada à segurança, adoraria ouvir sobre isso.
               </p>
               <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                Whether it's a fulltime position, contract work, or collaboration on an exciting project, I'm open to
-                discussing how I can contribute to your team.
+                Seja uma vaga CLT, contrato ou colaboração em um projeto interessante, estou aberto a discutir como
+                posso contribuir com o seu time.
               </p>
             </div>
 
-            {/* Contact Methods */}
+            {/* Formas de Contato */}
             <div className="space-y-3 sm:space-y-4">
               <a
                 href="mailto:dbcfilho01@gmail.com"
@@ -105,7 +105,7 @@ export default function Contact() {
                   <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs sm:text-sm text-gray-400">Email</p>
+                  <p className="text-xs sm:text-sm text-gray-400">E-mail</p>
                   <p className="text-white font-medium text-sm sm:text-base truncate">dbcfilho01@gmail.com</p>
                 </div>
               </a>
@@ -130,20 +130,20 @@ export default function Contact() {
                   <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs sm:text-sm text-gray-400">Location</p>
-                  <p className="text-white font-medium text-sm sm:text-base">Rio de Janeiro, Brazil</p>
-                  <p className="text-xs text-gray-500 mt-1">Open to remote work</p>
+                  <p className="text-xs sm:text-sm text-gray-400">Localização</p>
+                  <p className="text-white font-medium text-sm sm:text-base">Rio de Janeiro, Brasil</p>
+                  <p className="text-xs text-gray-500 mt-1">Aberto a trabalho remoto</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Side - Contact Form */}
+          {/* Lado Direito - Formulário */}
           <div className="animate-in fade-in slide-in-from-right duration-700">
             <form onSubmit={handleSubmit} className="glass-card rounded-lg p-6 sm:p-8 space-y-5 sm:space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                  Name <span className="text-red-400">*</span>
+                  Nome <span className="text-red-400">*</span>
                 </label>
                 <Input
                   id="name"
@@ -153,13 +153,13 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   className="bg-gray-900/50 border-purple-500/30 focus:border-purple-400"
-                  placeholder="Your name"
+                  placeholder="Seu nome"
                 />
               </div>
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                  Email <span className="text-red-400">*</span>
+                  E-mail <span className="text-red-400">*</span>
                 </label>
                 <Input
                   id="email"
@@ -169,13 +169,13 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   className="bg-gray-900/50 border-purple-500/30 focus:border-purple-400"
-                  placeholder="your.email@example.com"
+                  placeholder="seu.email@exemplo.com"
                 />
               </div>
 
               <div>
                 <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
-                  Company (Optional)
+                  Empresa (Opcional)
                 </label>
                 <Input
                   id="company"
@@ -184,13 +184,13 @@ export default function Contact() {
                   value={formData.company}
                   onChange={handleChange}
                   className="bg-gray-900/50 border-purple-500/30 focus:border-purple-400"
-                  placeholder="Your company"
+                  placeholder="Sua empresa"
                 />
               </div>
 
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                  Subject <span className="text-red-400">*</span>
+                  Assunto <span className="text-red-400">*</span>
                 </label>
                 <Input
                   id="subject"
@@ -200,13 +200,13 @@ export default function Contact() {
                   value={formData.subject}
                   onChange={handleChange}
                   className="bg-gray-900/50 border-purple-500/30 focus:border-purple-400"
-                  placeholder="What's this about?"
+                  placeholder="Sobre o que é?"
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                  Message <span className="text-red-400">*</span>
+                  Mensagem <span className="text-red-400">*</span>
                 </label>
                 <Textarea
                   id="message"
@@ -216,7 +216,7 @@ export default function Contact() {
                   onChange={handleChange}
                   rows={6}
                   className="bg-gray-900/50 border-purple-500/30 focus:border-purple-400 resize-none"
-                  placeholder="Tell me about your project or opportunity..."
+                  placeholder="Fale sobre seu projeto ou oportunidade..."
                 />
               </div>
 
@@ -226,11 +226,11 @@ export default function Contact() {
                 className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 glow-purple"
               >
                 {isSubmitting ? (
-                  "Sending..."
+                  "Enviando..."
                 ) : (
                   <>
                     <Send className="w-4 h-4 mr-2" />
-                    Send Message
+                    Enviar Mensagem
                   </>
                 )}
               </Button>

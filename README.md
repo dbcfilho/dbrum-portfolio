@@ -1,89 +1,60 @@
-# Douglas Brum — Backend & Cybersecurity-Oriented Developer
+# Douglas Brum — Desenvolvedor Backend & Cibersegurança
 
-> Backend-focused engineer with a strong security mindset, building reliable systems and meaningful digital products.
+> Engenheiro focado em backend com mentalidade de segurança, construindo sistemas confiáveis e produtos digitais com propósito.
 
-This repository contains the source code of my **personal portfolio**, designed not only as a presentation website, but as a **living product** that reflects how I think, build, version and ship software.
+Este repositório contém o código-fonte do meu **portfólio pessoal**, projetado não apenas como um site de apresentação, mas como um **produto vivo** que reflete como eu penso, construo, versiono e entrego software.
 
-🌐 **Live:** [https://dbrum.com.br](https://dbrum.com.br)
-
----
-
-## 🚀 About This Project
-
-This portfolio showcases my background as a **backend-oriented software engineer** with experience across **Java/Spring**, **Python/Django**, databases, Linux-based environments and cloud-ready architectures.
-
-More than a static website, it follows real-world engineering practices:
-
-* Clear project structure
-* Versioned evolution (v1 → v2)
-* Modern frontend architecture
-* Security-aware dependency management
-* Production-grade deployment pipeline
-
-It is intentionally kept **clean, fast and focused on substance**, not gimmicks.
+🌐 **Online:** [https://dbrum.com.br](https://dbrum.com.br)
 
 ---
 
-## 🧠 What You’ll Find Here
+## Sobre o Projeto
 
-* **Professional narrative** focused on backend engineering and problem-solving
-* **Skills & tooling** organized by real-world usage, not buzzwords
-* **Selected projects** with context, stack and GitHub links
-* **Certifications** in cybersecurity, programming and infrastructure
-* **Experience & education timeline** with concise, relevant details
+Este portfólio apresenta minha trajetória como **engenheiro de software orientado a backend**, com experiência em **Java/Spring**, **Python/Django**, bancos de dados, ambientes Linux e arquiteturas prontas para nuvem.
 
----
+Mais do que um site estático, ele segue práticas reais de engenharia:
 
-## 🛠 Tech Stack
+* Estrutura de projeto clara
+* Evolução versionada (v1 → v2 → v3)
+* Arquitetura moderna de frontend
+* Gerenciamento de dependências consciente de segurança
+* Pipeline de deploy em produção
 
-This project is built with a modern, production-ready stack:
-
-* **Framework:** Next.js (App Router)
-* **Language:** TypeScript
-* **UI & Styling:** Component-based architecture with utility-first styling
-* **Components:** shadcn/ui-style components, `lucide-react` icons
-* **Package Manager:** pnpm
-* **Build & Tooling:** PostCSS
-* **Deployment:** Vercel
-
-The focus is on **maintainability, clarity and performance**.
+É mantido intencionalmente **limpo, rápido e focado em conteúdo**, sem excessos.
 
 ---
 
-## 📁 Project Structure
+## Stack
+
+* **Framework:** Next.js 16 (App Router)
+* **Linguagem:** TypeScript
+* **UI & Estilo:** shadcn/ui, Tailwind CSS v4, lucide-react
+* **Gerenciador de pacotes:** pnpm
+* **Deploy:** Vercel
+
+---
+
+## Estrutura do Projeto
 
 ```text
-app/            # Next.js App Router (pages & sections)
-components/     # Reusable UI components
+app/            # Next.js App Router (páginas e rotas de API)
+components/     # Componentes de UI reutilizáveis
 hooks/          # Custom React hooks
-lib/            # Utilities, helpers and shared logic
-public/         # Static assets (images, icons)
-styles/         # Global styles
+lib/            # Utilitários e lógica compartilhada
+public/         # Assets estáticos (imagens, ícones)
+styles/         # Estilos globais
 ```
 
-The structure mirrors how I organize **real applications**, not just demos.
-
 ---
 
-## 🔄 Versioning Strategy
+## Desenvolvimento Local
 
-This portfolio follows a **versioned evolution approach**:
+### Pré-requisitos
 
-* **v1** – Initial stable version
-* **v2** – Structural redesign, new pages, refined content and improved architecture
-
-This reflects how I handle **product iteration** in real projects.
-
----
-
-## 🧪 Local Development
-
-### Prerequisites
-
-* Node.js 18+ (20+ recommended)
+* Node.js 18+ (20+ recomendado)
 * pnpm
 
-### Installation
+### Instalação
 
 ```bash
 git clone https://github.com/dbcfilho/dbrum-portfolio.git
@@ -91,19 +62,15 @@ cd dbrum-portfolio
 pnpm install
 ```
 
-### Development Server
+### Servidor de Desenvolvimento
 
 ```bash
 pnpm dev
 ```
 
-Open:
+Acesse `http://localhost:3000`
 
-```
-http://localhost:3000
-```
-
-### Production Build
+### Build de Produção
 
 ```bash
 pnpm build
@@ -112,33 +79,24 @@ pnpm start
 
 ---
 
-## 🎨 Customization
+## v3 — O que foi feito nesta versão
 
-If you want to adapt this portfolio:
-
-* Update content sections inside `app/`
-* Edit project data (titles, descriptions, stacks, links)
-* Adjust skills and certifications to your profile
-* Customize branding (colors, assets) in `public/` and `styles/`
-
-The codebase is intentionally straightforward to modify.
+* **Tradução completa para Português do Brasil** — todo o conteúdo do portfólio foi migrado para PT-BR: textos, formulário de contato, labels, toasts, datas, metadados, Open Graph, schema.org e template de e-mail
+* **Correção de bug no build** — o cliente Resend era instanciado no nível do módulo, causando falha em build time; movido para dentro do handler
+* **Correção de tipo no formulário** — removida referência a `HTMLSelectElement` no handler de mudança do formulário de contato, que não contém nenhum `<select>`
+* **Remoção de código morto** — excluído `app/api/recommendations/data.ts` (dados duplicados e não utilizados) e `public/recommendations-v2.json` (arquivo resíduo)
+* **Limpeza de comentários** — removidos todos os comentários de marcação e anotações internas deixados em versões anteriores
 
 ---
 
-## 📬 Contact
+## Contato
 
-If you’d like to connect, collaborate or discuss opportunities:
-
-* **Email:** [dbcfilho01@gmail.com](mailto:dbcfilho01@gmail.com)
+* **E-mail:** [dbcfilho01@gmail.com](mailto:dbcfilho01@gmail.com)
 * **LinkedIn:** [https://www.linkedin.com/in/dbcfilho](https://www.linkedin.com/in/dbcfilho)
 * **Website:** [https://dbrum.com.br](https://dbrum.com.br)
 
 ---
 
-## 📄 License
+## Licença
 
-This project is licensed under the **MIT License**.
-
----
-
-> *“Software engineering is not about writing code — it’s about building systems that last.”*
+Este projeto está licenciado sob a **MIT License**.
