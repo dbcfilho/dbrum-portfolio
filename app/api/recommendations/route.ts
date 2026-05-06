@@ -10,7 +10,7 @@ export async function GET() {
         author: "Igor Brandão",
         company: "Grupo DPSP",
         role: "Farmacêutico",
-        text: "Um profissional plenamente capacitado para atuar em qualquer área da tecnologia. Responsável pela resolução de inúmeros problemas do dia a dia, versátil, ágil, habilidoso e altamente competente.",
+        text: "Profissional completamente apto para atuar em qualquer área dentro da tecnologia. Responsável por resolver inúmeros problemas dentro do nosso dia a dia, versátil, ágil, habilidoso e muito competente.",
         authorAvatar: "/images/recommendations/igor.jpeg",
         linkedinUrl: "https://www.linkedin.com/in/dbcfilho/",
         date: "2023-09-18T00:00:00Z",
