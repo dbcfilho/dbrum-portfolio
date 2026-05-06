@@ -32,7 +32,7 @@ export default function Hero() {
                 size="lg"
                 className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 glow-purple w-full sm:w-auto"
               >
-                <Link href="#contact">Vamos Trabalhar Juntos</Link>
+                <Link href="#contact">Vamos trabalhar juntos</Link>
               </Button>
               <Button
                 asChild
@@ -40,7 +40,7 @@ export default function Hero() {
                 size="lg"
                 className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent w-full sm:w-auto"
               >
-                <Link href="#projects">Ver Meus Projetos</Link>
+                <Link href="#portfolio">Ver meus projetos</Link>
               </Button>
             </div>
 
