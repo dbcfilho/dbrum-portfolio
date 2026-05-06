@@ -1,4 +1,7 @@
-import { Github } from "lucide-react"
+"use client"
+
+import { useState } from "react"
+import { Github, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Diagram } from "@/components/diagram"
 
@@ -163,6 +166,12 @@ const caseStudies = [
 ]
 
 export default function CaseStudies() {
+  const [openDiagrams, setOpenDiagrams] = useState<boolean[]>(caseStudies.map(() => false))
+
+  const toggleDiagrams = (index: number) => {
+    setOpenDiagrams((prev) => prev.map((v, i) => (i === index ? !v : v)))
+  }
+
   return (
     <div className="mt-8 sm:mt-12">
       <div className="text-center mb-6 sm:mb-8">
@@ -238,15 +247,29 @@ export default function CaseStudies() {
 
             {/* Diagramas */}
             {study.diagrams && (
-              <div className="space-y-4">
-                <div>
-                  <h5 className="text-base font-bold text-white mb-3">Arquitetura do Sistema</h5>
-                  <Diagram code={study.diagrams.architecture} />
-                </div>
-                <div>
-                  <h5 className="text-base font-bold text-white mb-3">Esquema do Banco de Dados (ERD)</h5>
-                  <Diagram code={study.diagrams.erd} />
-                </div>
+              <div>
+                <button
+                  onClick={() => toggleDiagrams(index)}
+                  className="flex items-center gap-2 text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors mt-2 mb-1 group"
+                >
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-300 ${openDiagrams[index] ? "rotate-180" : ""}`}
+                  />
+                  {openDiagrams[index] ? "Ocultar diagramas" : "Ver diagramas"}
+                </button>
+
+                {openDiagrams[index] && (
+                  <div className="space-y-4 mt-4 animate-in fade-in slide-in-from-top duration-300">
+                    <div>
+                      <h5 className="text-base font-bold text-white mb-3">Arquitetura do Sistema</h5>
+                      <Diagram code={study.diagrams.architecture} />
+                    </div>
+                    <div>
+                      <h5 className="text-base font-bold text-white mb-3">Esquema do Banco de Dados (ERD)</h5>
+                      <Diagram code={study.diagrams.erd} />
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
