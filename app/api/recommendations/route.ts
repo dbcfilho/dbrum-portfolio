@@ -20,7 +20,7 @@ export async function GET() {
         author: "Geysa Carvalho",
         company: "Prefeitura Municipal de Duque de Caxias",
         role: "Coordenadora de Assuntos Administrativos",
-        text: "Um profissional extremamente qualificado, com grande capacidade de atuar nas diferentes áreas da tecnologia. Demonstra elevado senso de responsabilidade, agilidade na resolução de desafios e admirável versatilidade no trabalho diário. Possui sólidos conhecimentos técnicos, é proativo e sempre entrega resultados excelentes, sendo referência em competência e eficiência.",
+        text: "Profissional extremamente qualificado, com grande capacidade de atuar em diferentes frentes da área de tecnologia. Demonstra alto senso de responsabilidade, rapidez na resolução de desafios e uma versatilidade admirável no dia a dia. Possui habilidades técnicas sólidas, é proativo e entrega resultados com excelência, sendo uma referência de competência e eficiência.",
         authorAvatar: "/images/recommendations/geysa.jpeg",
         linkedinUrl: "https://www.linkedin.com/in/dbcfilho/",
         date: "2025-12-18T00:00:00Z",
