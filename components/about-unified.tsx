@@ -4,7 +4,6 @@ import {
   Server,
   Globe,
   Shield,
-  Award,
   Code2,
   Network,
   Briefcase,
@@ -41,15 +40,27 @@ const skillGroups = [
 
 const certifications = [
   {
-    icon: Shield,
-    title: "Google Cybersecurity Certificate",
-    issuer: "Google",
-    year: "2024",
+    icon: Globe,
+    title: "Rest API (Intermediate)",
+    issuer: "HackerRank",
+    year: "2026",
+  },
+  {
+    icon: Database,
+    title: "SQL (Advanced)",
+    issuer: "HackerRank",
+    year: "2026",
   },
   {
     icon: Code2,
-    title: "Software Engineer with Java",
-    issuer: "Udemy",
+    title: "Software Engineer",
+    issuer: "HackerRank",
+    year: "2026",
+  },
+  {
+    icon: Shield,
+    title: "Google Cybersecurity Certificate",
+    issuer: "Google",
     year: "2024",
   },
   {
@@ -71,22 +82,10 @@ const certifications = [
     year: "2023",
   },
   {
-    icon: Shield,
-    title: "Linux and SQL",
-    issuer: "Google",
-    year: "2023",
-  },
-  {
     icon: Network,
     title: "NDG Linux Unhatched Certificate",
     issuer: "Cisco",
     year: "2023",
-  },
-  {
-    icon: Award,
-    title: "Técnico em Informática",
-    issuer: "Senac",
-    year: "2018",
   },
 ]
 

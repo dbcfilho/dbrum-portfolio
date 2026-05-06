@@ -87,16 +87,16 @@ export default function Hero() {
                     <span className="text-purple-400">const</span>{" "}
                     <span className="text-blue-400">developerProfile</span> = {"{\n"}
                     {"  "}
-                    <span className="text-cyan-400">nome</span>: <span className="text-green-400">"Douglas Brum"</span>,
-                    {"\n"}
+                    <span className="text-cyan-400">name</span>:{" "}
+                    <span className="text-green-400">"Douglas Brum"</span>,{"\n"}
                     {"  "}
-                    <span className="text-cyan-400">funcao</span>:{" "}
+                    <span className="text-cyan-400">role</span>:{" "}
                     <span className="text-green-400">"Desenvolvedor Backend"</span>,{"\n"}
                     {"  "}
-                    <span className="text-cyan-400">localizacao</span>:{" "}
+                    <span className="text-cyan-400">location</span>:{" "}
                     <span className="text-green-400">"Rio de Janeiro, Brasil"</span>,{"\n"}
                     {"  "}
-                    <span className="text-cyan-400">stackFavorita</span>: [{"\n"}
+                    <span className="text-cyan-400">favoriteStack</span>: [{"\n"}
                     {"    "}
                     <span className="text-green-400">"Java + Spring Boot"</span>,{"\n"}
                     {"    "}
@@ -108,10 +108,10 @@ export default function Hero() {
                     {"\n"}
                     {"  "}]{",\n"}
                     {"  "}
-                    <span className="text-cyan-400">estudandoAgora</span>:{" "}
+                    <span className="text-cyan-400">currentlyLearning</span>:{" "}
                     <span className="text-green-400">"AWS & Cibersegurança"</span>,{"\n"}
                     {"  "}
-                    <span className="text-cyan-400">abertoA</span>: [{"\n"}
+                    <span className="text-cyan-400">openTo</span>: [{"\n"}
                     {"    "}
                     <span className="text-green-400">"Vagas Backend"</span>,{"\n"}
                     {"    "}
