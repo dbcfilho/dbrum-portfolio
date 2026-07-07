@@ -88,36 +88,36 @@ export default function Hero() {
                     <span className="text-blue-400">developerProfile</span> = {"{\n"}
                     {"  "}
                     <span className="text-cyan-400">name</span>:{" "}
-                    <span className="text-green-400">"Douglas Brum"</span>,{"\n"}
+                    <span className="text-green-400">&quot;Douglas Brum&quot;</span>,{"\n"}
                     {"  "}
                     <span className="text-cyan-400">role</span>:{" "}
-                    <span className="text-green-400">"Desenvolvedor Backend"</span>,{"\n"}
+                    <span className="text-green-400">&quot;Desenvolvedor Backend&quot;</span>,{"\n"}
                     {"  "}
                     <span className="text-cyan-400">location</span>:{" "}
-                    <span className="text-green-400">"Rio de Janeiro, Brasil"</span>,{"\n"}
+                    <span className="text-green-400">&quot;Rio de Janeiro, Brasil&quot;</span>,{"\n"}
                     {"  "}
                     <span className="text-cyan-400">favoriteStack</span>: [{"\n"}
                     {"    "}
-                    <span className="text-green-400">"Java + Spring Boot"</span>,{"\n"}
+                    <span className="text-green-400">&quot;Java + Spring Boot&quot;</span>,{"\n"}
                     {"    "}
-                    <span className="text-green-400">"Python + Django"</span>,{"\n"}
+                    <span className="text-green-400">&quot;Python + Django&quot;</span>,{"\n"}
                     {"    "}
-                    <span className="text-green-400">"MySQL"</span>,{"\n"}
+                    <span className="text-green-400">&quot;MySQL&quot;</span>,{"\n"}
                     {"    "}
-                    <span className="text-green-400">"Docker"</span>
+                    <span className="text-green-400">&quot;Docker&quot;</span>
                     {"\n"}
                     {"  "}]{",\n"}
                     {"  "}
                     <span className="text-cyan-400">currentlyLearning</span>:{" "}
-                    <span className="text-green-400">"AWS & Cibersegurança"</span>,{"\n"}
+                    <span className="text-green-400">&quot;AWS & Cibersegurança&quot;</span>,{"\n"}
                     {"  "}
                     <span className="text-cyan-400">openTo</span>: [{"\n"}
                     {"    "}
-                    <span className="text-green-400">"Vagas Backend"</span>,{"\n"}
+                    <span className="text-green-400">&quot;Vagas Backend&quot;</span>,{"\n"}
                     {"    "}
-                    <span className="text-green-400">"Trabalho Remoto"</span>,{"\n"}
+                    <span className="text-green-400">&quot;Trabalho Remoto&quot;</span>,{"\n"}
                     {"    "}
-                    <span className="text-green-400">"Projetos Freelance"</span>
+                    <span className="text-green-400">&quot;Projetos Freelance&quot;</span>
                     {"\n"}
                     {"  "}]{",\n"}
                     {"};"}

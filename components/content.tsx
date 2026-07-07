@@ -234,7 +234,7 @@ export default function Content() {
                       </div>
                     </div>
                     <p className="text-xs sm:text-sm text-gray-300 leading-normal italic mb-3 line-clamp-4">
-                      "{rec.text}"
+                      &quot;{rec.text}&quot;
                     </p>
                   </div>
                   <a

@@ -1,7 +1,14 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import { Github, Linkedin } from "lucide-react"
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear())
+  }, [])
 
   return (
     <footer className="border-t border-purple-500/20 bg-[oklch(0.08_0.02_280)]/50 backdrop-blur-sm">

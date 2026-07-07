@@ -1,15 +1,60 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
+const RATE_LIMIT_MAX_REQUESTS = 5
+const rateLimitHits = new Map<string, { count: number; resetAt: number }>()
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const entry = rateLimitHits.get(ip)
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitHits.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS })
+    return false
+  }
+
+  entry.count += 1
+  return entry.count > RATE_LIMIT_MAX_REQUESTS
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+}
+
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY)
   try {
-    const body = await request.json()
-    const { name, email, company, subject, message } = body
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown"
+    if (isRateLimited(ip)) {
+      return NextResponse.json({ error: "Muitas requisições. Tente novamente mais tarde." }, { status: 429 })
+    }
 
-    if (!name || !email || !subject || !message) {
+    const body = await request.json()
+
+    if (
+      typeof body.name !== "string" ||
+      typeof body.email !== "string" ||
+      typeof body.subject !== "string" ||
+      typeof body.message !== "string" ||
+      !body.name.trim() ||
+      !body.email.trim() ||
+      !body.subject.trim() ||
+      !body.message.trim()
+    ) {
       return NextResponse.json({ error: "Campos obrigatórios ausentes" }, { status: 400 })
     }
+
+    const name: string = body.name
+    const email: string = body.email
+    const subject: string = body.subject
+    const message: string = body.message
+    const company: string | undefined = typeof body.company === "string" ? body.company : undefined
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
@@ -17,12 +62,20 @@ export async function POST(request: Request) {
     }
 
     const toEmail = process.env.CONTACT_EMAIL_TO || "dbcfilho01@gmail.com"
+    const fromEmail = process.env.EMAIL_FROM || "onboarding@resend.dev"
+
+    const safeName = escapeHtml(name)
+    const safeEmail = escapeHtml(email)
+    const safeCompany = company ? escapeHtml(company) : ""
+    const safeSubject = escapeHtml(subject)
+    const safeMessage = escapeHtml(message)
+    const headerSafeSubject = String(subject).replace(/[\r\n]+/g, " ")
 
     await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: fromEmail,
       to: toEmail,
       replyTo: email,
-      subject: `Contato pelo Portfólio: ${subject}`,
+      subject: `Contato pelo Portfólio: ${headerSafeSubject}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -48,29 +101,29 @@ export async function POST(request: Request) {
               <div class="content">
                 <div class="field">
                   <div class="label">Nome:</div>
-                  <div class="value">${name}</div>
+                  <div class="value">${safeName}</div>
                 </div>
                 <div class="field">
                   <div class="label">E-mail:</div>
-                  <div class="value"><a href="mailto:${email}">${email}</a></div>
+                  <div class="value"><a href="mailto:${safeEmail}">${safeEmail}</a></div>
                 </div>
                 ${
-                  company
+                  safeCompany
                     ? `
                 <div class="field">
                   <div class="label">Empresa:</div>
-                  <div class="value">${company}</div>
+                  <div class="value">${safeCompany}</div>
                 </div>
                 `
                     : ""
                 }
                 <div class="field">
                   <div class="label">Assunto:</div>
-                  <div class="value">${subject}</div>
+                  <div class="value">${safeSubject}</div>
                 </div>
                 <div class="field">
                   <div class="label">Mensagem:</div>
-                  <div class="value" style="white-space: pre-wrap;">${message}</div>
+                  <div class="value" style="white-space: pre-wrap;">${safeMessage}</div>
                 </div>
                 <div class="footer">
                   <p>Esta mensagem foi enviada pelo formulário de contato do seu portfólio em ${new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })} (horário de Brasília).</p>
