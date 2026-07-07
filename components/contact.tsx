@@ -74,7 +74,7 @@ export default function Contact() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
             Contato
           </h2>
-          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4">
+          <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto px-4">
             Vamos construir algo incrível juntos
           </p>
         </div>

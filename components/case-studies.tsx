@@ -175,10 +175,10 @@ export default function CaseStudies() {
   return (
     <div className="mt-8 sm:mt-12">
       <div className="text-center mb-6 sm:mb-8">
-        <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
+        <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">
           Estudos de Caso
         </h3>
-        <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
+        <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">
           Análises aprofundadas de projetos reais e soluções técnicas
         </p>
       </div>

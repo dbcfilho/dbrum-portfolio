@@ -69,7 +69,7 @@ export default function Content() {
           <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
             Publicações
           </h2>
-          <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
+          <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">
             Artigos técnicos e recomendações da comunidade
           </p>
         </div>

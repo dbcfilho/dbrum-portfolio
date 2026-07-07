@@ -60,7 +60,7 @@ export async function GET() {
         title,
         link,
         pubDate,
-        excerpt: `${stripHtml(description).slice(0, 150)}...`,
+        excerpt: `${stripHtml(content).slice(0, 150)}...`,
         thumbnail: extractThumbnail(content),
       }
     })

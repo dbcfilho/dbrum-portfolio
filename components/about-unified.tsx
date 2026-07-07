@@ -189,10 +189,10 @@ export default function AboutUnified() {
         {/* Habilidades */}
         <div className="mb-10 sm:mb-14">
           <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">
               Habilidades
             </h3>
-            <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
+            <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">
               Um conjunto completo de ferramentas para sistemas backend seguros e escaláveis
             </p>
           </div>
@@ -234,10 +234,10 @@ export default function AboutUnified() {
         {/* Certificações */}
         <div className="mb-10 sm:mb-14">
           <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">
               Certificações
             </h3>
-            <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
+            <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">
               Aprendizado contínuo em cibersegurança e engenharia de software
             </p>
           </div>
@@ -268,10 +268,10 @@ export default function AboutUnified() {
         {/* Experiência */}
         <div>
           <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">
               Experiência
             </h3>
-            <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
+            <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">
               Trajetória profissional combinando suporte, educação e desenvolvimento
             </p>
           </div>
@@ -328,10 +328,10 @@ export default function AboutUnified() {
         {/* Educação */}
         <div className="mt-10 sm:mt-14">
           <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">
               Educação
             </h3>
-            <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
+            <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">
               Base acadêmica em desenvolvimento de software e tecnologias emergentes
             </p>
           </div>

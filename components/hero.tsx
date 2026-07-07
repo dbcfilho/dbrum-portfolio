@@ -18,7 +18,7 @@ export default function Hero() {
             <h2 className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-medium">
               Desenvolvedor Backend com foco em Cibersegurança
             </h2>
-            <p className="text-base sm:text-lg text-gray-400 leading-normal max-w-2xl">
+            <p className="text-base sm:text-lg text-gray-300 leading-normal max-w-2xl">
               Sou um desenvolvedor backend focado na construção de APIs robustas e sistemas web usando Java com Spring Boot
               e Python com Django. Confortável em ambientes Linux, contêineres Docker e fundamentos de AWS.
               O que me diferencia é meu forte interesse em cibersegurança e design de aplicações seguras.
