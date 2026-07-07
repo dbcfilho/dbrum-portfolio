@@ -292,12 +292,9 @@ export default function AboutUnified() {
                   >
                     <div className="glass-card rounded-lg p-4 sm:p-5 hover:border-purple-500/50 transition-all duration-300 relative">
                       <div
-                        className="absolute w-4 h-4 bg-purple-500 rounded-full border-4 border-[oklch(0.12_0.05_250)] glow-purple"
-                        style={{
-                          top: "1.5rem",
-                          left: index % 2 === 0 ? "auto" : "-2.5rem",
-                          right: index % 2 === 0 ? "-2.5rem" : "auto",
-                        }}
+                        className={`absolute top-6 w-4 h-4 bg-purple-500 rounded-full border-4 border-[oklch(0.12_0.05_250)] glow-purple left-[-2.5rem] ${
+                          index % 2 === 0 ? "md:left-auto md:right-[-2.5rem]" : ""
+                        }`}
                       />
 
                       <div className="flex items-start gap-3 mb-3">
