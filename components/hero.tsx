@@ -1,56 +1,110 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { Github, Linkedin } from "lucide-react"
+import { Github, Linkedin, ArrowRight, Download, ShieldCheck } from "lucide-react"
 import Link from "next/link"
+import { motion, useReducedMotion } from "framer-motion"
+import { useI18n } from "@/components/i18n/language-provider"
+
+const CV_URL = "https://drive.google.com/file/d/1zpvyQ02nPA1HpEHiJemkkSR_uWBcIEQr/view?usp=sharing"
 
 export default function Hero() {
+  const { t } = useI18n()
+  const reduce = useReducedMotion()
+  const h = t.hero
+
+  const container = {
+    hidden: {},
+    show: { transition: { staggerChildren: reduce ? 0 : 0.08, delayChildren: 0.05 } },
+  }
+  const item = {
+    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
+  }
+
   return (
-    <section id="home" className="min-h-screen flex items-center pt-16 overflow-x-hidden">
+    <section id="home" className="relative min-h-screen flex items-center pt-16 overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 w-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Lado Esquerdo - Conteúdo */}
-          <div className="space-y-3 sm:space-y-5 animate-in fade-in slide-in-from-left duration-700">
-            <p className="text-xs sm:text-sm text-purple-400 font-medium tracking-wide uppercase">Olá, eu sou</p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-balance leading-tight">
-              <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                Douglas Brum
+          {/* Lado Esquerdo — Conteúdo */}
+          <motion.div className="space-y-5" variants={container} initial="hidden" animate="show">
+            {/* Badge de disponibilidade (prova de confiança) */}
+            <motion.div variants={item}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-brand-cyan/40 bg-brand-cyan/10 px-3 py-1 text-xs sm:text-sm text-brand-cyan-light font-medium">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-cyan opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-cyan" />
+                </span>
+                {h.badge}
               </span>
-            </h1>
-            <h2 className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-medium">
-              Desenvolvedor Backend com foco em Cibersegurança
-            </h2>
-            <p className="text-base sm:text-lg text-gray-300 leading-normal max-w-2xl">
-              Sou um desenvolvedor backend focado na construção de APIs robustas e sistemas web usando Java com Spring Boot
-              e Python com Django. Confortável em ambientes Linux, contêineres Docker e fundamentos de AWS.
-              O que me diferencia é meu forte interesse em cibersegurança e design de aplicações seguras.
-              Levo essa mentalidade para cada projeto que toco.
-            </p>
+            </motion.div>
+
+            <motion.h1
+              variants={item}
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-balance leading-[1.05]"
+            >
+              <span className="text-white">Douglas Brum</span>
+              <span className="mt-2 block text-2xl sm:text-3xl md:text-4xl font-bold text-gradient-brand">
+                {h.headline}
+              </span>
+            </motion.h1>
+
+            <motion.p
+              variants={item}
+              className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl [&_strong]:text-white [&_strong]:font-semibold"
+              dangerouslySetInnerHTML={{ __html: h.intro }}
+            />
 
             {/* Botões CTA */}
-            <div className="flex flex-col sm:flex-row flex-wrap gap-3 pt-3">
+            <motion.div variants={item} className="flex flex-col sm:flex-row flex-wrap gap-3 pt-1">
               <Button
                 asChild
                 size="lg"
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 glow-purple w-full sm:w-auto"
+                className="bg-gradient-brand text-white font-semibold hover:opacity-90 hover:glow-brand transition-all w-full sm:w-auto group"
               >
-                <Link href="#contact">Vamos trabalhar juntos</Link>
+                <Link href="#contact">
+                  {h.ctaPrimary}
+                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                </Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent w-full sm:w-auto"
+                className="border-brand/50 text-white hover:border-brand-cyan hover:bg-brand/10 bg-transparent w-full sm:w-auto"
               >
-                <Link href="#portfolio">Ver meus projetos</Link>
+                <Link href="#portfolio">{h.ctaSecondary}</Link>
               </Button>
-            </div>
+              <Button
+                asChild
+                variant="ghost"
+                size="lg"
+                className="text-gray-300 hover:text-brand-cyan hover:bg-brand/5 w-full sm:w-auto"
+              >
+                <a href={CV_URL} target="_blank" rel="noopener noreferrer">
+                  <Download className="w-4 h-4 mr-2" />
+                  {h.ctaCv}
+                </a>
+              </Button>
+            </motion.div>
+
+            {/* Métricas de confiança */}
+            <motion.div variants={item} className="grid grid-cols-3 gap-3 pt-4 max-w-md">
+              {h.stats.map((s) => (
+                <div key={s.label} className="glass-card rounded-lg px-3 py-3 text-center">
+                  <div className="text-xl sm:text-2xl font-bold text-gradient-brand">{s.value}</div>
+                  <div className="text-[11px] sm:text-xs text-gray-400 leading-tight mt-0.5">{s.label}</div>
+                </div>
+              ))}
+            </motion.div>
 
             {/* Redes Sociais */}
-            <div className="flex gap-3 pt-3">
+            <motion.div variants={item} className="flex gap-3 pt-1">
               <a
                 href="https://github.com/dbcfilho"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-lg bg-gray-800/50 border border-purple-500/20 hover:border-purple-400 hover:bg-purple-500/10 transition-all hover:glow-purple"
+                className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-gray-800/50 border border-brand/20 hover:border-brand-cyan hover:bg-brand/10 transition-all hover:glow-brand"
                 aria-label="GitHub"
               >
                 <Github className="w-5 h-5 text-gray-300" />
@@ -59,44 +113,48 @@ export default function Hero() {
                 href="https://www.linkedin.com/in/dbcfilho/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-lg bg-gray-800/50 border border-blue-500/20 hover:border-blue-400 hover:bg-blue-500/10 transition-all hover:glow-blue"
+                className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-gray-800/50 border border-brand-light/20 hover:border-brand-light hover:bg-brand-light/10 transition-all hover:glow-cyan"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5 text-gray-300" />
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Lado Direito - Terminal de Código */}
-          <div className="animate-in fade-in slide-in-from-right duration-700 delay-200">
-            <div className="glass-card rounded-lg overflow-hidden border border-purple-500/30 shadow-2xl">
+          {/* Lado Direito — Terminal de Código */}
+          <motion.div
+            initial={reduce ? { opacity: 0 } : { opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            <div className="glass-card rounded-xl overflow-hidden border border-brand/30 shadow-2xl">
               {/* Cabeçalho do Terminal */}
-              <div className="bg-gray-900/80 px-3 sm:px-4 py-2.5 sm:py-3 flex items-center gap-2 border-b border-purple-500/20">
+              <div className="bg-gray-900/80 px-3 sm:px-4 py-2.5 sm:py-3 flex items-center gap-2 border-b border-brand/20">
                 <div className="flex gap-1.5 sm:gap-2">
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500" />
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500" />
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500" />
                 </div>
-                <span className="text-[10px] sm:text-xs text-gray-400 ml-2">developer-profile.ts</span>
+                <span className="text-[10px] sm:text-xs text-gray-400 ml-2 font-mono">developer-profile.ts</span>
               </div>
 
               {/* Conteúdo do Código */}
               <div className="p-3 sm:p-5 font-mono text-xs leading-relaxed overflow-x-auto">
                 <pre className="text-gray-300">
                   <code>
-                    <span className="text-purple-400">const</span>{" "}
-                    <span className="text-blue-400">developerProfile</span> = {"{\n"}
+                    <span className="text-brand-light">const</span>{" "}
+                    <span className="text-brand-cyan-light">developerProfile</span> = {"{\n"}
                     {"  "}
-                    <span className="text-cyan-400">name</span>:{" "}
+                    <span className="text-brand-cyan">name</span>:{" "}
                     <span className="text-green-400">&quot;Douglas Brum&quot;</span>,{"\n"}
                     {"  "}
-                    <span className="text-cyan-400">role</span>:{" "}
-                    <span className="text-green-400">&quot;Desenvolvedor Backend&quot;</span>,{"\n"}
+                    <span className="text-brand-cyan">role</span>:{" "}
+                    <span className="text-green-400">&quot;{h.terminal.role}&quot;</span>,{"\n"}
                     {"  "}
-                    <span className="text-cyan-400">location</span>:{" "}
-                    <span className="text-green-400">&quot;Rio de Janeiro, Brasil&quot;</span>,{"\n"}
+                    <span className="text-brand-cyan">location</span>:{" "}
+                    <span className="text-green-400">&quot;{h.terminal.location}&quot;</span>,{"\n"}
                     {"  "}
-                    <span className="text-cyan-400">favoriteStack</span>: [{"\n"}
+                    <span className="text-brand-cyan">favoriteStack</span>: [{"\n"}
                     {"    "}
                     <span className="text-green-400">&quot;Java + Spring Boot&quot;</span>,{"\n"}
                     {"    "}
@@ -108,16 +166,16 @@ export default function Hero() {
                     {"\n"}
                     {"  "}]{",\n"}
                     {"  "}
-                    <span className="text-cyan-400">currentlyLearning</span>:{" "}
-                    <span className="text-green-400">&quot;AWS & Cibersegurança&quot;</span>,{"\n"}
+                    <span className="text-brand-cyan">currentlyLearning</span>:{" "}
+                    <span className="text-green-400">&quot;{h.terminal.learning}&quot;</span>,{"\n"}
                     {"  "}
-                    <span className="text-cyan-400">openTo</span>: [{"\n"}
+                    <span className="text-brand-cyan">openTo</span>: [{"\n"}
                     {"    "}
-                    <span className="text-green-400">&quot;Vagas Backend&quot;</span>,{"\n"}
+                    <span className="text-green-400">&quot;{h.terminal.openTo[0]}&quot;</span>,{"\n"}
                     {"    "}
-                    <span className="text-green-400">&quot;Trabalho Remoto&quot;</span>,{"\n"}
+                    <span className="text-green-400">&quot;{h.terminal.openTo[1]}&quot;</span>,{"\n"}
                     {"    "}
-                    <span className="text-green-400">&quot;Projetos Freelance&quot;</span>
+                    <span className="text-green-400">&quot;{h.terminal.openTo[2]}&quot;</span>
                     {"\n"}
                     {"  "}]{",\n"}
                     {"};"}
@@ -132,7 +190,7 @@ export default function Hero() {
                 {["Java", "Spring Boot", "Django", "MySQL"].map((tech) => (
                   <span
                     key={tech}
-                    className="px-2.5 py-1 text-xs rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300"
+                    className="px-2.5 py-1 text-xs rounded-full bg-brand/10 border border-brand/30 text-brand-cyan-light"
                   >
                     {tech}
                   </span>
@@ -142,19 +200,20 @@ export default function Hero() {
                 {["Docker", "AWS Fundamentals", "Linux"].map((tech) => (
                   <span
                     key={tech}
-                    className="px-2.5 py-1 text-xs rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300"
+                    className="px-2.5 py-1 text-xs rounded-full bg-brand-light/10 border border-brand-light/30 text-brand-light"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 text-xs rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">
-                  Desenvolvimento seguro por natureza
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan-light">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  {h.secureBadge}
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

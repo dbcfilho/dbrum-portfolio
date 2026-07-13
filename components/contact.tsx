@@ -8,8 +8,11 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Linkedin, MapPin, Send } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { useI18n } from "@/components/i18n/language-provider"
 
 export default function Contact() {
+  const { t } = useI18n()
+  const k = t.contact
   const { toast } = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
@@ -42,8 +45,8 @@ export default function Contact() {
 
       if (response.ok) {
         toast({
-          title: "Mensagem enviada com sucesso!",
-          description: "Entrarei em contato o mais breve possível.",
+          title: k.form.successTitle,
+          description: k.form.successDesc,
         })
         setFormData({
           name: "",
@@ -57,8 +60,8 @@ export default function Contact() {
       }
     } catch {
       toast({
-        title: "Falha ao enviar mensagem",
-        description: "Tente novamente ou entre em contato diretamente pelo e-mail.",
+        title: k.form.errorTitle,
+        description: k.form.errorDesc,
         variant: "destructive",
       })
     } finally {
@@ -71,41 +74,32 @@ export default function Contact() {
       <div className="accent-line absolute top-0 left-0 right-0" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 animate-in fade-in slide-in-from-bottom duration-700">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Contato
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-brand-light to-brand-cyan bg-clip-text text-transparent">
+            {k.heading}
           </h2>
-          <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto px-4">
-            Vamos construir algo incrível juntos
-          </p>
+          <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto px-4">{k.subtitle}</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
           {/* Lado Esquerdo - Informações */}
           <div className="space-y-6 sm:space-y-8 animate-in fade-in slide-in-from-left duration-700">
             <div className="glass-card rounded-lg p-6 sm:p-8">
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Vamos Trabalhar Juntos</h3>
-              <p className="text-gray-300 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
-                Estou buscando ativamente vagas de desenvolvedor backend em nível júnior a pleno, projetos freelance e
-                oportunidades remotas. Se você está construindo sistemas seguros e escaláveis e precisa de alguém que
-                alia profundidade técnica a uma mentalidade voltada à segurança, adoraria ouvir sobre isso.
-              </p>
-              <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                Seja uma vaga CLT, contrato ou colaboração em um projeto interessante, estou aberto a discutir como
-                posso contribuir com o seu time.
-              </p>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">{k.cardTitle}</h3>
+              <p className="text-gray-300 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">{k.cardP1}</p>
+              <p className="text-gray-300 leading-relaxed text-sm sm:text-base">{k.cardP2}</p>
             </div>
 
             {/* Formas de Contato */}
             <div className="space-y-3 sm:space-y-4">
               <a
                 href="mailto:dbcfilho01@gmail.com"
-                className="glass-card rounded-lg p-5 sm:p-6 flex items-center gap-3 sm:gap-4 hover:border-purple-500/50 transition-all group"
+                className="glass-card rounded-lg p-5 sm:p-6 flex items-center gap-3 sm:gap-4 hover:border-brand/50 transition-all group"
               >
-                <div className="p-2.5 sm:p-3 rounded-lg bg-purple-500/10 border border-purple-500/30 group-hover:bg-purple-500/20 transition-colors shrink-0">
-                  <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
+                <div className="p-2.5 sm:p-3 rounded-lg bg-brand/10 border border-brand/30 group-hover:bg-brand/20 transition-colors shrink-0">
+                  <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-brand-cyan" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs sm:text-sm text-gray-400">E-mail</p>
+                  <p className="text-xs sm:text-sm text-gray-400">{k.emailLabel}</p>
                   <p className="text-white font-medium text-sm sm:text-base truncate">dbcfilho01@gmail.com</p>
                 </div>
               </a>
@@ -114,10 +108,10 @@ export default function Contact() {
                 href="https://www.linkedin.com/in/dbcfilho/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-card rounded-lg p-5 sm:p-6 flex items-center gap-3 sm:gap-4 hover:border-blue-500/50 transition-all group"
+                className="glass-card rounded-lg p-5 sm:p-6 flex items-center gap-3 sm:gap-4 hover:border-brand-light/50 transition-all group"
               >
-                <div className="p-2.5 sm:p-3 rounded-lg bg-blue-500/10 border border-blue-500/30 group-hover:bg-blue-500/20 transition-colors shrink-0">
-                  <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
+                <div className="p-2.5 sm:p-3 rounded-lg bg-brand-light/10 border border-brand-light/30 group-hover:bg-brand-light/20 transition-colors shrink-0">
+                  <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 text-brand-light" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs sm:text-sm text-gray-400">LinkedIn</p>
@@ -126,13 +120,13 @@ export default function Contact() {
               </a>
 
               <div className="glass-card rounded-lg p-5 sm:p-6 flex items-center gap-3 sm:gap-4">
-                <div className="p-2.5 sm:p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/30 shrink-0">
-                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />
+                <div className="p-2.5 sm:p-3 rounded-lg bg-brand-cyan/10 border border-brand-cyan/30 shrink-0">
+                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-brand-cyan-light" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs sm:text-sm text-gray-400">Localização</p>
-                  <p className="text-white font-medium text-sm sm:text-base">Rio de Janeiro, Brasil</p>
-                  <p className="text-xs text-gray-500 mt-1">Aberto a trabalho remoto</p>
+                  <p className="text-xs sm:text-sm text-gray-400">{k.locationLabel}</p>
+                  <p className="text-white font-medium text-sm sm:text-base">{k.locationValue}</p>
+                  <p className="text-xs text-gray-500 mt-1">{k.remoteNote}</p>
                 </div>
               </div>
             </div>
@@ -143,7 +137,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="glass-card rounded-lg p-6 sm:p-8 space-y-5 sm:space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                  Nome <span className="text-red-400">*</span>
+                  {k.form.name} <span className="text-red-400">*</span>
                 </label>
                 <Input
                   id="name"
@@ -152,14 +146,14 @@ export default function Contact() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="bg-gray-900/50 border-purple-500/30 focus:border-purple-400"
-                  placeholder="Seu nome"
+                  className="bg-gray-900/50 border-brand/30 focus:border-brand-cyan"
+                  placeholder={k.form.namePlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                  E-mail <span className="text-red-400">*</span>
+                  {k.form.email} <span className="text-red-400">*</span>
                 </label>
                 <Input
                   id="email"
@@ -168,14 +162,14 @@ export default function Contact() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="bg-gray-900/50 border-purple-500/30 focus:border-purple-400"
-                  placeholder="seu.email@exemplo.com"
+                  className="bg-gray-900/50 border-brand/30 focus:border-brand-cyan"
+                  placeholder={k.form.emailPlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
-                  Empresa (Opcional)
+                  {k.form.company}
                 </label>
                 <Input
                   id="company"
@@ -183,14 +177,14 @@ export default function Contact() {
                   type="text"
                   value={formData.company}
                   onChange={handleChange}
-                  className="bg-gray-900/50 border-purple-500/30 focus:border-purple-400"
-                  placeholder="Sua empresa"
+                  className="bg-gray-900/50 border-brand/30 focus:border-brand-cyan"
+                  placeholder={k.form.companyPlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                  Assunto <span className="text-red-400">*</span>
+                  {k.form.subject} <span className="text-red-400">*</span>
                 </label>
                 <Input
                   id="subject"
@@ -199,14 +193,14 @@ export default function Contact() {
                   required
                   value={formData.subject}
                   onChange={handleChange}
-                  className="bg-gray-900/50 border-purple-500/30 focus:border-purple-400"
-                  placeholder="Sobre o que é?"
+                  className="bg-gray-900/50 border-brand/30 focus:border-brand-cyan"
+                  placeholder={k.form.subjectPlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                  Mensagem <span className="text-red-400">*</span>
+                  {k.form.message} <span className="text-red-400">*</span>
                 </label>
                 <Textarea
                   id="message"
@@ -215,22 +209,22 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   rows={6}
-                  className="bg-gray-900/50 border-purple-500/30 focus:border-purple-400 resize-none"
-                  placeholder="Fale sobre seu projeto ou oportunidade..."
+                  className="bg-gray-900/50 border-brand/30 focus:border-brand-cyan resize-none"
+                  placeholder={k.form.messagePlaceholder}
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 glow-purple"
+                className="w-full bg-gradient-to-r from-brand to-brand-cyan hover:from-brand/90 hover:to-brand-cyan/90 glow-brand"
               >
                 {isSubmitting ? (
-                  "Enviando..."
+                  k.form.submitting
                 ) : (
                   <>
                     <Send className="w-4 h-4 mr-2" />
-                    Enviar Mensagem
+                    {k.form.submit}
                   </>
                 )}
               </Button>

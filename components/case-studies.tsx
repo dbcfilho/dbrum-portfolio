@@ -4,16 +4,12 @@ import { useState } from "react"
 import { Github, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Diagram } from "@/components/diagram"
+import { useI18n } from "@/components/i18n/language-provider"
 
+// Dados neutros: id, stack, repositório e diagramas (código Mermaid).
 const caseStudies = [
   {
-    title: "Plataforma Inteligente de Diagnóstico de Lacunas de Aprendizagem",
-    role: "Desenvolvedor Full Stack & Arquiteto de BI",
-    projectType: "Sistema Web de Business Intelligence (Projeto de Conclusão de Curso)",
-    problem:
-      "Escolas públicas no Brasil frequentemente enfrentam dados fragmentados, ausência de dashboards e visibilidade limitada sobre as lacunas de aprendizagem dos alunos. Profissionais da educação geralmente dependem de planilhas ou processos manuais, o que dificulta identificar alunos em risco, tendências em disciplinas ou séries específicas, turmas com déficits estruturais de desempenho e padrões geográficos de dificuldades educacionais. Era necessária uma solução de BI centralizada para apoiar decisões baseadas em dados.",
-    solution:
-      "Projetei e implementei uma plataforma completa de BI com API Django REST para acesso estruturado e seguro aos dados, frontend Vue.js + Vite para interface responsiva e rápida, dashboards interativos com Plotly.js, visualizações geoespaciais com Leaflet, autenticação JWT para acesso protegido e um gerador de dados sintéticos para desenvolvimento e demos. O sistema permite que professores, coordenadores e administradores visualizem tendências, comparem desempenhos entre turmas ou escolas e detectem lacunas de aprendizagem precocemente.",
+    id: "bi",
     stack: [
       "Django 4",
       "Django REST Framework",
@@ -26,18 +22,6 @@ const caseStudies = [
       "SQLite",
       "Python",
       "Tailwind CSS",
-    ],
-    features: [
-      "Autenticação baseada em JWT com mecanismo de refresh de token",
-      "Operações CRUD completas para Escolas, Turmas, Alunos e Professores",
-      "Dashboards interativos com Plotly.js para análise de desempenho",
-      "Análise geoespacial com Leaflet e tiles reais de mapa",
-      "API REST construída com Django + DRF para acesso estruturado aos dados",
-      "Insights de desempenho via visualizações Plotly.js",
-      "Gerador de dataset sintético para cenários de teste",
-      "Frontend responsivo e rápido com Vue 3 + Vite",
-      "Alertas antecipados para alunos em risco",
-      "Análise de padrões demográficos e geográficos",
     ],
     github: "https://github.com/dbcfilho/plataforma-diagnostico",
     diagrams: {
@@ -109,21 +93,8 @@ const caseStudies = [
     },
   },
   {
-    title: "Culture House — Plataforma de Gestão Social",
-    role: "Desenvolvedor Full Stack",
-    projectType: "Sistema de Gestão para ONG Social",
-    problem:
-      "ONGs que gerenciam programas de assistência social precisam acompanhar os indivíduos atendidos, automatizar comunicações e gerar relatórios completos, mas carecem de soluções técnicas acessíveis e escaláveis.",
-    solution:
-      "Desenvolvi uma plataforma web full-stack usando Python/Django com MySQL para persistência de dados, Docker para conteinerização e integração com a API do WhatsApp para envio automático de mensagens de aniversário. Implementei controle de acesso por papéis, geração de relatórios em CSV/PDF e uma interface responsiva com Bootstrap 5.",
+    id: "culturehouse",
     stack: ["Python", "Django", "MySQL", "Docker", "Bootstrap 5", "WhatsApp API"],
-    features: [
-      "Acompanhamento individual e gestão de casos com perfis completos",
-      "Envio automatizado de mensagens no WhatsApp para aniversários e eventos especiais",
-      "Geração de relatórios estatísticos nos formatos CSV e PDF",
-      "Controle de acesso por papéis para administradores e funcionários",
-      "Deploy com Docker Compose para configuração fácil e escalabilidade",
-    ],
     github: "https://github.com/dbcfilho/casa-da-cultura-v3",
     diagrams: {
       architecture: `graph TB
@@ -135,8 +106,8 @@ const caseStudies = [
     C --> G[Exportador CSV]
     D -->|Dados| C
     E -->|Notificações| H[Usuários Finais]
-    style C fill:#8b5cf6,stroke:#a78bfa,color:#fff
-    style D fill:#3b82f6,stroke:#60a5fa,color:#fff`,
+    style C fill:#2563eb,stroke:#60a5fa,color:#fff
+    style D fill:#06b6d4,stroke:#22d3ee,color:#fff`,
       erd: `erDiagram
     PERSON ||--o{ ATTENDANCE : has
     PERSON {
@@ -163,9 +134,11 @@ const caseStudies = [
     }`,
     },
   },
-]
+] as const
 
 export default function CaseStudies() {
+  const { t } = useI18n()
+  const c = t.caseStudies
   const [openDiagrams, setOpenDiagrams] = useState<boolean[]>(caseStudies.map(() => false))
 
   const toggleDiagrams = (index: number) => {
@@ -175,33 +148,31 @@ export default function CaseStudies() {
   return (
     <div className="mt-8 sm:mt-12">
       <div className="text-center mb-6 sm:mb-8">
-        <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">
-          Estudos de Caso
-        </h3>
-        <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">
-          Análises aprofundadas de projetos reais e soluções técnicas
-        </p>
+        <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{c.heading}</h3>
+        <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{c.subtitle}</p>
       </div>
 
       <div className="space-y-6 sm:space-y-8">
-        {caseStudies.map((study, index) => (
+        {caseStudies.map((study, index) => {
+          const s = c.items[study.id]
+          return (
           <div
-            key={study.title}
+            key={study.id}
             className="glass-card rounded-lg p-5 sm:p-6 animate-in fade-in slide-in-from-bottom"
             style={{ animationDelay: `${index * 100}ms` }}
           >
             {/* Cabeçalho */}
             <div className="mb-4">
-              <h4 className="text-xl sm:text-2xl font-bold text-white mb-3">{study.title}</h4>
-              {study.role && <p className="text-gray-300 text-sm sm:text-base mb-2">Função: {study.role}</p>}
-              {study.projectType && (
-                <p className="text-gray-300 text-sm sm:text-base mb-3">Tipo de Projeto: {study.projectType}</p>
+              <h4 className="text-xl sm:text-2xl font-bold text-white mb-3">{s.title}</h4>
+              {s.role && <p className="text-gray-300 text-sm sm:text-base mb-2">{c.roleLabel}: {s.role}</p>}
+              {s.projectType && (
+                <p className="text-gray-300 text-sm sm:text-base mb-3">{c.projectTypeLabel}: {s.projectType}</p>
               )}
               <div className="flex flex-wrap gap-2 mb-3">
                 {study.stack.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1 text-sm rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300"
+                    className="px-3 py-1 text-sm rounded-full bg-brand-light/10 border border-brand-light/30 text-brand-light"
                   >
                     {tech}
                   </span>
@@ -211,11 +182,11 @@ export default function CaseStudies() {
                 asChild
                 variant="outline"
                 size="sm"
-                className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent"
+                className="border-brand/50 hover:border-brand-cyan hover:bg-brand/10 bg-transparent"
               >
                 <a href={study.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <Github className="w-4 h-4" />
-                  Ver Repositório
+                  {c.viewRepo}
                 </a>
               </Button>
             </div>
@@ -223,22 +194,22 @@ export default function CaseStudies() {
             {/* Problema & Solução */}
             <div className="grid md:grid-cols-2 gap-4 mb-4">
               <div>
-                <h5 className="text-base font-bold text-purple-400 mb-2">Problema</h5>
-                <p className="text-gray-300 leading-normal text-sm sm:text-base">{study.problem}</p>
+                <h5 className="text-base font-bold text-brand-cyan mb-2">{c.problemLabel}</h5>
+                <p className="text-gray-300 leading-normal text-sm sm:text-base">{s.problem}</p>
               </div>
               <div>
-                <h5 className="text-base font-bold text-blue-400 mb-2">Solução</h5>
-                <p className="text-gray-300 leading-normal text-sm sm:text-base">{study.solution}</p>
+                <h5 className="text-base font-bold text-brand-light mb-2">{c.solutionLabel}</h5>
+                <p className="text-gray-300 leading-normal text-sm sm:text-base">{s.solution}</p>
               </div>
             </div>
 
             {/* Principais Funcionalidades */}
             <div className="mb-4">
-              <h5 className="text-base font-bold text-white mb-2">Principais Funcionalidades</h5>
+              <h5 className="text-base font-bold text-white mb-2">{c.featuresLabel}</h5>
               <ul className="space-y-1.5">
-                {study.features.map((feature, i) => (
+                {s.features.map((feature, i) => (
                   <li key={i} className="text-gray-300 text-sm flex items-start">
-                    <span className="text-purple-400 mr-2">•</span>
+                    <span className="text-brand-cyan mr-2">•</span>
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -250,30 +221,39 @@ export default function CaseStudies() {
               <div>
                 <button
                   onClick={() => toggleDiagrams(index)}
-                  className="flex items-center gap-2 text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors mt-2 mb-1 group"
+                  className="flex items-center gap-2 text-sm font-medium text-brand-cyan hover:text-brand-cyan transition-colors mt-2 mb-1 group"
                 >
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-300 ${openDiagrams[index] ? "rotate-180" : ""}`}
                   />
-                  {openDiagrams[index] ? "Ocultar diagramas" : "Ver diagramas"}
+                  {openDiagrams[index] ? c.hideDiagrams : c.showDiagrams}
                 </button>
 
                 {openDiagrams[index] && (
                   <div className="space-y-4 mt-4 animate-in fade-in slide-in-from-top duration-300">
                     <div>
-                      <h5 className="text-base font-bold text-white mb-3">Arquitetura do Sistema</h5>
-                      <Diagram code={study.diagrams.architecture} />
+                      <h5 className="text-base font-bold text-white mb-3">{c.architectureLabel}</h5>
+                      <Diagram
+                        code={study.diagrams.architecture}
+                        loadingLabel={c.loadingDiagram}
+                        errorLabel={c.diagramError}
+                      />
                     </div>
                     <div>
-                      <h5 className="text-base font-bold text-white mb-3">Esquema do Banco de Dados (ERD)</h5>
-                      <Diagram code={study.diagrams.erd} />
+                      <h5 className="text-base font-bold text-white mb-3">{c.erdLabel}</h5>
+                      <Diagram
+                        code={study.diagrams.erd}
+                        loadingLabel={c.loadingDiagram}
+                        errorLabel={c.diagramError}
+                      />
                     </div>
                   </div>
                 )}
               </div>
             )}
           </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

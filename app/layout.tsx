@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Space_Grotesk, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "@/components/ui/toaster"
+import { LanguageProvider } from "@/components/i18n/language-provider"
 import "./globals.css"
 
 const spaceGrotesk = Space_Grotesk({
@@ -18,6 +19,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://dbrum.com.br"),
   title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
   description:
     "Desenvolvedor backend focado na construção de APIs robustas e sistemas web usando Java/Spring Boot e Python/Django. Grande interesse em cibersegurança e design de aplicações seguras.",
@@ -33,6 +35,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Douglas Brum" }],
   creator: "Douglas Brum",
+  alternates: {
+    canonical: "https://dbrum.com.br",
+  },
   openGraph: {
     type: "website",
     locale: "pt_BR",
@@ -41,20 +46,28 @@ export const metadata: Metadata = {
     description:
       "Desenvolvedor backend focado na construção de APIs robustas e sistemas web, com grande interesse em cibersegurança.",
     siteName: "Douglas Brum Portfólio",
+    images: [
+      {
+        url: "/images/dbrum-logo.png",
+        width: 945,
+        height: 300,
+        alt: "Douglas Brum — Desenvolvedor Backend & Cibersegurança",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
     description:
       "Desenvolvedor backend focado na construção de APIs robustas e sistemas web, com grande interesse em cibersegurança.",
+    images: ["/images/dbrum-logo.png"],
   },
   icons: {
     icon: [
-      {
-        url: "/images/ico.png",
-        type: "image/png",
-      },
+      { url: "/images/dbrum-icon.svg", type: "image/svg+xml" },
+      { url: "/images/dbrum-icon.png", type: "image/png" },
     ],
+    apple: [{ url: "/images/dbrum-icon.png" }],
   },
 }
 
@@ -88,8 +101,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${spaceGrotesk.variable} ${inter.variable} font-body antialiased`}>
-        {children}
-        <Toaster />
+        <LanguageProvider>
+          {children}
+          <Toaster />
+        </LanguageProvider>
         <Analytics />
       </body>
     </html>

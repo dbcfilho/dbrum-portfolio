@@ -1,78 +1,100 @@
-import { ExternalLink, Github, Globe } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import CaseStudies from "@/components/case-studies"
+"use client"
 
+import { ExternalLink, Github, Globe, Star } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { motion, useReducedMotion } from "framer-motion"
+import CaseStudies from "@/components/case-studies"
+import { useI18n } from "@/components/i18n/language-provider"
+
+// Dados neutros (stack, URLs, destaque). Textos vêm do dicionário via id.
 const projects = [
   {
-    title: "Corefarma — ERP para Farmácias",
-    tagline: "Sistema Completo de Gestão Farmacêutica",
-    description:
-      "ERP completo desenvolvido para o segmento farmacêutico, cobrindo toda a operação da farmácia: PDV com emissão de cupons fiscais, gestão de estoque, geração de notas fiscais, controle de entregas, cadastro de clientes e funcionários e integração com SNGPC para notificação de medicamentos controlados. Arquitetura backend robusta com NestJS, autenticação segura, logging estruturado com Winston e documentação completa via Swagger. Além do desenvolvimento, defini todo o fluxo e arquitetura do sistema.",
+    id: "corefarma",
+    featured: true,
     stack: ["TypeScript", "NestJS", "Node.js", "React", "PostgreSQL", "Prisma", "Supabase", "Nginx", "Swagger", "Winston"],
     liveUrl: "https://corefarma.com",
     appUrl: "https://app.corefarma.com",
   },
   {
-    title: "Culture House – Plataforma de Gestão Social",
-    tagline: "Sistema de Gestão para Projetos Sociais",
-    description:
-      "Plataforma web criada para ajudar ONGs a gerenciar registros de assistência social com eficiência. Rastreia indivíduos e suas interações, automatiza mensagens no WhatsApp para aniversários e datas especiais, e gera relatórios estatísticos completos em CSV e PDF. O projeto demonstra desenvolvimento full-stack, modelagem de banco de dados, controle de acesso por papéis e conteinerização.",
+    id: "culturehouse",
+    featured: false,
     stack: ["Python", "Django 4+", "MySQL 8+", "Bootstrap 5", "Docker", "Docker Compose"],
     github: "https://github.com/dbcfilho/casa-da-cultura-v3",
   },
   {
-    title: "CRUD de Gerenciamento de Produtos",
-    tagline: "Aplicação Java & Spring Boot",
-    description:
-      "Aplicação CRUD robusta para gerenciamento de produtos com interface web limpa e intuitiva. Demonstra arquitetura backend com Spring Boot, persistência com bancos de dados relacionais e renderização server-side com Thymeleaf. Construída com padrões enterprise e boas práticas de manutenibilidade.",
+    id: "crudjava",
+    featured: false,
     stack: ["Java", "Spring Boot", "Thymeleaf", "SQL", "REST APIs"],
     github: "https://github.com/dbcfilho/CRUD-Java",
   },
   {
-    title: "Plataforma de Cadastro de Usuários",
-    tagline: "Full-Stack Node, React & MySQL",
-    description:
-      "Aplicação web completa para cadastro de usuários com operações CRUD completas. Utiliza arquitetura moderna de três camadas com API backend em Node.js, frontend React para interface dinâmica e banco de dados MySQL para persistência. Demonstra a capacidade de integrar múltiplas tecnologias em um sistema coeso e funcional.",
+    id: "userreg",
+    featured: false,
     stack: ["Node.js", "Express.js", "React", "MySQL", "REST APIs"],
     github: "https://github.com/dbcfilho/User-registration",
   },
-]
+] as const
 
 export default function Projects() {
+  const { t } = useI18n()
+  const p = t.projects
+  const reduce = useReducedMotion()
+
+  const card = {
+    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
+  }
+
   return (
     <section id="portfolio" className="py-12 sm:py-16 relative">
       <div className="accent-line absolute top-0 left-0 right-0" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-12 animate-in fade-in slide-in-from-bottom duration-700">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
-            Portfólio
-          </h2>
-          <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">
-            Aplicações reais que resolvem problemas práticos com código limpo e de fácil manutenção
-          </p>
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3 text-gradient-brand tracking-wide">{p.heading}</h2>
+          <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{p.subtitle}</p>
         </div>
 
         <div className="mb-10 sm:mb-12">
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-5 sm:mb-6 tracking-wide">Projetos em Destaque</h3>
-          <div className="space-y-5 sm:space-y-6">
-            {projects.map((project, index) => (
-              <div
-                key={project.title}
-                className="glass-card rounded-lg p-5 sm:p-6 hover:border-purple-500/50 transition-all duration-300 animate-in fade-in slide-in-from-bottom"
-                style={{ animationDelay: `${index * 100}ms` }}
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-5 sm:mb-6 tracking-wide">{p.featuredTitle}</h3>
+          <motion.div
+            className="space-y-5 sm:space-y-6"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+          >
+            {projects.map((project) => {
+              const info = p.items[project.id]
+              return (
+              <motion.div
+                key={project.id}
+                variants={card}
+                whileHover={reduce ? undefined : { y: -4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                className={`relative glass-card rounded-xl p-5 sm:p-6 transition-colors duration-300 ${
+                  project.featured
+                    ? "border-brand-cyan/50 ring-1 ring-brand-cyan/30 shadow-lg shadow-brand/10"
+                    : "hover:border-brand/50"
+                }`}
               >
+                {project.featured && (
+                  <span className="absolute -top-3 left-5 inline-flex items-center gap-1.5 rounded-full bg-gradient-brand px-3 py-1 text-xs font-semibold text-white shadow-md">
+                    <Star className="w-3.5 h-3.5 fill-current" />
+                    {p.featuredBadge}
+                  </span>
+                )}
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-5">
                   <div className="flex-1 min-w-0">
-                    <div className="mb-3">
-                      <h4 className="text-lg sm:text-xl font-bold text-white mb-1.5">{project.title}</h4>
-                      <p className="text-purple-400 font-medium text-sm">{project.tagline}</p>
+                    <div className="mb-3 mt-1">
+                      <h4 className="text-lg sm:text-xl font-bold text-white mb-1.5">{info.title}</h4>
+                      <p className="text-brand-cyan font-medium text-sm">{info.tagline}</p>
                     </div>
-                    <p className="text-gray-300 leading-normal mb-4 text-sm sm:text-base">{project.description}</p>
+                    <p className="text-gray-300 leading-normal mb-4 text-sm sm:text-base">{info.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.stack.map((tech) => (
                         <span
                           key={tech}
-                          className="px-2.5 py-1 text-xs rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300"
+                          className="px-2.5 py-1 text-xs rounded-full bg-brand-light/10 border border-brand-light/30 text-brand-light"
                         >
                           {tech}
                         </span>
@@ -84,7 +106,7 @@ export default function Projects() {
                       <Button
                         asChild
                         size="sm"
-                        className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-full lg:w-auto"
+                        className="bg-gradient-brand text-white hover:opacity-90 w-full lg:w-auto"
                       >
                         <a
                           href={project.liveUrl}
@@ -93,7 +115,7 @@ export default function Projects() {
                           className="flex items-center justify-center gap-2"
                         >
                           <Globe className="w-4 h-4" />
-                          Ver site
+                          {p.viewSite}
                         </a>
                       </Button>
                     )}
@@ -102,7 +124,7 @@ export default function Projects() {
                         asChild
                         variant="outline"
                         size="sm"
-                        className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent w-full lg:w-auto"
+                        className="border-brand/50 text-white hover:border-brand-cyan hover:bg-brand/10 bg-transparent w-full lg:w-auto"
                       >
                         <a
                           href={project.appUrl}
@@ -111,7 +133,7 @@ export default function Projects() {
                           className="flex items-center justify-center gap-2"
                         >
                           <ExternalLink className="w-4 h-4" />
-                          Acessar sistema
+                          {p.accessSystem}
                         </a>
                       </Button>
                     )}
@@ -120,7 +142,7 @@ export default function Projects() {
                         asChild
                         variant="outline"
                         size="sm"
-                        className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent w-full lg:w-auto"
+                        className="border-brand/50 text-white hover:border-brand-cyan hover:bg-brand/10 bg-transparent w-full lg:w-auto"
                       >
                         <a
                           href={project.github}
@@ -129,15 +151,16 @@ export default function Projects() {
                           className="flex items-center justify-center gap-2"
                         >
                           <Github className="w-4 h-4" />
-                          Ver no GitHub
+                          {p.viewGithub}
                         </a>
                       </Button>
                     )}
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              </motion.div>
+              )
+            })}
+          </motion.div>
         </div>
 
         <CaseStudies />
@@ -147,10 +170,10 @@ export default function Projects() {
             href="https://github.com/dbcfilho"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors text-sm"
+            className="inline-flex items-center gap-2 text-brand-cyan hover:text-brand-cyan-light transition-colors text-sm"
           >
             <ExternalLink className="w-4 h-4" />
-            Mais projetos no GitHub
+            {p.moreProjects}
           </a>
         </div>
       </div>

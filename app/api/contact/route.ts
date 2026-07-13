@@ -84,10 +84,10 @@ export async function POST(request: Request) {
             <style>
               body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; }
               .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-              .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; }
+              .header { background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; }
               .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
               .field { margin-bottom: 20px; }
-              .label { font-weight: bold; color: #667eea; margin-bottom: 5px; }
+              .label { font-weight: bold; color: #2563eb; margin-bottom: 5px; }
               .value { color: #374151; }
               .footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 14px; }
             </style>
