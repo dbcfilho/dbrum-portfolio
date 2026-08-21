@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowUpRight, Clock, ExternalLink, Github, Globe, Star } from "lucide-react"
+import { ArrowUpRight, Clock, ExternalLink, Globe, Star } from "lucide-react"
 import CaseStudies from "@/components/case-studies"
 import { useI18n } from "@/components/i18n/language-provider"
 
@@ -23,9 +23,10 @@ const coreonProjects = [
 
 const standaloneProjects = [
   {
-    id: "culturehouse",
-    stack: ["Python", "Django 4+", "MySQL 8+", "Bootstrap 5", "Docker", "Docker Compose"],
-    github: "https://github.com/dbcfilho/casa-da-cultura-v3",
+    id: "simmias",
+    featured: true,
+    stack: ["Django 5", "Django REST Framework", "React 18", "Vite", "PostgreSQL", "Baileys", "Docker Compose"],
+    liveUrl: "https://simmias.vercel.app",
   },
 ] as const
 
@@ -81,11 +82,6 @@ export default function Projects() {
             {"appUrl" in project && project.appUrl && (
               <a href={project.appUrl} target="_blank" rel="noopener noreferrer" className="button button-ghost">
                 <ExternalLink size={15} /> {p.accessSystem}
-              </a>
-            )}
-            {"github" in project && project.github && (
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="button button-ghost">
-                <Github size={15} /> {p.viewGithub}
               </a>
             )}
           </div>

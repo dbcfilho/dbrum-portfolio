@@ -13,7 +13,10 @@ const certifications = [
   { title: "NDG Linux Unhatched Certificate", issuer: "Cisco", year: "2023" },
 ] as const
 
-const education = { institution: "UNIASSELVI", period: "Ago 2022 – Jul 2025" }
+const education = [
+  { id: "anhanguera", institution: "Anhanguera", period: "Mar 2026 – Ago 2026" },
+  { id: "uniasselvi", institution: "UNIASSELVI", period: "Ago 2022 – Jul 2025" },
+] as const
 
 const coreStack = ["Java", "Spring Boot", "Python", "Django", "PostgreSQL", "Docker", "Linux", "AWS"]
 
@@ -45,11 +48,18 @@ export default function Credentials() {
       <div>
         <span className="mini-label">{a.educationHeading}</span>
         <h3>
-          {education.institution}
+          {education[0].institution}
           <br />
-          <em>{education.period}</em>
+          <em>{education[0].period}</em>
         </h3>
-        <p>{a.education.uniasselvi.degree}</p>
+        <ul className="cred-list">
+          {education.map((edu) => (
+            <li key={edu.id}>
+              <span>{a.education[edu.id].degree}</span>
+              <span>{edu.institution}</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="stack-box">

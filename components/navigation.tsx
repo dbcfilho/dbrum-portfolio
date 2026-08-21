@@ -43,7 +43,7 @@ export default function Navigation() {
   return (
     <header className="site-header">
       <Link href="#home" className="brand" aria-label="Douglas Brum — Início">
-        <span className="brand-mark">/</span> douglas<span className="brand-dot">.</span>dev
+        <span className="brand-mark">/</span> douglas<span className="brand-dot">.</span>brum
       </Link>
 
       <button className="menu-trigger" onClick={() => setIsOpen((v) => !v)} aria-label={isOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={isOpen}>

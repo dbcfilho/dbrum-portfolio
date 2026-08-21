@@ -35,6 +35,16 @@ export default function Content() {
   const [recsLoading, setRecsLoading] = useState(true)
   const [articlesError, setArticlesError] = useState(false)
   const [recsError, setRecsError] = useState(false)
+  const [expandedRecs, setExpandedRecs] = useState<Set<string>>(new Set())
+
+  const toggleRec = (id: string) => {
+    setExpandedRecs((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
 
   useEffect(() => {
     fetch("/api/medium-rss", { cache: "no-store" })
@@ -119,19 +129,28 @@ export default function Content() {
             </div>
           ) : (
             <div className="quote-grid">
-              {recommendations.map((rec) => (
-                <blockquote key={rec.id}>
-                  <span className="quote-mark">&ldquo;</span>
-                  <p>{rec.text}</p>
-                  <footer>
-                    <strong>{rec.author}</strong>
-                    <span>
-                      {rec.role}
-                      {rec.company ? ` · ${rec.company}` : ""}
-                    </span>
-                  </footer>
-                </blockquote>
-              ))}
+              {recommendations.map((rec) => {
+                const expanded = expandedRecs.has(rec.id)
+                const isLong = rec.text.length > 260
+                return (
+                  <blockquote key={rec.id}>
+                    <span className="quote-mark">&ldquo;</span>
+                    <p className={!expanded && isLong ? "clamped" : undefined}>{rec.text}</p>
+                    {isLong && (
+                      <button className="quote-more" onClick={() => toggleRec(rec.id)}>
+                        {expanded ? c.readLess : c.readMore}
+                      </button>
+                    )}
+                    <footer>
+                      <strong>{rec.author}</strong>
+                      <span>
+                        {rec.role}
+                        {rec.company ? ` · ${rec.company}` : ""}
+                      </span>
+                    </footer>
+                  </blockquote>
+                )
+              })}
             </div>
           )}
         </section>

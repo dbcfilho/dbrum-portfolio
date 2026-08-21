@@ -127,6 +127,10 @@ const pt = {
     educationHeading: "Educação",
     educationSubtitle: "Base acadêmica em desenvolvimento de software e tecnologias emergentes",
     education: {
+      anhanguera: {
+        degree: "Pós-graduação em Docência no Ensino Superior",
+        description: "Formação voltada à didática, metodologias de ensino e prática docente no ensino superior.",
+      },
       uniasselvi: {
         degree: "Tecnólogo em Análise e Desenvolvimento de Sistemas",
         description:
@@ -160,16 +164,16 @@ const pt = {
           "ERP completo desenvolvido para o segmento farmacêutico, cobrindo toda a operação da farmácia: PDV com emissão de cupons fiscais, gestão de estoque, geração de notas fiscais, controle de entregas, cadastro de clientes e funcionários e integração com SNGPC para notificação de medicamentos controlados. Arquitetura backend robusta com NestJS, autenticação segura, logging estruturado com Winston e documentação completa via Swagger. Além do desenvolvimento, defini todo o fluxo e arquitetura do sistema.",
       },
       corefood: {
-        title: "Core Food — Plataforma para Restaurantes",
+        title: "Corefood — Plataforma para Restaurantes",
         tagline: "Sistema de Pedidos White-label",
         description:
-          "Plataforma de pedidos própria para restaurantes, criada como alternativa aos marketplaces de delivery: o restaurante opera sob a própria marca e mantém a base de clientes, em vez de pagar comissão por pedido. Backend em Java com Spring Boot, integrado a um aplicativo mobile já existente por meio de um contrato de API definido junto ao time de frontend. Responsável pela arquitetura multi-tenant, autenticação, catálogo e fluxo de pedidos.",
+          "Plataforma de pedidos própria para restaurantes, criada como alternativa aos marketplaces de delivery: em vez de pagar comissão por pedido e ceder a relação com o cliente, o restaurante opera sob a própria marca, com cardápio, base de clientes e um app mobile com a cara dele — a tecnologia por trás é da Coreon. Backend em Java com Spring Boot e PostgreSQL, com isolamento multi-tenant via Row-Level Security, integrado a um aplicativo mobile já existente por meio de um contrato de API definido junto ao time de frontend. Autenticação própria com Argon2id e rotação de refresh token, pagamento via PIX com webhook validado por assinatura, motor de frete configurável e um padrão outbox dentro do próprio PostgreSQL para confiabilidade dos pedidos. Responsável pela arquitetura multi-tenant, autenticação, catálogo e todo o fluxo de pedidos.",
       },
-      culturehouse: {
-        title: "Culture House – Plataforma de Gestão Social",
-        tagline: "Sistema de Gestão para Projetos Sociais",
+      simmias: {
+        title: "Simmias Lite — Gestão Educacional",
+        tagline: "Sistema On-Premise para Casas de Cultura",
         description:
-          "Plataforma web criada para ajudar ONGs a gerenciar registros de assistência social com eficiência. Rastreia indivíduos e suas interações, automatiza mensagens no WhatsApp para aniversários e datas especiais, e gera relatórios estatísticos completos em CSV e PDF. O projeto demonstra desenvolvimento full-stack, modelagem de banco de dados, controle de acesso por papéis e conteinerização.",
+          "Sistema completo de gestão educacional para Casas de Cultura, rodando on-premise em rede local — sem depender de internet. Django + DRF no backend, React com Vite no frontend, PostgreSQL, e um microserviço próprio via Baileys para automatizar a comunicação por WhatsApp. Cobre matrícula, turmas, diário de classe, frequência, relatórios e uma linha de benefícios sociais (passaporte cultural, encaminhamentos, assessoria jurídica e atendimento médico). Em produção real na Casa da Cultura, hoje evoluindo para uma versão SaaS multi-tenant.",
       },
       crudjava: {
         title: "CRUD de Gerenciamento de Produtos",
@@ -202,7 +206,7 @@ const pt = {
     diagramError: "Não foi possível renderizar o diagrama.",
     items: {
       corefood: {
-        title: "Core Food — Plataforma para Restaurantes",
+        title: "Corefood — Plataforma para Restaurantes",
         role: "Desenvolvedor Backend",
         projectType: "Plataforma SaaS white-label para o setor de alimentação",
         problem:
@@ -241,20 +245,24 @@ const pt = {
           "Análise de padrões demográficos e geográficos",
         ],
       },
-      culturehouse: {
-        title: "Culture House — Plataforma de Gestão Social",
+      simmias: {
+        title: "Simmias Lite — Gestão Educacional On-Premise",
         role: "Desenvolvedor Full Stack",
-        projectType: "Sistema de Gestão para ONG Social",
+        projectType: "Sistema de gestão educacional, em produção real numa Casa da Cultura",
         problem:
-          "ONGs que gerenciam programas de assistência social precisam acompanhar os indivíduos atendidos, automatizar comunicações e gerar relatórios completos, mas carecem de soluções técnicas acessíveis e escaláveis.",
+          "A Casa da Cultura precisava de um sistema para gerenciar matrículas, turmas, frequência e diário de classe, mas a unidade não tem internet estável — uma solução em nuvem ficaria indisponível com frequência. Além da gestão pedagógica, a organização também presta benefícios sociais (passaporte cultural, encaminhamentos, assessoria jurídica, atendimento médico) que antes eram controlados em planilhas soltas, sem histórico centralizado nem comunicação automatizada com as famílias.",
         solution:
-          "Desenvolvi uma plataforma web full-stack usando Python/Django com MySQL para persistência de dados, Docker para conteinerização e integração com a API do WhatsApp para envio automático de mensagens de aniversário. Implementei controle de acesso por papéis, geração de relatórios em CSV/PDF e uma interface responsiva com Bootstrap 5.",
+          "Um sistema Django + DRF com frontend React/Vite, projetado para rodar on-premise: um computador da própria unidade atua como servidor, e as demais máquinas acessam pelo navegador na rede local, sem depender de internet. O deploy é via Docker Compose, com seis serviços orquestrados — PostgreSQL, backend Django via gunicorn, um worker cron que roda a cada 24h para verificar faltas e gerar aulas futuras, um microserviço de WhatsApp, o build do frontend e um Nginx como proxy reverso, único serviço com porta exposta.\n\nO domínio pedagógico ficou mais complexo do que parecia: uma turma não guarda horário nem professor diretamente — a recorrência semanal fica num registro à parte, a instância datada de cada aula noutro, e o vínculo com o professor é uma relação separada. Um aluno pode estar matriculado em várias turmas ao mesmo tempo, e a matrícula usa um código sequencial por ano gerado automaticamente. A visão de frequência foi desenhada como uma grade semanal — alunos nas linhas, dias nas colunas — com auto-save e uma célula que cicla entre não registrado, presente e falta, para o professor lançar a chamada da turma inteira em poucos cliques.\n\nA comunicação com as famílias é automatizada por WhatsApp através de um microserviço próprio com Baileys, sem depender do Chromium que soluções como whatsapp-web.js exigem — mais leve para rodar num servidor local modesto. O sistema dispara alertas de falta e mensagens de aniversário sozinho, todos os dias, sem intervenção manual. O controle de acesso é por papel: administração, secretaria, professor (só vê as próprias turmas), direção, e dois papéis específicos para os benefícios — advogado (assessoria jurídica) e médico (atendimento e anotações clínicas), cada um restrito à própria área.\n\nÉ o projeto que mais me orgulha: comecei como o voluntário de tecnologia da casa, entendi o problema de perto, e conduzi sozinho da modelagem de dados ao deploy em produção. Hoje está em uso real, atendendo pessoas de verdade — e virou a base para uma versão SaaS multi-tenant, com uma landing page já em desenvolvimento.",
         features: [
-          "Acompanhamento individual e gestão de casos com perfis completos",
-          "Envio automatizado de mensagens no WhatsApp para aniversários e eventos especiais",
-          "Geração de relatórios estatísticos nos formatos CSV e PDF",
-          "Controle de acesso por papéis para administradores e funcionários",
-          "Deploy com Docker Compose para configuração fácil e escalabilidade",
+          "Deploy on-premise via Docker Compose — roda em rede local, sem depender de internet",
+          "Matrícula multi-turma com código sequencial automático por ano",
+          "Grade semanal de frequência com auto-save e célula que cicla entre presente/falta",
+          "Diário de classe com avaliações e notas, ligado à turma pela chave (turma, data)",
+          "Comunicação automatizada por WhatsApp via microserviço próprio com Baileys",
+          "Alertas de falta e geração de aulas futuras rodando sozinhos todo dia via cron",
+          "Controle de acesso por papel, incluindo perfis dedicados para advogado e médico",
+          "Módulo de benefícios sociais: passaporte cultural, encaminhamentos, assessoria jurídica e atendimento médico",
+          "Ficha do aluno em PDF e relatórios de dashboard com ocupação e aniversariantes",
         ],
       },
     },
@@ -266,6 +274,8 @@ const pt = {
     readMedium: "Ler no Medium",
     recsHeading: "Recomendações do LinkedIn",
     viewLinkedin: "Ver no LinkedIn",
+    readMore: "Ver mais",
+    readLess: "Ver menos",
   },
   contact: {
     heading: "Contato",
@@ -300,11 +310,10 @@ const pt = {
     },
   },
   footer: {
-    tagline:
-      "Desenvolvedor backend com foco em cibersegurança. Construindo sistemas seguros, escaláveis e feitos para durar.",
+    tagline: "Backend seguro, do banco de dados à API.",
     navHeading: "Navegação",
     connectHeading: "Conecte-se",
-    rights: "Desenvolvedor Backend & Cibersegurança",
+    rights: "Desenvolvedor Backend",
   },
 }
 
@@ -433,6 +442,10 @@ const en: Dictionary = {
     educationHeading: "Education",
     educationSubtitle: "Academic foundation in software development and emerging technologies",
     education: {
+      anhanguera: {
+        degree: "Postgraduate Certificate in Higher Education Teaching",
+        description: "Focused on didactics, teaching methodologies and hands-on higher-education teaching practice.",
+      },
       uniasselvi: {
         degree: "Technologist in Systems Analysis and Development",
         description:
@@ -466,16 +479,16 @@ const en: Dictionary = {
           "A complete ERP built for the pharmaceutical sector, covering the entire pharmacy operation: POS with fiscal receipt issuance, inventory management, invoice generation, delivery control, customer and staff registration, and SNGPC integration for reporting controlled medications. Robust backend architecture with NestJS, secure authentication, structured logging with Winston and full documentation via Swagger. Beyond development, I defined the entire system flow and architecture.",
       },
       corefood: {
-        title: "Core Food — Restaurant Platform",
+        title: "Corefood — Restaurant Platform",
         tagline: "White-label Ordering System",
         description:
-          "A restaurant-owned ordering platform built as an alternative to delivery marketplaces: the restaurant operates under its own brand and keeps its customer base instead of paying per-order commissions. Java and Spring Boot backend, integrated with an existing mobile application through an API contract defined together with the frontend team. Responsible for multi-tenant architecture, authentication, catalog and order flow.",
+          "A restaurant-owned ordering platform built as an alternative to delivery marketplaces: instead of paying per-order commissions and giving up the customer relationship, the restaurant operates under its own brand, with its own menu, customer base and a mobile app that looks like theirs — the technology behind it belongs to Coreon. Java and Spring Boot backend with PostgreSQL, multi-tenant isolation enforced via Row-Level Security, integrated with an existing mobile application through an API contract defined together with the frontend team. Custom authentication with Argon2id and refresh token rotation, PIX payments with signature-verified webhooks, a configurable shipping engine and an outbox pattern inside PostgreSQL itself for order reliability. Responsible for multi-tenant architecture, authentication, catalog and the entire order flow.",
       },
-      culturehouse: {
-        title: "Culture House – Social Management Platform",
-        tagline: "Management System for Social Projects",
+      simmias: {
+        title: "Simmias Lite — Educational Management",
+        tagline: "On-Premise System for Cultural Centers",
         description:
-          "A web platform built to help NGOs manage social assistance records efficiently. It tracks individuals and their interactions, automates WhatsApp messages for birthdays and special dates, and generates complete statistical reports in CSV and PDF. The project demonstrates full-stack development, database modeling, role-based access control and containerization.",
+          "A complete educational management system for Cultural Centers ('Casas de Cultura'), running on-premise on a local network — no internet dependency. Django + DRF backend, React with Vite frontend, PostgreSQL, and a custom Baileys-based microservice to automate WhatsApp communication. Covers enrollment, classes, class diaries, attendance, reports and a set of social benefit modules (cultural passport, referrals, legal advisory and medical care). Running in real production at Casa da Cultura, now evolving into a multi-tenant SaaS version.",
       },
       crudjava: {
         title: "Product Management CRUD",
@@ -508,7 +521,7 @@ const en: Dictionary = {
     diagramError: "The diagram could not be rendered.",
     items: {
       corefood: {
-        title: "Core Food — Restaurant Platform",
+        title: "Corefood — Restaurant Platform",
         role: "Backend Developer",
         projectType: "White-label SaaS platform for the food service industry",
         problem:
@@ -547,20 +560,24 @@ const en: Dictionary = {
           "Demographic and geographic pattern analysis",
         ],
       },
-      culturehouse: {
-        title: "Culture House — Social Management Platform",
+      simmias: {
+        title: "Simmias Lite — On-Premise Educational Management",
         role: "Full Stack Developer",
-        projectType: "Management System for a Social NGO",
+        projectType: "Educational management system, running in real production at a Cultural Center",
         problem:
-          "NGOs running social assistance programs need to track the individuals they serve, automate communications and generate complete reports, but they lack accessible and scalable technical solutions.",
+          "Casa da Cultura needed a system to manage enrollment, classes, attendance and class diaries, but the site doesn't have reliable internet — a cloud solution would be down often. Beyond academic management, the organization also runs social benefit programs (cultural passport, referrals, legal advisory, medical care) that were previously tracked in scattered spreadsheets, with no centralized history and no automated communication with families.",
         solution:
-          "I developed a full-stack web platform using Python/Django with MySQL for data persistence, Docker for containerization and WhatsApp API integration for automatic birthday messages. I implemented role-based access control, CSV/PDF report generation and a responsive interface with Bootstrap 5.",
+          "A Django + DRF system with a React/Vite frontend, designed to run on-premise: one computer at the site itself acts as the server, and every other machine accesses it through the browser over the local network, with no internet dependency. Deployment is via Docker Compose, orchestrating six services — PostgreSQL, the Django backend via gunicorn, a cron worker running every 24h to check absences and generate upcoming classes, a WhatsApp microservice, the frontend build, and Nginx as the reverse proxy, the only service with an exposed port.\n\nThe academic domain turned out more complex than it looked: a class doesn't hold its own schedule or teacher directly — weekly recurrence lives in a separate record, each dated class instance in another, and the teacher link is its own relationship. A student can be enrolled in multiple classes at once, and enrollment uses an auto-generated sequential code per year. The attendance view was designed as a weekly grid — students as rows, days as columns — with auto-save and a cell that cycles between unmarked, present and absent, so a teacher can take attendance for an entire class in a few clicks.\n\nCommunication with families is automated over WhatsApp through a custom microservice built on Baileys, without the Chromium dependency that solutions like whatsapp-web.js require — lighter to run on a modest local server. The system fires absence alerts and birthday messages on its own, every day, with no manual step. Access control is role-based: admin, front office staff, teacher (sees only their own classes), management, and two dedicated roles for the benefits programs — lawyer (legal advisory) and doctor (medical care and clinical notes), each scoped to their own area.\n\nIt's the project I'm proudest of: I started as the site's go-to volunteer for anything technical, got close to the actual problem, and carried it alone from data modeling to production deployment. It's in real use today, serving real people — and it's now the foundation for a multi-tenant SaaS version, with a landing page already in the works.",
         features: [
-          "Individual tracking and case management with complete profiles",
-          "Automated WhatsApp messages for birthdays and special events",
-          "Statistical report generation in CSV and PDF formats",
-          "Role-based access control for administrators and staff",
-          "Deployment with Docker Compose for easy setup and scalability",
+          "On-premise deployment via Docker Compose — runs on a local network, no internet dependency",
+          "Multi-class enrollment with an auto-generated sequential code per year",
+          "Weekly attendance grid with auto-save and a cell that cycles between present/absent",
+          "Class diary with grades and evaluations, linked to the class through a (class, date) key",
+          "Automated WhatsApp communication via a custom Baileys-based microservice",
+          "Absence alerts and upcoming-class generation running on their own every day via cron",
+          "Role-based access control, including dedicated roles for lawyer and doctor",
+          "Social benefits module: cultural passport, referrals, legal advisory and medical care",
+          "PDF student records and a dashboard with occupancy and upcoming birthdays",
         ],
       },
     },
@@ -572,6 +589,8 @@ const en: Dictionary = {
     readMedium: "Read on Medium",
     recsHeading: "LinkedIn Recommendations",
     viewLinkedin: "View on LinkedIn",
+    readMore: "Read more",
+    readLess: "Read less",
   },
   contact: {
     heading: "Contact",
@@ -606,11 +625,10 @@ const en: Dictionary = {
     },
   },
   footer: {
-    tagline:
-      "Backend developer focused on cybersecurity. Building secure, scalable systems made to last.",
+    tagline: "Secure backend, from the database to the API.",
     navHeading: "Navigation",
     connectHeading: "Connect",
-    rights: "Backend Developer & Cybersecurity",
+    rights: "Backend Developer",
   },
 }
 
@@ -737,6 +755,10 @@ const es: Dictionary = {
     educationHeading: "Educación",
     educationSubtitle: "Base académica en desarrollo de software y tecnologías emergentes",
     education: {
+      anhanguera: {
+        degree: "Posgrado en Docencia en Educación Superior",
+        description: "Enfocado en didáctica, metodologías de enseñanza y práctica docente en educación superior.",
+      },
       uniasselvi: {
         degree: "Tecnólogo en Análisis y Desarrollo de Sistemas",
         description:
@@ -770,16 +792,16 @@ const es: Dictionary = {
           "Un ERP completo desarrollado para el sector farmacéutico, que cubre toda la operación de la farmacia: TPV con emisión de tickets fiscales, gestión de inventario, generación de facturas, control de entregas, registro de clientes y empleados e integración con SNGPC para la notificación de medicamentos controlados. Arquitectura backend robusta con NestJS, autenticación segura, logging estructurado con Winston y documentación completa vía Swagger. Además del desarrollo, definí todo el flujo y la arquitectura del sistema.",
       },
       corefood: {
-        title: "Core Food — Plataforma para Restaurantes",
+        title: "Corefood — Plataforma para Restaurantes",
         tagline: "Sistema de Pedidos White-label",
         description:
-          "Plataforma de pedidos propia para restaurantes, creada como alternativa a los marketplaces de delivery: el restaurante opera bajo su propia marca y conserva su base de clientes, en lugar de pagar comisión por pedido. Backend en Java con Spring Boot, integrado con una aplicación móvil ya existente mediante un contrato de API definido junto con el equipo de frontend. Responsable de la arquitectura multi-tenant, autenticación, catálogo y flujo de pedidos.",
+          "Plataforma de pedidos propia para restaurantes, creada como alternativa a los marketplaces de delivery: en lugar de pagar comisión por pedido y ceder la relación con el cliente, el restaurante opera bajo su propia marca, con su carta, base de clientes y una app móvil con su propia identidad — la tecnología detrás pertenece a Coreon. Backend en Java con Spring Boot y PostgreSQL, con aislamiento multi-tenant vía Row-Level Security, integrado con una aplicación móvil ya existente mediante un contrato de API definido junto con el equipo de frontend. Autenticación propia con Argon2id y rotación de refresh token, pagos vía PIX con webhook validado por firma, motor de envío configurable y un patrón outbox dentro del propio PostgreSQL para la confiabilidad de los pedidos. Responsable de la arquitectura multi-tenant, autenticación, catálogo y todo el flujo de pedidos.",
       },
-      culturehouse: {
-        title: "Culture House – Plataforma de Gestión Social",
-        tagline: "Sistema de Gestión para Proyectos Sociales",
+      simmias: {
+        title: "Simmias Lite — Gestión Educativa",
+        tagline: "Sistema On-Premise para Casas de Cultura",
         description:
-          "Una plataforma web creada para ayudar a las ONG a gestionar registros de asistencia social con eficiencia. Rastrea a las personas y sus interacciones, automatiza mensajes de WhatsApp para cumpleaños y fechas especiales, y genera informes estadísticos completos en CSV y PDF. El proyecto demuestra desarrollo full-stack, modelado de bases de datos, control de acceso por roles y contenerización.",
+          "Sistema completo de gestión educativa para Casas de Cultura, que funciona on-premise en red local — sin depender de internet. Backend en Django + DRF, frontend en React con Vite, PostgreSQL, y un microservicio propio vía Baileys para automatizar la comunicación por WhatsApp. Cubre matrícula, clases, diario de clase, asistencia, informes y una línea de beneficios sociales (pasaporte cultural, derivaciones, asesoría jurídica y atención médica). En producción real en la Casa da Cultura, hoy evolucionando hacia una versión SaaS multi-tenant.",
       },
       crudjava: {
         title: "CRUD de Gestión de Productos",
@@ -812,7 +834,7 @@ const es: Dictionary = {
     diagramError: "No se pudo renderizar el diagrama.",
     items: {
       corefood: {
-        title: "Core Food — Plataforma para Restaurantes",
+        title: "Corefood — Plataforma para Restaurantes",
         role: "Desarrollador Backend",
         projectType: "Plataforma SaaS white-label para el sector de alimentación",
         problem:
@@ -851,20 +873,24 @@ const es: Dictionary = {
           "Análisis de patrones demográficos y geográficos",
         ],
       },
-      culturehouse: {
-        title: "Culture House — Plataforma de Gestión Social",
+      simmias: {
+        title: "Simmias Lite — Gestión Educativa On-Premise",
         role: "Desarrollador Full Stack",
-        projectType: "Sistema de Gestión para una ONG Social",
+        projectType: "Sistema de gestión educativa, en producción real en una Casa de Cultura",
         problem:
-          "Las ONG que gestionan programas de asistencia social necesitan hacer seguimiento de las personas atendidas, automatizar comunicaciones y generar informes completos, pero carecen de soluciones técnicas accesibles y escalables.",
+          "La Casa da Cultura necesitaba un sistema para gestionar matrículas, clases, asistencia y diario de clase, pero la sede no tiene internet estable — una solución en la nube quedaría fuera de servicio con frecuencia. Además de la gestión pedagógica, la organización también presta beneficios sociales (pasaporte cultural, derivaciones, asesoría jurídica, atención médica) que antes se controlaban en hojas de cálculo sueltas, sin historial centralizado ni comunicación automatizada con las familias.",
         solution:
-          "Desarrollé una plataforma web full-stack usando Python/Django con MySQL para la persistencia de datos, Docker para la contenerización e integración con la API de WhatsApp para el envío automático de mensajes de cumpleaños. Implementé control de acceso por roles, generación de informes en CSV/PDF y una interfaz responsiva con Bootstrap 5.",
+          "Un sistema Django + DRF con frontend React/Vite, diseñado para funcionar on-premise: una computadora de la propia sede actúa como servidor, y las demás máquinas acceden por el navegador en la red local, sin depender de internet. El despliegue es vía Docker Compose, con seis servicios orquestados — PostgreSQL, el backend Django vía gunicorn, un worker cron que corre cada 24h para verificar ausencias y generar próximas clases, un microservicio de WhatsApp, el build del frontend y un Nginx como proxy inverso, el único servicio con puerto expuesto.\n\nEl dominio pedagógico resultó más complejo de lo que parecía: una clase no guarda horario ni profesor directamente — la recurrencia semanal vive en un registro aparte, la instancia fechada de cada clase en otro, y el vínculo con el profesor es una relación propia. Un alumno puede estar matriculado en varias clases a la vez, y la matrícula usa un código secuencial por año generado automáticamente. La vista de asistencia se diseñó como una grilla semanal — alumnos en las filas, días en las columnas — con auto-guardado y una celda que cicla entre sin registrar, presente y ausente, para que el profesor pase lista de toda la clase en pocos clics.\n\nLa comunicación con las familias se automatiza por WhatsApp mediante un microservicio propio construido con Baileys, sin depender de Chromium como exigen soluciones como whatsapp-web.js — más liviano para correr en un servidor local modesto. El sistema dispara alertas de ausencia y mensajes de cumpleaños solo, todos los días, sin intervención manual. El control de acceso es por rol: administración, secretaría, profesor (solo ve sus propias clases), dirección, y dos roles específicos para los beneficios — abogado (asesoría jurídica) y médico (atención y notas clínicas), cada uno restringido a su propia área.\n\nEs el proyecto del que más orgulloso estoy: empecé como el voluntario de tecnología de la casa, entendí el problema de cerca, y lo llevé solo desde el modelado de datos hasta el despliegue en producción. Hoy está en uso real, atendiendo a personas de verdad — y se convirtió en la base de una versión SaaS multi-tenant, con una landing page ya en desarrollo.",
         features: [
-          "Seguimiento individual y gestión de casos con perfiles completos",
-          "Envío automatizado de mensajes de WhatsApp para cumpleaños y eventos especiales",
-          "Generación de informes estadísticos en formatos CSV y PDF",
-          "Control de acceso por roles para administradores y personal",
-          "Despliegue con Docker Compose para una configuración fácil y escalable",
+          "Despliegue on-premise vía Docker Compose — funciona en red local, sin depender de internet",
+          "Matrícula multi-clase con código secuencial automático por año",
+          "Grilla semanal de asistencia con auto-guardado y celda que cicla entre presente/ausente",
+          "Diario de clase con evaluaciones y notas, vinculado a la clase mediante la clave (clase, fecha)",
+          "Comunicación automatizada por WhatsApp vía microservicio propio con Baileys",
+          "Alertas de ausencia y generación de próximas clases funcionando solas cada día vía cron",
+          "Control de acceso por rol, incluyendo roles dedicados para abogado y médico",
+          "Módulo de beneficios sociales: pasaporte cultural, derivaciones, asesoría jurídica y atención médica",
+          "Ficha del alumno en PDF e informes de panel con ocupación y próximos cumpleaños",
         ],
       },
     },
@@ -876,6 +902,8 @@ const es: Dictionary = {
     readMedium: "Leer en Medium",
     recsHeading: "Recomendaciones de LinkedIn",
     viewLinkedin: "Ver en LinkedIn",
+    readMore: "Ver más",
+    readLess: "Ver menos",
   },
   contact: {
     heading: "Contacto",
@@ -910,11 +938,10 @@ const es: Dictionary = {
     },
   },
   footer: {
-    tagline:
-      "Desarrollador backend enfocado en ciberseguridad. Construyendo sistemas seguros, escalables y hechos para durar.",
+    tagline: "Backend seguro, de la base de datos a la API.",
     navHeading: "Navegación",
     connectHeading: "Conecta",
-    rights: "Desarrollador Backend y Ciberseguridad",
+    rights: "Desarrollador Backend",
   },
 }
 
