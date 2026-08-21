@@ -48,15 +48,17 @@ export default function Credentials() {
       <div>
         <span className="mini-label">{a.educationHeading}</span>
         <h3>
-          {education[0].institution}
+          {education.length}
           <br />
-          <em>{education[0].period}</em>
+          <em>{a.educationHeading}</em>
         </h3>
         <ul className="cred-list">
           {education.map((edu) => (
             <li key={edu.id}>
-              <span>{a.education[edu.id].degree}</span>
-              <span>{edu.institution}</span>
+              <span>
+                {a.education[edu.id].degree} — {edu.institution}
+              </span>
+              <span>{edu.period}</span>
             </li>
           ))}
         </ul>

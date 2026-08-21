@@ -13,9 +13,9 @@ const skillGroups = [
 // `end: null` => usa a tradução de "Presente/Present" (cargo em andamento).
 const experiences = [
   { id: "coreon", company: "Coreon Systems", start: "Jan 2025", end: null },
-  { id: "dbrum", company: "Dbrum Tech", start: "2020", end: "2025" },
-  { id: "a4pm", company: "A4PM", start: "2025", end: "Jul 2026" },
-  { id: "fundec", company: "FUNDEC", start: "2022", end: "Dez 2025" },
+  { id: "dbrum", company: "Dbrum Labs", start: "Jan 2020", end: "Jan 2025" },
+  { id: "a4pm", company: "A4PM", start: "Jul 2025", end: "Jul 2026" },
+  { id: "fundec", company: "FUNDEC", start: "Ago 2022", end: "Dez 2025" },
 ] as const
 
 export default function Experience() {

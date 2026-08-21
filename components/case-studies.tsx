@@ -323,7 +323,7 @@ export default function CaseStudies() {
             <div className="project-summary">
               <div>
                 <h4>{c.problemLabel}</h4>
-                <p>{s.problem}</p>
+                <p style={{ whiteSpace: "pre-line" }}>{s.problem}</p>
               </div>
               <div>
                 <h4>{c.solutionLabel}</h4>

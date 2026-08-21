@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://dbrum.com.br"),
   title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
   description:
-    "Desenvolvedor backend focado em APIs robustas e sistemas web com Java/Spring Boot e Node/NestJS. Backend do Corefarma (ERP para farmácias) e do Core Food na Coreon Systems. Interesse em cibersegurança e design de aplicações seguras.",
+    "Desenvolvedor backend focado em APIs robustas e sistemas web com Java/Spring Boot e Node/NestJS. Backend do Corefarma (ERP para farmácias) e do Corefood na Coreon Systems. Interesse em cibersegurança e design de aplicações seguras.",
   keywords: [
     "Desenvolvedor Backend",
     "Java",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     url: "https://dbrum.com.br",
     title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
     description:
-      "Desenvolvedor backend focado em APIs robustas e sistemas web com Java/Spring Boot e Node/NestJS. Backend do Corefarma (ERP para farmácias) e do Core Food na Coreon Systems. Interesse em cibersegurança e design de aplicações seguras.",
+      "Desenvolvedor backend focado em APIs robustas e sistemas web com Java/Spring Boot e Node/NestJS. Backend do Corefarma (ERP para farmácias) e do Corefood na Coreon Systems. Interesse em cibersegurança e design de aplicações seguras.",
     siteName: "Douglas Brum Portfólio",
     images: [
       {
@@ -63,15 +63,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
     description:
-      "Desenvolvedor backend focado em APIs robustas e sistemas web com Java/Spring Boot e Node/NestJS. Backend do Corefarma (ERP para farmácias) e do Core Food na Coreon Systems. Interesse em cibersegurança e design de aplicações seguras.",
+      "Desenvolvedor backend focado em APIs robustas e sistemas web com Java/Spring Boot e Node/NestJS. Backend do Corefarma (ERP para farmácias) e do Corefood na Coreon Systems. Interesse em cibersegurança e design de aplicações seguras.",
     images: ["/images/dbrum-logo.png"],
-  },
-  icons: {
-    icon: [
-      { url: "/images/dbrum-icon.svg", type: "image/svg+xml" },
-      { url: "/images/dbrum-icon.png", type: "image/png" },
-    ],
-    apple: [{ url: "/images/dbrum-icon.png" }],
   },
 }
 
