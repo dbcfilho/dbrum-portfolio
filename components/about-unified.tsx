@@ -12,6 +12,7 @@ import {
   Languages,
   LifeBuoy,
   Wrench,
+  Building2,
 } from "lucide-react"
 import { useI18n } from "@/components/i18n/language-provider"
 
@@ -40,7 +41,8 @@ const certifications = [
 
 // `end: null` => usa a tradução de "Presente/Present" (cargo em andamento).
 const experiences = [
-  { id: "dbrum", company: "Dbrum Tech", start: "2020", end: null, icon: Wrench },
+  { id: "coreon", company: "Coreon Systems", start: "Jan 2025", end: null, icon: Building2 },
+  { id: "dbrum", company: "Dbrum Tech", start: "2020", end: "2025", icon: Wrench },
   { id: "a4pm", company: "A4PM", start: "2025", end: "Jul 2026", icon: LifeBuoy },
   { id: "fundec", company: "FUNDEC", start: "2022", end: "Dez 2025", icon: GraduationCap },
 ] as const

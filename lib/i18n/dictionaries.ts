@@ -71,6 +71,15 @@ const pt = {
     experienceHeading: "Experiência",
     experienceSubtitle: "Trajetória profissional combinando suporte, educação e desenvolvimento",
     experiences: {
+      coreon: {
+        role: "Desenvolvedor Backend",
+        points: [
+          "Condução técnica de uma empresa de software com dois produtos verticais: Corefarma (ERP para farmácias) e Core Food (plataforma para restaurantes).",
+          "Arquitetura e desenvolvimento do backend de ambos os produtos — NestJS e PostgreSQL no Corefarma, Java e Spring Boot no Core Food.",
+          "Corefarma em produção, cobrindo PDV com emissão de cupom fiscal, controle de estoque, notas fiscais, entregas e integração com o SNGPC para medicamentos controlados.",
+          "Definição de contratos de API em conjunto com o time de frontend e condução técnica de proposta comercial para cliente piloto.",
+        ],
+      },
       a4pm: {
         role: "Analista de Suporte de Software",
         points: [
@@ -123,6 +132,7 @@ const pt = {
     viewGithub: "Ver no GitHub",
     moreProjects: "Mais projetos no GitHub",
     otherProjectsTitle: "Outros projetos",
+    coreonProduct: "Produto Coreon Systems",
     items: {
       corefarma: {
         title: "Corefarma — ERP para Farmácias",
@@ -323,6 +333,15 @@ const en: Dictionary = {
     experienceHeading: "Experience",
     experienceSubtitle: "A career combining support, education and development",
     experiences: {
+      coreon: {
+        role: "Backend Developer",
+        points: [
+          "Technical lead of a software company with two vertical products: Corefarma (pharmacy ERP) and Core Food (restaurant platform).",
+          "Backend architecture and development for both products — NestJS and PostgreSQL on Corefarma, Java and Spring Boot on Core Food.",
+          "Corefarma running in production, covering point-of-sale with fiscal receipt issuing, inventory control, invoicing, deliveries and integration with SNGPC for controlled medication reporting.",
+          "Defined API contracts alongside the frontend team and led the technical side of a commercial proposal for a pilot client.",
+        ],
+      },
       a4pm: {
         role: "Software Support Analyst",
         points: [
@@ -375,6 +394,7 @@ const en: Dictionary = {
     viewGithub: "View on GitHub",
     moreProjects: "More projects on GitHub",
     otherProjectsTitle: "Other projects",
+    coreonProduct: "A Coreon Systems product",
     items: {
       corefarma: {
         title: "Corefarma — ERP for Pharmacies",
@@ -573,6 +593,15 @@ const es: Dictionary = {
     experienceHeading: "Experiencia",
     experienceSubtitle: "Trayectoria profesional que combina soporte, educación y desarrollo",
     experiences: {
+      coreon: {
+        role: "Desarrollador Backend",
+        points: [
+          "Liderazgo técnico de una empresa de software con dos productos verticales: Corefarma (ERP para farmacias) y Core Food (plataforma para restaurantes).",
+          "Arquitectura y desarrollo del backend de ambos productos — NestJS y PostgreSQL en Corefarma, Java y Spring Boot en Core Food.",
+          "Corefarma en producción, cubriendo punto de venta con emisión de comprobante fiscal, control de inventario, facturación, entregas e integración con el SNGPC para medicamentos controlados.",
+          "Definición de contratos de API junto con el equipo de frontend y liderazgo técnico de una propuesta comercial para un cliente piloto.",
+        ],
+      },
       a4pm: {
         role: "Analista de Soporte de Software",
         points: [
@@ -625,6 +654,7 @@ const es: Dictionary = {
     viewGithub: "Ver en GitHub",
     moreProjects: "Más proyectos en GitHub",
     otherProjectsTitle: "Otros proyectos",
+    coreonProduct: "Un producto de Coreon Systems",
     items: {
       corefarma: {
         title: "Corefarma — ERP para Farmacias",

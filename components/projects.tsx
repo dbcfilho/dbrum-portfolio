@@ -11,6 +11,7 @@ const projects = [
   {
     id: "corefarma",
     featured: true,
+    coreonProduct: true,
     stack: ["TypeScript", "NestJS", "Node.js", "React", "PostgreSQL", "Prisma", "Supabase", "Nginx", "Swagger", "Winston"],
     liveUrl: "https://corefarma.com",
     appUrl: "https://app.corefarma.com",
@@ -86,6 +87,13 @@ export default function Projects() {
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-5">
                   <div className="flex-1 min-w-0">
                     <div className="mb-3 mt-1">
+                      {"coreonProduct" in project && project.coreonProduct && (
+                        <div className="flex items-center gap-2 mb-2">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src="/images/coreon-logo.png" alt="Coreon Systems" className="h-3 w-auto opacity-80" />
+                          <span className="text-xs text-gray-400">{p.coreonProduct}</span>
+                        </div>
+                      )}
                       <h4 className="text-lg sm:text-xl font-bold text-white mb-1.5">{info.title}</h4>
                       <p className="text-brand-cyan font-medium text-sm">{info.tagline}</p>
                     </div>
