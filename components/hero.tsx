@@ -151,6 +151,9 @@ export default function Hero() {
                     <span className="text-brand-cyan">role</span>:{" "}
                     <span className="text-green-400">&quot;{h.terminal.role}&quot;</span>,{"\n"}
                     {"  "}
+                    <span className="text-brand-cyan">company</span>:{" "}
+                    <span className="text-green-400">&quot;Coreon Systems&quot;</span>,{"\n"}
+                    {"  "}
                     <span className="text-brand-cyan">location</span>:{" "}
                     <span className="text-green-400">&quot;{h.terminal.location}&quot;</span>,{"\n"}
                     {"  "}
@@ -158,9 +161,9 @@ export default function Hero() {
                     {"    "}
                     <span className="text-green-400">&quot;Java + Spring Boot&quot;</span>,{"\n"}
                     {"    "}
-                    <span className="text-green-400">&quot;Python + Django&quot;</span>,{"\n"}
+                    <span className="text-green-400">&quot;TypeScript + NestJS&quot;</span>,{"\n"}
                     {"    "}
-                    <span className="text-green-400">&quot;MySQL&quot;</span>,{"\n"}
+                    <span className="text-green-400">&quot;PostgreSQL&quot;</span>,{"\n"}
                     {"    "}
                     <span className="text-green-400">&quot;Docker&quot;</span>
                     {"\n"}
@@ -173,9 +176,7 @@ export default function Hero() {
                     {"    "}
                     <span className="text-green-400">&quot;{h.terminal.openTo[0]}&quot;</span>,{"\n"}
                     {"    "}
-                    <span className="text-green-400">&quot;{h.terminal.openTo[1]}&quot;</span>,{"\n"}
-                    {"    "}
-                    <span className="text-green-400">&quot;{h.terminal.openTo[2]}&quot;</span>
+                    <span className="text-green-400">&quot;{h.terminal.openTo[1]}&quot;</span>
                     {"\n"}
                     {"  "}]{",\n"}
                     {"};"}
@@ -187,7 +188,7 @@ export default function Hero() {
             {/* Tecnologias */}
             <div className="mt-3 sm:mt-5 space-y-2">
               <div className="flex flex-wrap gap-2">
-                {["Java", "Spring Boot", "Django", "MySQL"].map((tech) => (
+                {["Java", "Spring Boot", "NestJS", "PostgreSQL"].map((tech) => (
                   <span
                     key={tech}
                     className="px-2.5 py-1 text-xs rounded-full bg-brand/10 border border-brand/30 text-brand-cyan-light"

@@ -21,7 +21,7 @@ const pt = {
     badge: "Disponível para novas oportunidades",
     headline: "Backend seguro, do banco de dados à API.",
     intro:
-      'Construo <strong>APIs robustas e sistemas web</strong> com Java/Spring Boot e Python/Django, em ambientes Linux e Docker. O diferencial: uma mentalidade de <strong>cibersegurança</strong> aplicada a cada decisão de arquitetura, para entregar software que dura e em que se pode confiar.',
+      'Construo <strong>APIs robustas e sistemas web</strong> com Java/Spring Boot e Node/NestJS, em ambientes Linux e Docker. O diferencial: uma mentalidade de <strong>cibersegurança</strong> aplicada a cada decisão de arquitetura, para entregar software que dura e em que se pode confiar.',
     ctaPrimary: "Vamos trabalhar juntos",
     ctaSecondary: "Ver meus projetos",
     ctaCv: "Baixar CV",
@@ -35,13 +35,14 @@ const pt = {
       role: "Desenvolvedor Backend",
       location: "Rio de Janeiro, Brasil",
       learning: "AWS & Cibersegurança",
-      openTo: ["Vagas Backend", "Trabalho Remoto", "Projetos Freelance"],
+      openTo: ["Vagas Backend (CLT ou PJ)", "Trabalho Remoto"],
     },
   },
   about: {
     heading: "Sobre",
     paragraphs: [
       "Sou um desenvolvedor backend com foco em Java com Spring Boot e Python com Django, construindo aplicações web seguras, bem estruturadas e confiáveis. Gosto de trabalhar próximo ao núcleo dos sistemas, projetando arquiteturas, bancos de dados e APIs, e entregando soluções em ambientes Linux com Docker.",
+      "Hoje conduzo a parte técnica da Coreon Systems, onde desenvolvemos dois produtos: o Corefarma, um ERP para farmácias em produção, com PDV, emissão fiscal e integração com o SNGPC; e o Core Food, uma plataforma white-label de pedidos para restaurantes. Duas stacks distintas, escolhidas por domínio e não por preferência — e saber justificar essa escolha me parece mais importante do que dominar uma linguagem só.",
       "Tenho experiência prática com projetos reais, especialmente plataformas de impacto social, onde confiabilidade, organização e escalabilidade fazem diferença de verdade. Não me limito a escrever código que funciona — construo soluções pensadas para durar.",
       "Também atuo como instrutor de TI, ensinando Linux, MySQL e conceitos fundamentais de computação. Essa experiência fortaleceu minhas habilidades de comunicação, raciocínio arquitetural e capacidade de tomar decisões técnicas claras — essenciais para uma boa colaboração em equipe.",
       "Gosto de escrever artigos técnicos e compartilhar conhecimento, o que reflete meu compromisso com o aprendizado contínuo e as boas práticas. Se você está buscando um desenvolvedor backend com sólida base em Linux, mentalidade voltada à segurança e código limpo e bem projetado, ficaria feliz em conversar.",
@@ -309,7 +310,7 @@ const en: Dictionary = {
     badge: "Available for new opportunities",
     headline: "Secure backend, from the database to the API.",
     intro:
-      'I build <strong>robust APIs and web systems</strong> with Java/Spring Boot and Python/Django, on Linux and Docker environments. The difference: a <strong>cybersecurity</strong> mindset applied to every architectural decision, to deliver software that lasts and that you can trust.',
+      'I build <strong>robust APIs and web systems</strong> with Java/Spring Boot and Node/NestJS, on Linux and Docker environments. The difference: a <strong>cybersecurity</strong> mindset applied to every architectural decision, to deliver software that lasts and that you can trust.',
     ctaPrimary: "Let's work together",
     ctaSecondary: "See my projects",
     ctaCv: "Download CV",
@@ -323,13 +324,14 @@ const en: Dictionary = {
       role: "Backend Developer",
       location: "Rio de Janeiro, Brazil",
       learning: "AWS & Cybersecurity",
-      openTo: ["Backend Roles", "Remote Work", "Freelance Projects"],
+      openTo: ["Backend Roles (Full-time or Contract)", "Remote Work"],
     },
   },
   about: {
     heading: "About",
     paragraphs: [
       "I'm a backend developer focused on Java with Spring Boot and Python with Django, building secure, well-structured and reliable web applications. I enjoy working close to the core of systems, designing architectures, databases and APIs, and delivering solutions on Linux environments with Docker.",
+      "I currently lead the technical side of Coreon Systems, where we build two products: Corefarma, a pharmacy ERP running in production with point-of-sale, fiscal document issuing and SNGPC integration; and Core Food, a white-label ordering platform for restaurants. Two distinct stacks, chosen by domain rather than preference — and being able to justify that choice matters more to me than mastering a single language.",
       "I have hands-on experience with real projects, especially social-impact platforms, where reliability, organization and scalability truly make a difference. I don't just write code that works — I build solutions meant to last.",
       "I also work as an IT instructor, teaching Linux, MySQL and core computing concepts. That experience strengthened my communication skills, architectural reasoning and ability to make clear technical decisions — essential for good teamwork.",
       "I like writing technical articles and sharing knowledge, which reflects my commitment to continuous learning and best practices. If you're looking for a backend developer with a solid Linux foundation, a security-oriented mindset and clean, well-designed code, I'd be glad to talk.",
@@ -595,7 +597,7 @@ const es: Dictionary = {
     badge: "Disponible para nuevas oportunidades",
     headline: "Backend seguro, de la base de datos a la API.",
     intro:
-      'Construyo <strong>APIs robustas y sistemas web</strong> con Java/Spring Boot y Python/Django, en entornos Linux y Docker. La diferencia: una mentalidad de <strong>ciberseguridad</strong> aplicada a cada decisión de arquitectura, para entregar software que perdura y en el que se puede confiar.',
+      'Construyo <strong>APIs robustas y sistemas web</strong> con Java/Spring Boot y Node/NestJS, en entornos Linux y Docker. La diferencia: una mentalidad de <strong>ciberseguridad</strong> aplicada a cada decisión de arquitectura, para entregar software que perdura y en el que se puede confiar.',
     ctaPrimary: "Trabajemos juntos",
     ctaSecondary: "Ver mis proyectos",
     ctaCv: "Descargar CV",
@@ -609,13 +611,14 @@ const es: Dictionary = {
       role: "Desarrollador Backend",
       location: "Río de Janeiro, Brasil",
       learning: "AWS y Ciberseguridad",
-      openTo: ["Vacantes Backend", "Trabajo Remoto", "Proyectos Freelance"],
+      openTo: ["Vacantes Backend (CLT o freelance)", "Trabajo Remoto"],
     },
   },
   about: {
     heading: "Sobre mí",
     paragraphs: [
       "Soy un desarrollador backend enfocado en Java con Spring Boot y Python con Django, construyendo aplicaciones web seguras, bien estructuradas y confiables. Me gusta trabajar cerca del núcleo de los sistemas, diseñando arquitecturas, bases de datos y APIs, y entregando soluciones en entornos Linux con Docker.",
+      "Hoy lidero la parte técnica de Coreon Systems, donde desarrollamos dos productos: Corefarma, un ERP para farmacias en producción, con punto de venta, emisión fiscal e integración con el SNGPC; y Core Food, una plataforma white-label de pedidos para restaurantes. Dos stacks distintas, elegidas por dominio y no por preferencia — y saber justificar esa elección me parece más importante que dominar un solo lenguaje.",
       "Tengo experiencia práctica con proyectos reales, especialmente plataformas de impacto social, donde la fiabilidad, la organización y la escalabilidad marcan una diferencia real. No me limito a escribir código que funciona: construyo soluciones pensadas para durar.",
       "También trabajo como instructor de TI, enseñando Linux, MySQL y conceptos fundamentales de computación. Esa experiencia fortaleció mis habilidades de comunicación, mi razonamiento arquitectónico y mi capacidad de tomar decisiones técnicas claras, esenciales para una buena colaboración en equipo.",
       "Me gusta escribir artículos técnicos y compartir conocimiento, lo que refleja mi compromiso con el aprendizaje continuo y las buenas prácticas. Si buscas un desarrollador backend con una base sólida en Linux, mentalidad orientada a la seguridad y código limpio y bien diseñado, con gusto conversamos.",
