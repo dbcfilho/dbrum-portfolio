@@ -1,22 +1,20 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Archivo, IBM_Plex_Mono } from "next/font/google"
+import { DM_Sans, IBM_Plex_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { Toaster } from "@/components/ui/toaster"
 import { LanguageProvider } from "@/components/i18n/language-provider"
 import "./globals.css"
 
-const archivo = Archivo({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-archivo",
+  variable: "--font-dm-sans",
   display: "swap",
-  axes: ["wdth"],
 })
 
-const ibmPlexMono = IBM_Plex_Mono({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
+  weight: ["400", "500", "600"],
+  variable: "--font-plex-mono",
   display: "swap",
 })
 
@@ -83,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
+    <html lang="pt-BR">
       <head>
         <script
           type="application/ld+json"
@@ -106,11 +104,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${archivo.variable} ${ibmPlexMono.variable} antialiased`}>
-        <LanguageProvider>
-          {children}
-          <Toaster />
-        </LanguageProvider>
+      <body className={`${dmSans.variable} ${plexMono.variable} antialiased`}>
+        <LanguageProvider>{children}</LanguageProvider>
         <Analytics />
       </body>
     </html>

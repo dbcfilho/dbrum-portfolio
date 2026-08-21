@@ -44,14 +44,15 @@ const pt = {
       { value: "8", label: "certificações" },
       { value: "2", label: "produtos em produção" },
     ],
-    diagram: {
-      coreLabel: "Núcleo",
-      coreLines: ["Java · Spring Boot", "Multi-tenant", "Fiscal · Acesso"],
-      nodes: {
-        corefarma: { title: "Corefarma", lines: ["Farmácia", "SNGPC"], delivery: "ERP + app" },
-        corefood: { title: "Core Food", lines: ["Alimentação", "Fiscal"], delivery: "ERP + app + POS + totem" },
-        simmias: { title: "Simmias", lines: ["Educação", "LGPD"], delivery: "ERP web" },
-      },
+    terminal: {
+      fileLabel: "backend.ts",
+      lines: [
+        { key: "stack", value: "Java + Spring Boot" },
+        { key: "focus", value: "multi-tenant" },
+        { key: "domain", value: "fiscal · farmacêutico" },
+        { key: "security", value: "by design" },
+      ],
+      result: "deploy --confidence",
     },
   },
   about: {
@@ -349,14 +350,15 @@ const en: Dictionary = {
       { value: "8", label: "certifications" },
       { value: "2", label: "products in production" },
     ],
-    diagram: {
-      coreLabel: "Core",
-      coreLines: ["Java · Spring Boot", "Multi-tenant", "Billing · Access"],
-      nodes: {
-        corefarma: { title: "Corefarma", lines: ["Pharmacy", "SNGPC"], delivery: "ERP + app" },
-        corefood: { title: "Core Food", lines: ["Food service", "Billing"], delivery: "ERP + app + POS + kiosk" },
-        simmias: { title: "Simmias", lines: ["Education", "LGPD"], delivery: "Web ERP" },
-      },
+    terminal: {
+      fileLabel: "backend.ts",
+      lines: [
+        { key: "stack", value: "Java + Spring Boot" },
+        { key: "focus", value: "multi-tenant" },
+        { key: "domain", value: "billing · pharma" },
+        { key: "security", value: "by design" },
+      ],
+      result: "deploy --confidence",
     },
   },
   about: {
@@ -652,14 +654,15 @@ const es: Dictionary = {
       { value: "8", label: "certificaciones" },
       { value: "2", label: "productos en producción" },
     ],
-    diagram: {
-      coreLabel: "Núcleo",
-      coreLines: ["Java · Spring Boot", "Multi-tenant", "Fiscal · Acceso"],
-      nodes: {
-        corefarma: { title: "Corefarma", lines: ["Farmacia", "SNGPC"], delivery: "ERP + app" },
-        corefood: { title: "Core Food", lines: ["Alimentación", "Fiscal"], delivery: "ERP + app + POS + totem" },
-        simmias: { title: "Simmias", lines: ["Educación", "LGPD"], delivery: "ERP web" },
-      },
+    terminal: {
+      fileLabel: "backend.ts",
+      lines: [
+        { key: "stack", value: "Java + Spring Boot" },
+        { key: "focus", value: "multi-tenant" },
+        { key: "domain", value: "fiscal · farmacéutico" },
+        { key: "security", value: "by design" },
+      ],
+      result: "deploy --confidence",
     },
   },
   about: {

@@ -1,0 +1,65 @@
+"use client"
+
+import { useI18n } from "@/components/i18n/language-provider"
+
+const certifications = [
+  { title: "Rest API (Intermediate)", issuer: "HackerRank", year: "2026" },
+  { title: "SQL (Advanced)", issuer: "HackerRank", year: "2026" },
+  { title: "Software Engineer", issuer: "HackerRank", year: "2026" },
+  { title: "Google Cybersecurity Certificate", issuer: "Google", year: "2024" },
+  { title: "Introduction to IoT", issuer: "Cisco", year: "2023" },
+  { title: "Computing Science with Python", issuer: "USP", year: "2023" },
+  { title: "Introduction to Cybersecurity", issuer: "Cisco", year: "2023" },
+  { title: "NDG Linux Unhatched Certificate", issuer: "Cisco", year: "2023" },
+] as const
+
+const education = { institution: "UNIASSELVI", period: "Ago 2022 – Jul 2025" }
+
+const coreStack = ["Java", "Spring Boot", "Python", "Django", "PostgreSQL", "Docker", "Linux", "AWS"]
+
+export default function Credentials() {
+  const { t } = useI18n()
+  const a = t.about
+
+  return (
+    <section className="section-shell credentials">
+      <div>
+        <span className="mini-label">{a.certsHeading}</span>
+        <h3>
+          {certifications.length}
+          <br />
+          <em>{a.certsHeading}</em>
+        </h3>
+        <ul className="cred-list">
+          {certifications.map((cert) => (
+            <li key={cert.title}>
+              <span>
+                {cert.title} — {cert.issuer}
+              </span>
+              <span>{cert.year}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <span className="mini-label">{a.educationHeading}</span>
+        <h3>
+          {education.institution}
+          <br />
+          <em>{education.period}</em>
+        </h3>
+        <p>{a.education.uniasselvi.degree}</p>
+      </div>
+
+      <div className="stack-box">
+        <span className="mini-label">{a.skillsHeading}</span>
+        <div className="stack-icons">
+          {coreStack.map((tech) => (
+            <span key={tech}>{tech}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
