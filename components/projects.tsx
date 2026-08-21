@@ -1,6 +1,6 @@
 "use client"
 
-import { ExternalLink, Github, Globe, Star } from "lucide-react"
+import { ExternalLink, Github, Globe, Star, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion, useReducedMotion } from "framer-motion"
 import CaseStudies from "@/components/case-studies"
@@ -15,6 +15,13 @@ const projects = [
     stack: ["TypeScript", "NestJS", "Node.js", "React", "PostgreSQL", "Prisma", "Supabase", "Nginx", "Swagger", "Winston"],
     liveUrl: "https://corefarma.com",
     appUrl: "https://app.corefarma.com",
+  },
+  {
+    id: "corefood",
+    featured: true,
+    coreonProduct: true,
+    inDevelopment: true,
+    stack: ["Java", "Spring Boot", "PostgreSQL", "Redis", "Docker", "Multi-tenant", "Row-Level Security", "JWT"],
   },
   {
     id: "culturehouse",
@@ -78,11 +85,18 @@ export default function Projects() {
                     : "hover:border-brand/50"
                 }`}
               >
-                {project.featured && (
-                  <span className="absolute -top-3 left-5 inline-flex items-center gap-1.5 rounded-full bg-gradient-brand px-3 py-1 text-xs font-semibold text-white shadow-md">
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    {p.featuredBadge}
+                {"inDevelopment" in project && project.inDevelopment ? (
+                  <span className="absolute -top-3 left-5 inline-flex items-center gap-1.5 rounded-full bg-amber-500/90 px-3 py-1 text-xs font-semibold text-white shadow-md">
+                    <Clock className="w-3.5 h-3.5" />
+                    {p.inDevelopment}
                   </span>
+                ) : (
+                  project.featured && (
+                    <span className="absolute -top-3 left-5 inline-flex items-center gap-1.5 rounded-full bg-gradient-brand px-3 py-1 text-xs font-semibold text-white shadow-md">
+                      <Star className="w-3.5 h-3.5 fill-current" />
+                      {p.featuredBadge}
+                    </span>
+                  )
                 )}
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-5">
                   <div className="flex-1 min-w-0">

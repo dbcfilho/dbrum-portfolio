@@ -133,12 +133,19 @@ const pt = {
     moreProjects: "Mais projetos no GitHub",
     otherProjectsTitle: "Outros projetos",
     coreonProduct: "Produto Coreon Systems",
+    inDevelopment: "Em desenvolvimento",
     items: {
       corefarma: {
         title: "Corefarma — ERP para Farmácias",
         tagline: "Sistema Completo de Gestão Farmacêutica",
         description:
           "ERP completo desenvolvido para o segmento farmacêutico, cobrindo toda a operação da farmácia: PDV com emissão de cupons fiscais, gestão de estoque, geração de notas fiscais, controle de entregas, cadastro de clientes e funcionários e integração com SNGPC para notificação de medicamentos controlados. Arquitetura backend robusta com NestJS, autenticação segura, logging estruturado com Winston e documentação completa via Swagger. Além do desenvolvimento, defini todo o fluxo e arquitetura do sistema.",
+      },
+      corefood: {
+        title: "Core Food — Plataforma para Restaurantes",
+        tagline: "Sistema de Pedidos White-label",
+        description:
+          "Plataforma de pedidos própria para restaurantes, criada como alternativa aos marketplaces de delivery: o restaurante opera sob a própria marca e mantém a base de clientes, em vez de pagar comissão por pedido. Backend em Java com Spring Boot, integrado a um aplicativo mobile já existente por meio de um contrato de API definido junto ao time de frontend. Responsável pela arquitetura multi-tenant, autenticação, catálogo e fluxo de pedidos.",
       },
       culturehouse: {
         title: "Culture House – Plataforma de Gestão Social",
@@ -176,6 +183,25 @@ const pt = {
     loadingDiagram: "Carregando diagrama…",
     diagramError: "Não foi possível renderizar o diagrama.",
     items: {
+      corefood: {
+        title: "Core Food — Plataforma para Restaurantes",
+        role: "Desenvolvedor Backend",
+        projectType: "Plataforma SaaS white-label para o setor de alimentação",
+        problem:
+          "Restaurantes que vendem por marketplaces de delivery pagam comissões que consomem uma fatia relevante do faturamento e, mais grave, não ficam com o relacionamento nem com os dados dos próprios clientes — a base pertence ao marketplace. Um canal de vendas próprio resolveria o problema, mas construir um aplicativo do zero é inviável para um restaurante individual.",
+        solution:
+          "Uma plataforma white-label na qual um único backend atende múltiplos restaurantes, cada um com marca, cardápio e base de clientes próprios. O restaurante opera como se o aplicativo fosse dele; a tecnologia pertence à Coreon.\n\nO backend foi construído em Java com Spring Boot, com PostgreSQL e ambiente containerizado em Docker. O aplicativo mobile já existia com dados mockados, então o desenvolvimento partiu de um contrato de API previamente acordado — o backend precisou se encaixar no que já estava construído, sem quebrar o que o time de frontend havia entregue.\n\nA decisão central de arquitetura foi o modelo de multi-tenancy. Avaliei banco por tenant (isolamento máximo, migrações cada vez mais caras conforme a base de clientes cresce), schema por tenant (meio-termo aparente que na prática herda a complexidade dos dois) e banco compartilhado com Row-Level Security (barato de escalar, exige rigor absoluto nas políticas de acesso). A escolha foi um banco compartilhado com Row-Level Security do PostgreSQL, porque escala sem o custo operacional de manter um banco ou um schema por tenant. O isolamento é reforçado em duas camadas: a aplicação resolve o tenant a partir da requisição (header, subdomínio ou um valor padrão), e o PostgreSQL aplica RLS nas tabelas sensíveis — hoje 27 das 31 tabelas carregam tenant_id, das quais 30 têm FORCE ROW LEVEL SECURITY ativado, barrando até consultas malformadas vindas da própria aplicação. Já o white-label não depende de lógica em tempo de execução no aplicativo: cada marca recebe um build próprio do app mobile, com tema, logo e conteúdo definidos na compilação.",
+        features: [
+          "Autenticação com Argon2id e JWT próprio, com rotação de refresh token e revogação de toda a família em caso de reuso detectado",
+          "Isolamento multi-tenant reforçado por Row-Level Security no PostgreSQL, com tenant resolvido por header/subdomínio",
+          "White-label por build do aplicativo mobile — tema, logo e conteúdo próprios por marca",
+          "Catálogo com variantes de produto, grupos de adicionais e promoções",
+          "Fluxo de pedidos com validação de carrinho, idempotência, código sequencial por tenant e máquina de estado para transições",
+          "Motor de frete configurável com quatro estratégias (fixo, frete grátis a partir de valor, por CEP, por distância)",
+          "Pagamento via PIX com webhook validado por assinatura e credenciais cifradas por tenant",
+          "Padrão outbox dentro do próprio PostgreSQL para confiabilidade, sem dependência de fila externa",
+        ],
+      },
       bi: {
         title: "Plataforma Inteligente de Diagnóstico de Lacunas de Aprendizagem",
         role: "Desenvolvedor Full Stack & Arquiteto de BI",
@@ -395,12 +421,19 @@ const en: Dictionary = {
     moreProjects: "More projects on GitHub",
     otherProjectsTitle: "Other projects",
     coreonProduct: "A Coreon Systems product",
+    inDevelopment: "In development",
     items: {
       corefarma: {
         title: "Corefarma — ERP for Pharmacies",
         tagline: "Complete Pharmacy Management System",
         description:
           "A complete ERP built for the pharmaceutical sector, covering the entire pharmacy operation: POS with fiscal receipt issuance, inventory management, invoice generation, delivery control, customer and staff registration, and SNGPC integration for reporting controlled medications. Robust backend architecture with NestJS, secure authentication, structured logging with Winston and full documentation via Swagger. Beyond development, I defined the entire system flow and architecture.",
+      },
+      corefood: {
+        title: "Core Food — Restaurant Platform",
+        tagline: "White-label Ordering System",
+        description:
+          "A restaurant-owned ordering platform built as an alternative to delivery marketplaces: the restaurant operates under its own brand and keeps its customer base instead of paying per-order commissions. Java and Spring Boot backend, integrated with an existing mobile application through an API contract defined together with the frontend team. Responsible for multi-tenant architecture, authentication, catalog and order flow.",
       },
       culturehouse: {
         title: "Culture House – Social Management Platform",
@@ -438,6 +471,25 @@ const en: Dictionary = {
     loadingDiagram: "Loading diagram…",
     diagramError: "The diagram could not be rendered.",
     items: {
+      corefood: {
+        title: "Core Food — Restaurant Platform",
+        role: "Backend Developer",
+        projectType: "White-label SaaS platform for the food service industry",
+        problem:
+          "Restaurants selling through delivery marketplaces pay commissions that eat a significant share of revenue and, more importantly, lose ownership of both the customer relationship and the customer data — the base belongs to the marketplace. An owned sales channel would solve this, but building an app from scratch is out of reach for a single restaurant.",
+        solution:
+          "A white-label platform where a single backend serves multiple restaurants, each with its own brand, menu and customer base. The restaurant operates as if the app were its own; the technology belongs to Coreon.\n\nThe backend was built in Java with Spring Boot, using PostgreSQL and a Docker-based environment. The mobile app already existed with mocked data, so development started from a previously agreed API contract — the backend had to fit what was already built without breaking the frontend team's work.\n\nThe core architectural decision was the multi-tenancy model. I evaluated database-per-tenant (maximum isolation, migrations growing costlier as the client base scales), schema-per-tenant (an apparent middle ground that in practice inherits the complexity of both) and a shared database with Row-Level Security (cheap to scale, demanding absolute rigor in access policies). The choice was a shared PostgreSQL database with Row-Level Security, because it scales without the operational cost of maintaining a database or schema per tenant. Isolation is enforced in two layers: the application resolves the tenant from the request (header, subdomain or a default value), and PostgreSQL enforces RLS on sensitive tables — today 27 of 31 tables carry a tenant_id, 30 of which have FORCE ROW LEVEL SECURITY enabled, blocking even malformed queries from the application itself. White-labeling, in turn, doesn't rely on runtime logic in the app: each brand ships its own mobile app build, with theme, logo and content set at compile time.",
+        features: [
+          "Authentication with Argon2id and a custom JWT implementation, with refresh token rotation and full token family revocation on detected reuse",
+          "Multi-tenant isolation enforced by Row-Level Security in PostgreSQL, with the tenant resolved from the header/subdomain",
+          "White-labeling via mobile app build — theme, logo and content per brand",
+          "Catalog with product variants, addon groups and promotions",
+          "Order flow with cart validation, idempotency, a per-tenant sequential order code and a state machine for status transitions",
+          "Configurable shipping engine with four strategies (fixed, free above a threshold, by ZIP range, by distance)",
+          "PIX payments with signature-verified webhooks and per-tenant encrypted credentials",
+          "Outbox pattern running inside PostgreSQL itself for reliability, with no external queue dependency",
+        ],
+      },
       bi: {
         title: "Intelligent Learning-Gap Diagnosis Platform",
         role: "Full Stack Developer & BI Architect",
@@ -655,12 +707,19 @@ const es: Dictionary = {
     moreProjects: "Más proyectos en GitHub",
     otherProjectsTitle: "Otros proyectos",
     coreonProduct: "Un producto de Coreon Systems",
+    inDevelopment: "En desarrollo",
     items: {
       corefarma: {
         title: "Corefarma — ERP para Farmacias",
         tagline: "Sistema Completo de Gestión Farmacéutica",
         description:
           "Un ERP completo desarrollado para el sector farmacéutico, que cubre toda la operación de la farmacia: TPV con emisión de tickets fiscales, gestión de inventario, generación de facturas, control de entregas, registro de clientes y empleados e integración con SNGPC para la notificación de medicamentos controlados. Arquitectura backend robusta con NestJS, autenticación segura, logging estructurado con Winston y documentación completa vía Swagger. Además del desarrollo, definí todo el flujo y la arquitectura del sistema.",
+      },
+      corefood: {
+        title: "Core Food — Plataforma para Restaurantes",
+        tagline: "Sistema de Pedidos White-label",
+        description:
+          "Plataforma de pedidos propia para restaurantes, creada como alternativa a los marketplaces de delivery: el restaurante opera bajo su propia marca y conserva su base de clientes, en lugar de pagar comisión por pedido. Backend en Java con Spring Boot, integrado con una aplicación móvil ya existente mediante un contrato de API definido junto con el equipo de frontend. Responsable de la arquitectura multi-tenant, autenticación, catálogo y flujo de pedidos.",
       },
       culturehouse: {
         title: "Culture House – Plataforma de Gestión Social",
@@ -698,6 +757,25 @@ const es: Dictionary = {
     loadingDiagram: "Cargando diagrama…",
     diagramError: "No se pudo renderizar el diagrama.",
     items: {
+      corefood: {
+        title: "Core Food — Plataforma para Restaurantes",
+        role: "Desarrollador Backend",
+        projectType: "Plataforma SaaS white-label para el sector de alimentación",
+        problem:
+          "Los restaurantes que venden a través de marketplaces de delivery pagan comisiones que consumen una parte relevante de la facturación y, lo que es más grave, no conservan la relación ni los datos de sus propios clientes — la base pertenece al marketplace. Un canal de ventas propio resolvería el problema, pero construir una aplicación desde cero es inviable para un restaurante individual.",
+        solution:
+          "Una plataforma white-label en la que un único backend atiende a múltiples restaurantes, cada uno con marca, carta y base de clientes propias. El restaurante opera como si la aplicación fuera suya; la tecnología pertenece a Coreon.\n\nEl backend se construyó en Java con Spring Boot, con PostgreSQL y un entorno en contenedores con Docker. La aplicación móvil ya existía con datos simulados, así que el desarrollo partió de un contrato de API previamente acordado — el backend tuvo que encajar en lo que ya estaba construido, sin romper lo que el equipo de frontend había entregado.\n\nLa decisión central de arquitectura fue el modelo de multi-tenancy. Evalué base de datos por tenant (aislamiento máximo, migraciones cada vez más costosas a medida que crece la base de clientes), esquema por tenant (un término medio aparente que en la práctica hereda la complejidad de ambos) y base de datos compartida con Row-Level Security (barata de escalar, exige un rigor absoluto en las políticas de acceso). La elección fue una base de datos compartida de PostgreSQL con Row-Level Security, porque escala sin el costo operativo de mantener una base de datos o un esquema por tenant. El aislamiento se refuerza en dos capas: la aplicación resuelve el tenant a partir de la solicitud (header, subdominio o un valor por defecto), y PostgreSQL aplica RLS en las tablas sensibles — hoy 27 de las 31 tablas llevan tenant_id, de las cuales 30 tienen FORCE ROW LEVEL SECURITY activado, bloqueando incluso consultas mal formadas provenientes de la propia aplicación. El white-label, por su parte, no depende de lógica en tiempo de ejecución en la aplicación: cada marca recibe su propio build de la app móvil, con tema, logo y contenido definidos en la compilación.",
+        features: [
+          "Autenticación con Argon2id y JWT propio, con rotación de refresh token y revocación de toda la familia ante reuso detectado",
+          "Aislamiento multi-tenant reforzado por Row-Level Security en PostgreSQL, con el tenant resuelto por header/subdominio",
+          "White-label mediante build de la app móvil — tema, logo y contenido propios por marca",
+          "Catálogo con variantes de producto, grupos de adicionales y promociones",
+          "Flujo de pedidos con validación de carrito, idempotencia, código secuencial por tenant y máquina de estados para las transiciones",
+          "Motor de envío configurable con cuatro estrategias (fijo, envío gratis a partir de un monto, por código postal, por distancia)",
+          "Pago vía PIX con webhook validado por firma y credenciales cifradas por tenant",
+          "Patrón outbox dentro del propio PostgreSQL para confiabilidad, sin depender de una cola externa",
+        ],
+      },
       bi: {
         title: "Plataforma Inteligente de Diagnóstico de Brechas de Aprendizaje",
         role: "Desarrollador Full Stack y Arquitecto de BI",

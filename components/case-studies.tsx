@@ -9,6 +9,115 @@ import { useI18n } from "@/components/i18n/language-provider"
 // Dados neutros: id, stack, repositório e diagramas (código Mermaid).
 const caseStudies = [
   {
+    id: "corefood",
+    stack: ["Java 25", "Spring Boot 4", "Spring Modulith", "PostgreSQL", "Redis", "JWT", "Docker", "Testcontainers"],
+    diagrams: {
+      architecture: `graph TD
+    subgraph Clientes
+        A[App Mobile — Cliente]
+        B[App Mobile — Lojista / Console]
+    end
+
+    subgraph Backend["core-platform — Spring Boot + Modulith"]
+        C[API REST]
+        D[Resolução de Tenant]
+        E[Identity]
+        F[Ordering]
+        G[Payment]
+        H[Loyalty]
+        I[Notification]
+    end
+
+    J[(PostgreSQL\nRLS por tenant)]
+    K[(Redis\ncache)]
+    L[PagBank / PIX]
+    M[Expo Push]
+
+    A -->|HTTPS / REST| C
+    B -->|HTTPS / REST| C
+    C --> D
+    D --> E
+    D --> F
+    D --> G
+    D --> H
+    D --> I
+    E --> J
+    F --> J
+    G --> J
+    H --> J
+    C --> K
+    G -->|Webhook| L
+    I --> M
+    style D fill:#2563eb,stroke:#60a5fa,color:#fff
+    style J fill:#06b6d4,stroke:#22d3ee,color:#fff`,
+      erd: `erDiagram
+    TENANT ||--o{ APP_USER : has
+    TENANT ||--o{ CATEGORY : owns
+    TENANT ||--o{ PRODUCT : owns
+    TENANT ||--o{ ORDER_ENTITY : owns
+
+    TENANT {
+        int id PK
+        string name
+        string subdomain
+    }
+
+    APP_USER {
+        int id PK
+        int tenant_id FK
+        string email
+        string role
+    }
+
+    CATEGORY {
+        int id PK
+        int tenant_id FK
+        string name
+        int position
+    }
+
+    PRODUCT {
+        int id PK
+        int tenant_id FK
+        int category_id FK
+        string name
+        decimal price
+        boolean available
+    }
+
+    CATEGORY ||--o{ PRODUCT : contains
+
+    ORDER_ENTITY {
+        int id PK
+        int tenant_id FK
+        int sequential_code
+        string status
+        datetime created_at
+    }
+
+    ORDER_ITEM {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal unit_price
+    }
+
+    ORDER_ENTITY ||--o{ ORDER_ITEM : contains
+    PRODUCT ||--o{ ORDER_ITEM : referenced_by
+
+    PAYMENT {
+        int id PK
+        int order_id FK
+        string method
+        string status
+        string webhook_hash
+    }
+
+    ORDER_ENTITY ||--o| PAYMENT : has`,
+    },
+  },
+  {
     id: "bi",
     stack: [
       "Django 4",
@@ -178,17 +287,19 @@ export default function CaseStudies() {
                   </span>
                 ))}
               </div>
-              <Button
-                asChild
-                variant="outline"
-                size="sm"
-                className="border-brand/50 hover:border-brand-cyan hover:bg-brand/10 bg-transparent"
-              >
-                <a href={study.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                  <Github className="w-4 h-4" />
-                  {c.viewRepo}
-                </a>
-              </Button>
+              {"github" in study && study.github && (
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="border-brand/50 hover:border-brand-cyan hover:bg-brand/10 bg-transparent"
+                >
+                  <a href={study.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    <Github className="w-4 h-4" />
+                    {c.viewRepo}
+                  </a>
+                </Button>
+              )}
             </div>
 
             {/* Problema & Solução */}
@@ -199,7 +310,7 @@ export default function CaseStudies() {
               </div>
               <div>
                 <h5 className="text-base font-bold text-brand-light mb-2">{c.solutionLabel}</h5>
-                <p className="text-gray-300 leading-normal text-sm sm:text-base">{s.solution}</p>
+                <p className="text-gray-300 leading-normal text-sm sm:text-base whitespace-pre-line">{s.solution}</p>
               </div>
             </div>
 
