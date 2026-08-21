@@ -28,7 +28,7 @@ const pt = {
     stats: [
       { value: "5+", label: "anos em TI & Dev" },
       { value: "8", label: "certificações" },
-      { value: "100%", label: "foco em segurança" },
+      { value: "2", label: "produtos em produção" },
     ],
     secureBadge: "Desenvolvimento seguro por natureza",
     terminal: {
@@ -122,6 +122,7 @@ const pt = {
     accessSystem: "Acessar sistema",
     viewGithub: "Ver no GitHub",
     moreProjects: "Mais projetos no GitHub",
+    otherProjectsTitle: "Outros projetos",
     items: {
       corefarma: {
         title: "Corefarma — ERP para Farmácias",
@@ -208,11 +209,8 @@ const pt = {
     heading: "Publicações",
     subtitle: "Artigos técnicos e recomendações da comunidade",
     articlesHeading: "Artigos no Medium",
-    articlesEmpty: "Os artigos aparecerão aqui quando disponíveis.",
     readMedium: "Ler no Medium",
     recsHeading: "Recomendações do LinkedIn",
-    recsEmpty: "Ainda não há recomendações disponíveis.",
-    recsEmptyHint: "Usando cache local ou a fonte de dados pode estar vazia.",
     viewLinkedin: "Ver no LinkedIn",
   },
   contact: {
@@ -282,7 +280,7 @@ const en: Dictionary = {
     stats: [
       { value: "5+", label: "years in IT & Dev" },
       { value: "8", label: "certifications" },
-      { value: "100%", label: "security-focused" },
+      { value: "2", label: "products in production" },
     ],
     secureBadge: "Secure development by nature",
     terminal: {
@@ -376,6 +374,7 @@ const en: Dictionary = {
     accessSystem: "Open the app",
     viewGithub: "View on GitHub",
     moreProjects: "More projects on GitHub",
+    otherProjectsTitle: "Other projects",
     items: {
       corefarma: {
         title: "Corefarma — ERP for Pharmacies",
@@ -462,11 +461,8 @@ const en: Dictionary = {
     heading: "Writing",
     subtitle: "Technical articles and community recommendations",
     articlesHeading: "Articles on Medium",
-    articlesEmpty: "Articles will appear here when available.",
     readMedium: "Read on Medium",
     recsHeading: "LinkedIn Recommendations",
-    recsEmpty: "No recommendations available yet.",
-    recsEmptyHint: "Using local cache or the data source may be empty.",
     viewLinkedin: "View on LinkedIn",
   },
   contact: {
@@ -534,7 +530,7 @@ const es: Dictionary = {
     stats: [
       { value: "5+", label: "años en TI y Dev" },
       { value: "8", label: "certificaciones" },
-      { value: "100%", label: "enfoque en seguridad" },
+      { value: "2", label: "productos en producción" },
     ],
     secureBadge: "Desarrollo seguro por naturaleza",
     terminal: {
@@ -628,6 +624,7 @@ const es: Dictionary = {
     accessSystem: "Abrir el sistema",
     viewGithub: "Ver en GitHub",
     moreProjects: "Más proyectos en GitHub",
+    otherProjectsTitle: "Otros proyectos",
     items: {
       corefarma: {
         title: "Corefarma — ERP para Farmacias",
@@ -714,11 +711,8 @@ const es: Dictionary = {
     heading: "Publicaciones",
     subtitle: "Artículos técnicos y recomendaciones de la comunidad",
     articlesHeading: "Artículos en Medium",
-    articlesEmpty: "Los artículos aparecerán aquí cuando estén disponibles.",
     readMedium: "Leer en Medium",
     recsHeading: "Recomendaciones de LinkedIn",
-    recsEmpty: "Aún no hay recomendaciones disponibles.",
-    recsEmptyHint: "Usando caché local o la fuente de datos puede estar vacía.",
     viewLinkedin: "Ver en LinkedIn",
   },
   contact: {

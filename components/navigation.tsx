@@ -15,7 +15,7 @@ const navItems = [
   { href: "#contact", id: "contact", key: "contact" },
 ] as const
 
-const CV_URL = "https://drive.google.com/file/d/1zpvyQ02nPA1HpEHiJemkkSR_uWBcIEQr/view?usp=sharing"
+const CV_URL = "/Douglas-Brum-Desenvolvedor-Backend.pdf"
 
 export default function Navigation() {
   const { t } = useI18n()
@@ -93,7 +93,7 @@ export default function Navigation() {
               size="sm"
               className="bg-gradient-brand text-white hover:opacity-90 hover:glow-brand transition-all"
             >
-              <a href={CV_URL} target="_blank" rel="noopener noreferrer">
+              <a href={CV_URL} download target="_blank" rel="noopener noreferrer">
                 <Download className="w-4 h-4 mr-2" />
                 {t.nav.downloadCv}
               </a>
@@ -138,7 +138,7 @@ export default function Navigation() {
               size="sm"
               className="w-full mt-3 bg-gradient-brand text-white hover:opacity-90"
             >
-              <a href={CV_URL} target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
+              <a href={CV_URL} download target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
                 <Download className="w-4 h-4 mr-2" />
                 {t.nav.downloadCvLong}
               </a>

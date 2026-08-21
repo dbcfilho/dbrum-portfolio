@@ -21,16 +21,16 @@ const projects = [
     stack: ["Python", "Django 4+", "MySQL 8+", "Bootstrap 5", "Docker", "Docker Compose"],
     github: "https://github.com/dbcfilho/casa-da-cultura-v3",
   },
+] as const
+
+// Projetos de nível tutorial — exibidos em destaque reduzido na subseção "Outros projetos".
+const otherProjects = [
   {
     id: "crudjava",
-    featured: false,
-    stack: ["Java", "Spring Boot", "Thymeleaf", "SQL", "REST APIs"],
     github: "https://github.com/dbcfilho/CRUD-Java",
   },
   {
     id: "userreg",
-    featured: false,
-    stack: ["Node.js", "Express.js", "React", "MySQL", "REST APIs"],
     github: "https://github.com/dbcfilho/User-registration",
   },
 ] as const
@@ -164,6 +164,37 @@ export default function Projects() {
         </div>
 
         <CaseStudies />
+
+        <div className="mt-10 sm:mt-12">
+          <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-5 tracking-wide">{p.otherProjectsTitle}</h3>
+          <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+            {otherProjects.map((project) => {
+              const info = p.items[project.id]
+              return (
+                <div
+                  key={project.id}
+                  className="glass-card rounded-lg p-4 hover:border-brand/40 transition-colors duration-300"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <h4 className="text-sm sm:text-base font-semibold text-white truncate">{info.title}</h4>
+                      <p className="text-brand-cyan text-xs sm:text-sm">{info.tagline}</p>
+                    </div>
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={p.viewGithub}
+                      className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg text-gray-300 hover:text-brand-cyan hover:bg-brand/10 transition-colors"
+                    >
+                      <Github className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
 
         <div className="text-center mt-6 sm:mt-8">
           <a

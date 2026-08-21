@@ -6,7 +6,7 @@ import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
 import { useI18n } from "@/components/i18n/language-provider"
 
-const CV_URL = "https://drive.google.com/file/d/1zpvyQ02nPA1HpEHiJemkkSR_uWBcIEQr/view?usp=sharing"
+const CV_URL = "/Douglas-Brum-Desenvolvedor-Backend.pdf"
 
 export default function Hero() {
   const { t } = useI18n()
@@ -81,7 +81,7 @@ export default function Hero() {
                 size="lg"
                 className="text-gray-300 hover:text-brand-cyan hover:bg-brand/5 w-full sm:w-auto"
               >
-                <a href={CV_URL} target="_blank" rel="noopener noreferrer">
+                <a href={CV_URL} download target="_blank" rel="noopener noreferrer">
                   <Download className="w-4 h-4 mr-2" />
                   {h.ctaCv}
                 </a>

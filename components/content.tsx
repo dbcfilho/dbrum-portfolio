@@ -67,6 +67,11 @@ export default function Content() {
       .finally(() => setRecsLoading(false))
   }, [])
 
+  const showArticles = articlesLoading || (!articlesError && articles.length > 0)
+  const showRecs = recsLoading || (!recsError && recommendations.length > 0)
+
+  if (!showArticles && !showRecs) return null
+
   return (
     <section id="content" className="py-12 sm:py-16 relative">
       <div className="accent-line absolute top-0 left-0 right-0" />
@@ -79,6 +84,7 @@ export default function Content() {
         </div>
 
         {/* Artigos do Medium */}
+        {showArticles && (
         <div className="mb-10 sm:mb-14">
           <div className="flex items-center gap-2.5 mb-5 sm:mb-6">
             <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-brand-cyan" />
@@ -88,10 +94,6 @@ export default function Content() {
           {articlesLoading ? (
             <div className="flex items-center justify-center py-12">
               <Loader2 className="w-8 h-8 text-brand-cyan animate-spin" />
-            </div>
-          ) : articlesError || articles.length === 0 ? (
-            <div className="glass-card rounded-lg p-8 text-center">
-              <p className="text-gray-400">{c.articlesEmpty}</p>
             </div>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
@@ -177,8 +179,10 @@ export default function Content() {
             </div>
           )}
         </div>
+        )}
 
         {/* Recomendações do LinkedIn */}
+        {showRecs && (
         <div>
           <div className="flex items-center gap-2.5 mb-5 sm:mb-6">
             <svg
@@ -195,11 +199,6 @@ export default function Content() {
           {recsLoading ? (
             <div className="flex items-center justify-center py-12">
               <Loader2 className="w-8 h-8 text-brand-cyan animate-spin" />
-            </div>
-          ) : recsError || recommendations.length === 0 ? (
-            <div className="glass-card rounded-lg p-8 text-center">
-              <p className="text-gray-400">{c.recsEmpty}</p>
-              <p className="text-gray-500 text-xs mt-2">{c.recsEmptyHint}</p>
             </div>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
@@ -255,6 +254,7 @@ export default function Content() {
             </div>
           )}
         </div>
+        )}
       </div>
     </section>
   )
