@@ -15,6 +15,40 @@
 */
 
 :root {
+  /*
+    ---- Tipografia — direção "Registro" (spec-design-registro.md, Fase 1) ----
+    Fonte única da verdade para família, escala, peso, entrelinha e rastreamento.
+    Cor ainda não migrou (ver seção "Cores da marca" abaixo) — a troca de
+    paleta acontece junto da remoção dos hardcodes de cor nos componentes,
+    para não deixar o site com contraste quebrado entre fases.
+  */
+  --f-display: var(--font-archivo), system-ui, sans-serif;
+  --f-body: var(--font-archivo), system-ui, sans-serif;
+  --f-mono: var(--font-mono), ui-monospace, monospace;
+
+  --t-xs: 0.75rem; /* 12 — metadado mono */
+  --t-sm: 0.875rem; /* 14 — legenda */
+  --t-base: 1rem; /* 16 — corpo */
+  --t-md: 1.25rem; /* 20 — corpo destacado */
+  --t-lg: 1.5rem; /* 24 — h3 */
+  --t-xl: 2rem; /* 32 — h2 */
+  --t-2xl: 3rem; /* 48 — h1 seção */
+  --t-3xl: clamp(2.5rem, 7vw, 4.5rem); /* 72 — display do herói */
+
+  --w-regular: 400;
+  --w-medium: 500;
+  --w-bold: 700;
+
+  --lh-tight: 1.05; /* display */
+  --lh-snug: 1.25; /* títulos */
+  --lh-body: 1.6; /* corpo */
+
+  --tr-display: -0.03em;
+  --tr-normal: 0;
+  --tr-label: 0.08em; /* rótulos em caixa alta */
+
+  --measure: 68ch; /* largura máxima de parágrafo */
+
   /* ---- Cores da marca (hex cru, para uso fora do Tailwind) ---- */
   --brand-azure: #2563eb;
   --brand-azure-light: #60a5fa;
@@ -148,7 +182,8 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  --font-heading: "Space Grotesk", "Space Grotesk Fallback", system-ui, sans-serif;
+  --font-heading: var(--f-display);
+  --font-mono: var(--f-mono);
 }
 
 @layer base {
@@ -157,6 +192,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--f-body);
   }
 
   html,
@@ -183,7 +219,7 @@
   h4,
   h5,
   h6 {
-    font-family: "Space Grotesk", "Space Grotesk Fallback", system-ui, sans-serif;
+    font-family: var(--f-display);
   }
 
   html {
@@ -195,6 +231,33 @@
 }
 
 @layer components {
+  /* --------- Tipografia "Registro" (spec-design-registro.md, Fase 1) --------- */
+  /* Ainda não aplicadas a nenhum componente — entram no lugar dos títulos e
+     rótulos hardcoded a partir da Fase 3 (Hierarquia). */
+
+  .display {
+    font-family: var(--f-display);
+    font-size: var(--t-3xl);
+    font-weight: var(--w-bold);
+    font-stretch: 125%; /* Expanded */
+    line-height: var(--lh-tight);
+    letter-spacing: var(--tr-display);
+  }
+
+  .label {
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    font-weight: var(--w-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-label);
+  }
+
+  .body {
+    font-size: var(--t-base);
+    line-height: var(--lh-body);
+    max-width: var(--measure);
+  }
+
   /* --------- Utilitários da marca (reutilizáveis, sem duplicação) --------- */
 
   /* Texto com gradiente da marca */

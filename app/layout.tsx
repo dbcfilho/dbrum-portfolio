@@ -1,20 +1,22 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Space_Grotesk, Inter } from "next/font/google"
+import { Archivo, IBM_Plex_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "@/components/ui/toaster"
 import { LanguageProvider } from "@/components/i18n/language-provider"
 import "./globals.css"
 
-const spaceGrotesk = Space_Grotesk({
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-heading",
+  variable: "--font-archivo",
   display: "swap",
+  axes: ["wdth"],
 })
 
-const inter = Inter({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-body",
+  weight: ["400", "500"],
+  variable: "--font-mono",
   display: "swap",
 })
 
@@ -104,7 +106,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${spaceGrotesk.variable} ${inter.variable} font-body antialiased`}>
+      <body className={`${archivo.variable} ${ibmPlexMono.variable} antialiased`}>
         <LanguageProvider>
           {children}
           <Toaster />
