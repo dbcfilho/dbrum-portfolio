@@ -50,11 +50,6 @@ const experiences = [
 
 const education = [{ id: "uniasselvi", institution: "UNIASSELVI", period: "Ago 2022 – Jul 2025" }] as const
 
-const langBadgeClasses = [
-  "bg-green-500/10 border border-green-500/30 text-green-300",
-  "bg-brand-light/10 border border-brand-light/30 text-brand-light",
-  "bg-yellow-500/10 border border-yellow-500/30 text-yellow-300",
-]
 
 export default function AboutUnified() {
   const { t } = useI18n()
@@ -67,11 +62,11 @@ export default function AboutUnified() {
         {/* Texto Sobre */}
         <div className="mb-s-8">
           <SectionMeta label={t.sectionLabels.about}>
-            <div className="glass-card rounded-lg p-5 sm:p-6 md:p-8 animate-in fade-in slide-in-from-bottom duration-700">
+            <div className="glass-card rounded-sm p-5 sm:p-6 md:p-8 animate-in fade-in slide-in-from-bottom duration-700">
               <h2 className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 text-gradient-brand tracking-wide">
                 {a.heading}
               </h2>
-              <div className="space-y-3 sm:space-y-4 text-gray-300 leading-normal text-sm sm:text-base">
+              <div className="space-y-3 sm:space-y-4 text-ink-2 leading-normal text-sm sm:text-base">
                 {a.paragraphs.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -84,8 +79,8 @@ export default function AboutUnified() {
         <div className="mb-s-8">
           <SectionMeta label={t.sectionLabels.skills}>
           <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{a.skillsHeading}</h3>
-            <p className="text-gray-300 text-sm sm:text-base max-w-2xl">{a.skillsSubtitle}</p>
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-ink tracking-wide">{a.skillsHeading}</h3>
+            <p className="text-ink-2 text-sm sm:text-base max-w-2xl">{a.skillsSubtitle}</p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
@@ -95,23 +90,23 @@ export default function AboutUnified() {
               return (
                 <div
                   key={group.id}
-                  className="glass-card rounded-lg p-4 sm:p-5 hover:border-brand/50 transition-all duration-300 animate-in fade-in slide-in-from-bottom"
+                  className="glass-card rounded-sm p-4 sm:p-5 hover:border-ledger transition-all duration-300 animate-in fade-in slide-in-from-bottom"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="flex items-start gap-3 mb-3">
-                    <div className="p-2 sm:p-2.5 rounded-lg bg-brand/10 border border-brand/30 shrink-0">
-                      <Icon className="w-5 h-5 text-brand-cyan" />
+                    <div className="p-2 sm:p-2.5 rounded-sm bg-panel border border-rule shrink-0">
+                      <Icon className="w-5 h-5 text-ink-2" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-base sm:text-lg font-bold text-white mb-1.5">{g.title}</h4>
-                      <p className="text-xs sm:text-sm text-gray-400">{g.description}</p>
+                      <h4 className="text-base sm:text-lg font-bold text-ink mb-1.5">{g.title}</h4>
+                      <p className="text-xs sm:text-sm text-ink-3">{g.description}</p>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {group.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="px-2.5 py-1 text-xs sm:text-sm rounded-full bg-gray-800/50 border border-brand/20 text-gray-300 hover:border-brand-cyan hover:bg-brand/10 transition-all"
+                        className="label px-2 py-0.5 rounded-sm border border-rule hover:border-ledger hover:text-ledger transition-all"
                       >
                         {skill}
                       </span>
@@ -128,8 +123,8 @@ export default function AboutUnified() {
         <div className="mb-s-8">
           <SectionMeta label={t.sectionLabels.certifications}>
           <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{a.certsHeading}</h3>
-            <p className="text-gray-300 text-sm sm:text-base max-w-2xl">{a.certsSubtitle}</p>
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-ink tracking-wide">{a.certsHeading}</h3>
+            <p className="text-ink-2 text-sm sm:text-base max-w-2xl">{a.certsSubtitle}</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
@@ -138,17 +133,17 @@ export default function AboutUnified() {
               return (
                 <div
                   key={cert.title}
-                  className="glass-card rounded-lg p-4 hover:border-brand/50 transition-all duration-300 group animate-in fade-in slide-in-from-bottom"
+                  className="glass-card rounded-sm p-4 hover:border-ledger transition-all duration-300 group animate-in fade-in slide-in-from-bottom"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <div className="flex items-start gap-2 mb-2.5">
-                    <div className="p-2 rounded-lg bg-brand/10 border border-brand/30 group-hover:bg-brand/20 transition-colors shrink-0">
-                      <Icon className="w-4 h-4 text-brand-cyan" />
+                    <div className="p-2 rounded-sm bg-panel border border-rule shrink-0">
+                      <Icon className="w-4 h-4 text-ink-2" />
                     </div>
-                    <span className="text-xs text-brand-light font-medium">{cert.year}</span>
+                    <span className="label">{cert.year}</span>
                   </div>
-                  <h4 className="text-sm font-bold text-white mb-1.5 leading-tight">{cert.title}</h4>
-                  <p className="text-xs text-brand-cyan">{cert.issuer}</p>
+                  <h4 className="text-sm font-bold text-ink mb-1.5 leading-tight">{cert.title}</h4>
+                  <p className="text-xs text-ledger">{cert.issuer}</p>
                 </div>
               )
             })}
@@ -160,16 +155,13 @@ export default function AboutUnified() {
         <div>
           <SectionMeta label={t.sectionLabels.experience}>
           <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{a.experienceHeading}</h3>
-            <p className="text-gray-300 text-sm sm:text-base max-w-2xl">{a.experienceSubtitle}</p>
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-ink tracking-wide">{a.experienceHeading}</h3>
+            <p className="text-ink-2 text-sm sm:text-base max-w-2xl">{a.experienceSubtitle}</p>
           </div>
 
           <div className="relative max-w-3xl">
             {/* Trilho vertical do tempo */}
-            <div
-              className="absolute left-[23px] sm:left-[27px] top-3 bottom-3 w-px bg-gradient-to-b from-brand via-brand-cyan to-transparent"
-              aria-hidden
-            />
+            <div className="absolute left-[23px] sm:left-[27px] top-3 bottom-3 w-px bg-rule" aria-hidden />
 
             <div className="space-y-5 sm:space-y-6">
               {experiences.map((exp, index) => {
@@ -185,14 +177,9 @@ export default function AboutUnified() {
                   >
                     {/* Marcador com ícone */}
                     <div className="relative shrink-0">
-                      {ongoing && (
-                        <span className="absolute inset-0 rounded-full bg-brand-cyan/30 blur-md animate-pulse" aria-hidden />
-                      )}
                       <div
-                        className={`relative z-10 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full ring-4 ring-[oklch(0.15_0.025_260)] ${
-                          ongoing
-                            ? "bg-gradient-brand text-white"
-                            : "bg-[oklch(0.19_0.03_260)] border border-brand/40 text-brand-cyan"
+                        className={`relative z-10 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full ring-4 ring-paper ${
+                          ongoing ? "bg-ledger text-paper" : "bg-panel border border-rule text-ink-2"
                         }`}
                       >
                         <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -201,26 +188,24 @@ export default function AboutUnified() {
 
                     {/* Cartão */}
                     <div
-                      className={`flex-1 min-w-0 glass-card rounded-xl p-4 sm:p-5 transition-all duration-300 hover:border-brand/50 ${
-                        ongoing ? "border-brand-cyan/40 ring-1 ring-brand-cyan/20" : ""
+                      className={`flex-1 min-w-0 glass-card rounded-sm p-4 sm:p-5 transition-all duration-300 hover:border-ledger ${
+                        ongoing ? "border-ledger/40" : ""
                       }`}
                     >
                       <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2 mb-3">
                         <div className="min-w-0">
-                          <h4 className="text-base sm:text-lg font-bold text-white leading-snug">{e.role}</h4>
-                          <p className="text-brand-cyan font-medium text-sm">{exp.company}</p>
+                          <h4 className="text-base sm:text-lg font-bold text-ink leading-snug">{e.role}</h4>
+                          <p className="text-ledger font-medium text-sm">{exp.company}</p>
                         </div>
                         <span
-                          className={`shrink-0 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
-                            ongoing
-                              ? "bg-brand-cyan/10 border border-brand-cyan/40 text-brand-cyan-light"
-                              : "bg-gray-800/60 border border-brand/20 text-gray-300"
+                          className={`shrink-0 inline-flex items-center gap-1.5 rounded-sm px-2.5 py-1 text-xs font-medium ${
+                            ongoing ? "bg-ledger-dim border border-ledger/40 text-ledger" : "bg-panel border border-rule text-ink-2"
                           }`}
                         >
                           {ongoing && (
                             <span className="relative flex h-1.5 w-1.5">
-                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-cyan opacity-75" />
-                              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-cyan" />
+                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ledger opacity-75" />
+                              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ledger" />
                             </span>
                           )}
                           {period}
@@ -228,11 +213,8 @@ export default function AboutUnified() {
                       </div>
                       <ul className="space-y-2">
                         {e.points.map((point, i) => (
-                          <li key={i} className="flex gap-2.5 text-xs sm:text-sm text-gray-300 leading-relaxed">
-                            <span
-                              className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-brand to-brand-cyan"
-                              aria-hidden
-                            />
+                          <li key={i} className="flex gap-2.5 text-xs sm:text-sm text-ink-2 leading-relaxed">
+                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ledger" aria-hidden />
                             <span>{point}</span>
                           </li>
                         ))}
@@ -250,8 +232,8 @@ export default function AboutUnified() {
         <div className="mt-s-8">
           <SectionMeta label={t.sectionLabels.education}>
           <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{a.educationHeading}</h3>
-            <p className="text-gray-300 text-sm sm:text-base max-w-2xl">{a.educationSubtitle}</p>
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-ink tracking-wide">{a.educationHeading}</h3>
+            <p className="text-ink-2 text-sm sm:text-base max-w-2xl">{a.educationSubtitle}</p>
           </div>
 
           <div className="max-w-5xl space-y-4 sm:space-y-6 mb-8 sm:mb-10">
@@ -260,18 +242,18 @@ export default function AboutUnified() {
               return (
                 <div
                   key={edu.id}
-                  className="glass-card rounded-lg p-5 sm:p-7 hover:border-brand/50 transition-all duration-300 animate-in fade-in slide-in-from-bottom"
+                  className="glass-card rounded-sm p-5 sm:p-7 hover:border-ledger transition-all duration-300 animate-in fade-in slide-in-from-bottom"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="flex flex-col sm:flex-row items-start gap-4">
-                    <div className="p-2.5 sm:p-3 rounded-lg bg-brand/10 border border-brand/30 shrink-0">
-                      <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-brand-cyan" />
+                    <div className="p-2.5 sm:p-3 rounded-sm bg-panel border border-rule shrink-0">
+                      <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-ink-2" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-lg sm:text-xl font-bold text-white mb-2">{ed.degree}</h4>
-                      <p className="text-brand-cyan font-medium mb-1 text-sm sm:text-base">{edu.institution}</p>
-                      <p className="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4">{edu.period}</p>
-                      <p className="text-gray-300 leading-relaxed text-sm sm:text-base">{ed.description}</p>
+                      <h4 className="text-lg sm:text-xl font-bold text-ink mb-2">{ed.degree}</h4>
+                      <p className="text-ledger font-medium mb-1 text-sm sm:text-base">{edu.institution}</p>
+                      <p className="text-xs sm:text-sm text-ink-3 mb-3 sm:mb-4">{edu.period}</p>
+                      <p className="text-ink-2 leading-relaxed text-sm sm:text-base">{ed.description}</p>
                     </div>
                   </div>
                 </div>
@@ -279,18 +261,18 @@ export default function AboutUnified() {
             })}
           </div>
 
-          <div className="max-w-5xl glass-card rounded-lg p-5 sm:p-7 animate-in fade-in slide-in-from-bottom delay-300">
+          <div className="max-w-5xl glass-card rounded-sm p-5 sm:p-7 animate-in fade-in slide-in-from-bottom delay-300">
             <div className="flex flex-col sm:flex-row items-start gap-4">
-              <div className="p-2.5 sm:p-3 rounded-lg bg-brand-light/10 border border-brand-light/30 shrink-0">
-                <Languages className="w-5 h-5 sm:w-6 sm:h-6 text-brand-light" />
+              <div className="p-2.5 sm:p-3 rounded-sm bg-panel border border-rule shrink-0">
+                <Languages className="w-5 h-5 sm:w-6 sm:h-6 text-ink-2" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">{a.languagesTitle}</h4>
+                <h4 className="text-lg sm:text-xl font-bold text-ink mb-3 sm:mb-4">{a.languagesTitle}</h4>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
-                  {a.languages.map((lang, i) => (
+                  {a.languages.map((lang) => (
                     <div key={lang.label} className="flex items-center gap-2">
-                      <span className="text-gray-300 font-medium text-sm sm:text-base">{lang.label}</span>
-                      <span className={`px-2 py-1 text-xs rounded-full ${langBadgeClasses[i]}`}>{lang.level}</span>
+                      <span className="text-ink-2 font-medium text-sm sm:text-base">{lang.label}</span>
+                      <span className="label px-2 py-0.5 rounded-sm border border-rule">{lang.level}</span>
                     </div>
                   ))}
                 </div>

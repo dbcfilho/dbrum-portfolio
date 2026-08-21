@@ -62,14 +62,14 @@ export default function Projects() {
           <SectionMeta label={t.sectionLabels.projects}>
             <div className="text-center">
               <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3 text-gradient-brand tracking-wide">{p.heading}</h2>
-              <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{p.subtitle}</p>
+              <p className="text-ink-2 text-sm sm:text-base max-w-2xl mx-auto px-4">{p.subtitle}</p>
             </div>
           </SectionMeta>
         </div>
 
         <div className="mb-s-8">
           <SectionMeta label={t.sectionLabels.featured}>
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-5 sm:mb-6 tracking-wide">{p.featuredTitle}</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-ink mb-5 sm:mb-6 tracking-wide">{p.featuredTitle}</h3>
           <motion.div
             className="space-y-5 sm:space-y-6"
             initial="hidden"
@@ -85,20 +85,18 @@ export default function Projects() {
                 variants={card}
                 whileHover={reduce ? undefined : { y: -4 }}
                 transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                className={`relative glass-card rounded-xl p-5 sm:p-6 transition-colors duration-300 ${
-                  project.featured
-                    ? "border-brand-cyan/50 ring-1 ring-brand-cyan/30 shadow-lg shadow-brand/10"
-                    : "hover:border-brand/50"
+                className={`relative glass-card rounded-sm p-5 sm:p-6 transition-colors duration-300 ${
+                  project.featured ? "border-ledger/50" : "hover:border-ledger"
                 }`}
               >
                 {"inDevelopment" in project && project.inDevelopment ? (
-                  <span className="absolute -top-3 left-5 inline-flex items-center gap-1.5 rounded-full bg-amber-500/90 px-3 py-1 text-xs font-semibold text-white shadow-md">
+                  <span className="label absolute -top-3 left-5 inline-flex items-center gap-1.5 rounded-sm bg-signal px-3 py-1 text-paper">
                     <Clock className="w-3.5 h-3.5" />
                     {p.inDevelopment}
                   </span>
                 ) : (
                   project.featured && (
-                    <span className="absolute -top-3 left-5 inline-flex items-center gap-1.5 rounded-full bg-gradient-brand px-3 py-1 text-xs font-semibold text-white shadow-md">
+                    <span className="label absolute -top-3 left-5 inline-flex items-center gap-1.5 rounded-sm bg-gradient-brand px-3 py-1 text-paper">
                       <Star className="w-3.5 h-3.5 fill-current" />
                       {p.featuredBadge}
                     </span>
@@ -111,19 +109,16 @@ export default function Projects() {
                         <div className="flex items-center gap-2 mb-2">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src="/images/coreon-logo.png" alt="Coreon Systems" className="h-3 w-auto opacity-80" />
-                          <span className="text-xs text-gray-400">{p.coreonProduct}</span>
+                          <span className="label">{p.coreonProduct}</span>
                         </div>
                       )}
-                      <h4 className="text-lg sm:text-xl font-bold text-white mb-1.5">{info.title}</h4>
-                      <p className="text-brand-cyan font-medium text-sm">{info.tagline}</p>
+                      <h4 className="text-lg sm:text-xl font-bold text-ink mb-1.5">{info.title}</h4>
+                      <p className="text-ledger font-medium text-sm">{info.tagline}</p>
                     </div>
-                    <p className="text-gray-300 leading-normal mb-4 text-sm sm:text-base">{info.description}</p>
+                    <p className="text-ink-2 leading-normal mb-4 text-sm sm:text-base">{info.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.stack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2.5 py-1 text-xs rounded-full bg-brand-light/10 border border-brand-light/30 text-brand-light"
-                        >
+                        <span key={tech} className="label px-2 py-0.5 rounded-sm border border-rule">
                           {tech}
                         </span>
                       ))}
@@ -131,11 +126,7 @@ export default function Projects() {
                   </div>
                   <div className="flex flex-col gap-3 shrink-0">
                     {"liveUrl" in project && project.liveUrl && (
-                      <Button
-                        asChild
-                        size="sm"
-                        className="bg-gradient-brand text-white hover:opacity-90 w-full lg:w-auto"
-                      >
+                      <Button asChild size="sm" className="bg-gradient-brand text-paper hover:opacity-90 w-full lg:w-auto">
                         <a
                           href={project.liveUrl}
                           target="_blank"
@@ -152,7 +143,7 @@ export default function Projects() {
                         asChild
                         variant="outline"
                         size="sm"
-                        className="border-brand/50 text-white hover:border-brand-cyan hover:bg-brand/10 bg-transparent w-full lg:w-auto"
+                        className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full lg:w-auto"
                       >
                         <a
                           href={project.appUrl}
@@ -170,7 +161,7 @@ export default function Projects() {
                         asChild
                         variant="outline"
                         size="sm"
-                        className="border-brand/50 text-white hover:border-brand-cyan hover:bg-brand/10 bg-transparent w-full lg:w-auto"
+                        className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full lg:w-auto"
                       >
                         <a
                           href={project.github}
@@ -200,26 +191,23 @@ export default function Projects() {
 
         <div className="mb-s-8">
           <SectionMeta label={t.sectionLabels.otherProjects}>
-          <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-5 tracking-wide">{p.otherProjectsTitle}</h3>
+          <h3 className="text-lg sm:text-xl font-bold text-ink mb-4 sm:mb-5 tracking-wide">{p.otherProjectsTitle}</h3>
           <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
             {otherProjects.map((project) => {
               const info = p.items[project.id]
               return (
-                <div
-                  key={project.id}
-                  className="glass-card rounded-lg p-4 hover:border-brand/40 transition-colors duration-300"
-                >
+                <div key={project.id} className="glass-card rounded-sm p-4 hover:border-ledger transition-colors duration-300">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <h4 className="text-sm sm:text-base font-semibold text-white truncate">{info.title}</h4>
-                      <p className="text-brand-cyan text-xs sm:text-sm">{info.tagline}</p>
+                      <h4 className="text-sm sm:text-base font-semibold text-ink truncate">{info.title}</h4>
+                      <p className="text-ledger text-xs sm:text-sm">{info.tagline}</p>
                     </div>
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={p.viewGithub}
-                      className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg text-gray-300 hover:text-brand-cyan hover:bg-brand/10 transition-colors"
+                      className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-sm text-ink-2 hover:text-ledger hover:bg-panel transition-colors"
                     >
                       <Github className="w-4 h-4" />
                     </a>
@@ -236,7 +224,7 @@ export default function Projects() {
             href="https://github.com/dbcfilho"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-brand-cyan hover:text-brand-cyan-light transition-colors text-sm"
+            className="inline-flex items-center gap-2 text-ledger hover:opacity-80 transition-opacity text-sm"
           >
             <ExternalLink className="w-4 h-4" />
             {p.moreProjects}

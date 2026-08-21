@@ -26,7 +26,7 @@ export function Diagram({
       try {
         const mermaid = (await import("mermaid")).default
         if (!mermaidInitialized) {
-          mermaid.initialize({ startOnLoad: false, theme: "dark", securityLevel: "loose" })
+          mermaid.initialize({ startOnLoad: false, theme: "neutral", securityLevel: "loose" })
           mermaidInitialized = true
         }
 
@@ -57,14 +57,14 @@ export function Diagram({
   }, [code])
 
   return (
-    <div className="w-full rounded-xl border border-brand/40 bg-black/30 min-h-[180px] flex items-center justify-center overflow-x-auto p-4">
+    <div className="w-full rounded-sm border border-rule bg-panel min-h-[180px] flex items-center justify-center overflow-x-auto p-4">
       {status === "loading" && (
-        <div className="flex flex-col items-center gap-2 text-gray-400" aria-live="polite">
-          <Loader2 className="w-6 h-6 animate-spin text-brand-cyan" />
+        <div className="flex flex-col items-center gap-2 text-ink-3" aria-live="polite">
+          <Loader2 className="w-6 h-6 animate-spin text-ledger" />
           <span className="text-xs">{loadingLabel}</span>
         </div>
       )}
-      {status === "error" && <p className="text-sm text-gray-400">{errorLabel}</p>}
+      {status === "error" && <p className="text-sm text-ink-3">{errorLabel}</p>}
       <div ref={ref} className={`w-full ${status === "ready" ? "block" : "hidden"}`} />
     </div>
   )

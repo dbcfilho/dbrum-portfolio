@@ -48,8 +48,8 @@ const caseStudies = [
     C --> K
     G -->|Webhook| L
     I --> M
-    style D fill:#2563eb,stroke:#60a5fa,color:#fff
-    style J fill:#06b6d4,stroke:#22d3ee,color:#fff`,
+    style D fill:#1f5f4b,stroke:#1f5f4b,color:#fafbf9
+    style J fill:#1f5f4b,stroke:#1f5f4b,color:#fafbf9`,
       erd: `erDiagram
     TENANT ||--o{ APP_USER : has
     TENANT ||--o{ CATEGORY : owns
@@ -215,8 +215,8 @@ const caseStudies = [
     C --> G[Exportador CSV]
     D -->|Dados| C
     E -->|Notificações| H[Usuários Finais]
-    style C fill:#2563eb,stroke:#60a5fa,color:#fff
-    style D fill:#06b6d4,stroke:#22d3ee,color:#fff`,
+    style C fill:#1f5f4b,stroke:#1f5f4b,color:#fafbf9
+    style D fill:#1f5f4b,stroke:#1f5f4b,color:#fafbf9`,
       erd: `erDiagram
     PERSON ||--o{ ATTENDANCE : has
     PERSON {
@@ -257,8 +257,8 @@ export default function CaseStudies() {
   return (
     <div>
       <div className="text-center mb-6 sm:mb-8">
-        <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{c.heading}</h3>
-        <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{c.subtitle}</p>
+        <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-ink tracking-wide">{c.heading}</h3>
+        <p className="text-ink-2 text-sm sm:text-base max-w-2xl mx-auto px-4">{c.subtitle}</p>
       </div>
 
       <div className="space-y-6 sm:space-y-8">
@@ -267,22 +267,19 @@ export default function CaseStudies() {
           return (
           <div
             key={study.id}
-            className="glass-card rounded-lg p-5 sm:p-6 animate-in fade-in slide-in-from-bottom"
+            className="glass-card rounded-sm p-5 sm:p-6 animate-in fade-in slide-in-from-bottom"
             style={{ animationDelay: `${index * 100}ms` }}
           >
             {/* Cabeçalho */}
             <div className="mb-4">
-              <h4 className="text-xl sm:text-2xl font-bold text-white mb-3">{s.title}</h4>
-              {s.role && <p className="text-gray-300 text-sm sm:text-base mb-2">{c.roleLabel}: {s.role}</p>}
+              <h4 className="text-xl sm:text-2xl font-bold text-ink mb-3">{s.title}</h4>
+              {s.role && <p className="text-ink-2 text-sm sm:text-base mb-2">{c.roleLabel}: {s.role}</p>}
               {s.projectType && (
-                <p className="text-gray-300 text-sm sm:text-base mb-3">{c.projectTypeLabel}: {s.projectType}</p>
+                <p className="text-ink-2 text-sm sm:text-base mb-3">{c.projectTypeLabel}: {s.projectType}</p>
               )}
               <div className="flex flex-wrap gap-2 mb-3">
                 {study.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 text-sm rounded-full bg-brand-light/10 border border-brand-light/30 text-brand-light"
-                  >
+                  <span key={tech} className="label px-2 py-0.5 rounded-sm border border-rule">
                     {tech}
                   </span>
                 ))}
@@ -292,7 +289,7 @@ export default function CaseStudies() {
                   asChild
                   variant="outline"
                   size="sm"
-                  className="border-brand/50 hover:border-brand-cyan hover:bg-brand/10 bg-transparent"
+                  className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent"
                 >
                   <a href={study.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                     <Github className="w-4 h-4" />
@@ -305,22 +302,22 @@ export default function CaseStudies() {
             {/* Problema & Solução */}
             <div className="grid md:grid-cols-2 gap-4 mb-4">
               <div>
-                <h5 className="text-base font-bold text-brand-cyan mb-2">{c.problemLabel}</h5>
-                <p className="text-gray-300 leading-normal text-sm sm:text-base">{s.problem}</p>
+                <h5 className="text-base font-bold text-ink mb-2">{c.problemLabel}</h5>
+                <p className="text-ink-2 leading-normal text-sm sm:text-base">{s.problem}</p>
               </div>
               <div>
-                <h5 className="text-base font-bold text-brand-light mb-2">{c.solutionLabel}</h5>
-                <p className="text-gray-300 leading-normal text-sm sm:text-base whitespace-pre-line">{s.solution}</p>
+                <h5 className="text-base font-bold text-ink mb-2">{c.solutionLabel}</h5>
+                <p className="text-ink-2 leading-normal text-sm sm:text-base whitespace-pre-line">{s.solution}</p>
               </div>
             </div>
 
             {/* Principais Funcionalidades */}
             <div className="mb-4">
-              <h5 className="text-base font-bold text-white mb-2">{c.featuresLabel}</h5>
+              <h5 className="text-base font-bold text-ink mb-2">{c.featuresLabel}</h5>
               <ul className="space-y-1.5">
                 {s.features.map((feature, i) => (
-                  <li key={i} className="text-gray-300 text-sm flex items-start">
-                    <span className="text-brand-cyan mr-2">•</span>
+                  <li key={i} className="text-ink-2 text-sm flex items-start">
+                    <span className="text-ledger mr-2">•</span>
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -332,7 +329,7 @@ export default function CaseStudies() {
               <div>
                 <button
                   onClick={() => toggleDiagrams(index)}
-                  className="flex items-center gap-2 text-sm font-medium text-brand-cyan hover:text-brand-cyan transition-colors mt-2 mb-1 group"
+                  className="flex items-center gap-2 text-sm font-medium text-ledger hover:opacity-80 transition-opacity mt-2 mb-1 group"
                 >
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-300 ${openDiagrams[index] ? "rotate-180" : ""}`}
@@ -343,7 +340,7 @@ export default function CaseStudies() {
                 {openDiagrams[index] && (
                   <div className="space-y-4 mt-4 animate-in fade-in slide-in-from-top duration-300">
                     <div>
-                      <h5 className="text-base font-bold text-white mb-3">{c.architectureLabel}</h5>
+                      <h5 className="text-base font-bold text-ink mb-3">{c.architectureLabel}</h5>
                       <Diagram
                         code={study.diagrams.architecture}
                         loadingLabel={c.loadingDiagram}
@@ -351,7 +348,7 @@ export default function CaseStudies() {
                       />
                     </div>
                     <div>
-                      <h5 className="text-base font-bold text-white mb-3">{c.erdLabel}</h5>
+                      <h5 className="text-base font-bold text-ink mb-3">{c.erdLabel}</h5>
                       <Diagram
                         code={study.diagrams.erd}
                         loadingLabel={c.loadingDiagram}

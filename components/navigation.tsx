@@ -51,22 +51,13 @@ export default function Navigation() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[oklch(0.13_0.02_260)]/80 backdrop-blur-md border-b border-brand/20 shadow-lg shadow-black/20"
-          : "bg-transparent"
+        scrolled ? "bg-paper border-b border-rule" : "bg-transparent"
       }`}
     >
       <div className="page px-s-2 sm:px-s-3 lg:px-s-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="#home" className="group flex-shrink-0" aria-label="Douglas Brum — Início">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/dbrum-logo-horizontal-dark.svg"
-              alt="Douglas Brum"
-              width={160}
-              height={51}
-              className="transition-transform group-hover:scale-105 h-auto w-[132px] sm:w-[148px] md:w-[160px]"
-            />
+          <Link href="#home" className="wordmark text-lg flex-shrink-0" aria-label="Douglas Brum — Início">
+            Douglas Brum
           </Link>
 
           {/* Navegação Desktop */}
@@ -76,23 +67,19 @@ export default function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={`relative text-sm transition-colors ${
-                  active === item.id ? "text-brand-cyan" : "text-gray-300 hover:text-brand-cyan"
+                  active === item.id ? "text-ledger" : "text-ink-2 hover:text-ledger"
                 }`}
               >
                 {t.nav[item.key]}
                 <span
-                  className={`absolute -bottom-1.5 left-0 h-0.5 bg-gradient-to-r from-brand to-brand-cyan transition-all duration-300 ${
+                  className={`absolute -bottom-1.5 left-0 h-0.5 bg-ledger transition-all duration-300 ${
                     active === item.id ? "w-full" : "w-0"
                   }`}
                 />
               </Link>
             ))}
             <LanguageSwitcher />
-            <Button
-              asChild
-              size="sm"
-              className="bg-gradient-brand text-white hover:opacity-90 hover:glow-brand transition-all"
-            >
+            <Button asChild size="sm" className="bg-gradient-brand text-paper hover:opacity-90 transition-all">
               <a href={CV_URL} download target="_blank" rel="noopener noreferrer">
                 <Download className="w-4 h-4 mr-2" />
                 {t.nav.downloadCv}
@@ -103,7 +90,7 @@ export default function Navigation() {
           {/* Botão do Menu Mobile */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-1 rounded-lg text-gray-300 hover:text-brand-cyan hover:bg-brand/10 transition-colors flex-shrink-0"
+            className="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-1 rounded-sm text-ink-2 hover:text-ledger hover:bg-panel transition-colors flex-shrink-0"
             aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={isOpen}
           >
@@ -114,17 +101,15 @@ export default function Navigation() {
 
       {/* Navegação Mobile */}
       {isOpen && (
-        <div className="md:hidden bg-[oklch(0.13_0.02_260)]/95 backdrop-blur-md border-b border-brand/20">
+        <div className="md:hidden bg-paper border-b border-rule">
           <div className="px-4 py-4 space-y-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center min-h-11 px-2 rounded-lg transition-colors ${
-                  active === item.id
-                    ? "text-brand-cyan bg-brand/10"
-                    : "text-gray-300 hover:text-brand-cyan hover:bg-brand/5"
+                className={`flex items-center min-h-11 px-2 rounded-sm transition-colors ${
+                  active === item.id ? "text-ledger bg-ledger-dim" : "text-ink-2 hover:text-ledger hover:bg-panel"
                 }`}
               >
                 {t.nav[item.key]}
@@ -133,11 +118,7 @@ export default function Navigation() {
             <div className="pt-3">
               <LanguageSwitcher variant="full" />
             </div>
-            <Button
-              asChild
-              size="sm"
-              className="w-full mt-3 bg-gradient-brand text-white hover:opacity-90"
-            >
+            <Button asChild size="sm" className="w-full mt-3 bg-gradient-brand text-paper hover:opacity-90">
               <a href={CV_URL} download target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
                 <Download className="w-4 h-4 mr-2" />
                 {t.nav.downloadCvLong}

@@ -37,18 +37,14 @@ export function LanguageSwitcher({ variant = "compact" }: { variant?: "compact" 
   if (variant === "full") {
     return (
       <div>
-        <span className="block text-xs uppercase tracking-wider text-gray-500 mb-2 px-2">
-          {t.langSwitcher.label}
-        </span>
+        <span className="label block mb-2 px-2">{t.langSwitcher.label}</span>
         <div className="grid grid-cols-3 gap-2">
           {LOCALES.map((l) => (
             <button
               key={l}
               onClick={() => setLang(l)}
-              className={`flex items-center justify-center gap-1.5 min-h-11 rounded-lg border text-sm transition-colors ${
-                lang === l
-                  ? "border-brand-cyan/50 bg-brand/10 text-brand-cyan"
-                  : "border-brand/20 text-gray-300 hover:border-brand-cyan hover:bg-brand/5"
+              className={`flex items-center justify-center gap-1.5 min-h-11 rounded-sm border text-sm transition-colors ${
+                lang === l ? "border-ledger bg-ledger-dim text-ledger" : "border-rule text-ink-2 hover:border-ledger hover:bg-panel"
               }`}
               aria-pressed={lang === l}
             >
@@ -66,7 +62,7 @@ export function LanguageSwitcher({ variant = "compact" }: { variant?: "compact" 
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1.5 h-9 px-2.5 rounded-lg text-sm text-gray-300 hover:text-brand-cyan hover:bg-brand/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
+        className="inline-flex items-center gap-1.5 h-9 px-2.5 rounded-sm text-sm text-ink-2 hover:text-ledger hover:bg-panel transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ledger/50"
         aria-label={t.langSwitcher.label}
         aria-haspopup="menu"
         aria-expanded={open}
@@ -79,7 +75,7 @@ export function LanguageSwitcher({ variant = "compact" }: { variant?: "compact" 
       {open && (
         <div
           role="menu"
-          className="absolute right-0 mt-2 min-w-[9.5rem] rounded-lg border border-brand/20 bg-[oklch(0.15_0.02_260)]/95 backdrop-blur-md shadow-xl shadow-black/30 p-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+          className="absolute right-0 mt-2 min-w-[9.5rem] rounded-sm border border-rule bg-paper shadow-lg p-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
         >
           {LOCALES.map((l) => (
             <button
@@ -89,13 +85,13 @@ export function LanguageSwitcher({ variant = "compact" }: { variant?: "compact" 
                 setLang(l)
                 setOpen(false)
               }}
-              className={`flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-sm transition-colors ${
-                lang === l ? "text-brand-cyan bg-brand/10" : "text-gray-200 hover:bg-brand/10 hover:text-brand-cyan"
+              className={`flex w-full items-center gap-2 rounded-sm px-2.5 py-2 text-sm transition-colors ${
+                lang === l ? "text-ledger bg-ledger-dim" : "text-ink-2 hover:bg-panel hover:text-ledger"
               }`}
             >
               <span aria-hidden>{LANG_LABELS[l].flag}</span>
               <span className="flex-1 text-left">{LANG_LABELS[l].label}</span>
-              {lang === l && <Check className="w-4 h-4 text-brand-cyan" />}
+              {lang === l && <Check className="w-4 h-4 text-ledger" />}
             </button>
           ))}
         </div>
