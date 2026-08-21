@@ -23,9 +23,9 @@ export default function Hero() {
   }
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-16 overflow-x-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 w-full">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+    <section id="home" className="relative min-h-screen flex items-center pt-s-8 overflow-x-hidden">
+      <div className="page px-s-2 sm:px-s-3 lg:px-s-4 py-s-6 sm:py-s-8 w-full">
+        <div className="grid lg:grid-cols-2 gap-s-4 lg:gap-s-6 items-center">
           {/* Lado Esquerdo — Conteúdo */}
           <motion.div className="space-y-5" variants={container} initial="hidden" animate="show">
             {/* Badge de disponibilidade (prova de confiança) */}

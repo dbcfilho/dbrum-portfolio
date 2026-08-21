@@ -56,7 +56,7 @@ export default function Navigation() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div className="page px-s-2 sm:px-s-3 lg:px-s-4">
         <div className="flex items-center justify-between h-16">
           <Link href="#home" className="group flex-shrink-0" aria-label="Douglas Brum — Início">
             {/* eslint-disable-next-line @next/next/no-img-element */}

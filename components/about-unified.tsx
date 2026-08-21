@@ -15,6 +15,7 @@ import {
   Building2,
 } from "lucide-react"
 import { useI18n } from "@/components/i18n/language-provider"
+import { SectionMeta } from "@/components/section-meta"
 
 // Dados neutros (independentes de idioma): ícones, chips de tecnologia, empresas, períodos.
 const skillGroups = [
@@ -60,28 +61,31 @@ export default function AboutUnified() {
   const a = t.about
 
   return (
-    <section id="about" className="py-12 sm:py-16 relative">
+    <section id="about" className="py-s-12 sm:py-s-24 relative">
       <div className="accent-line absolute top-0 left-0 right-0" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="page px-s-2 sm:px-s-3 lg:px-s-4">
         {/* Texto Sobre */}
-        <div className="max-w-4xl mx-auto mb-10 sm:mb-14">
-          <div className="glass-card rounded-lg p-5 sm:p-6 md:p-8 animate-in fade-in slide-in-from-bottom duration-700">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 text-gradient-brand tracking-wide">
-              {a.heading}
-            </h2>
-            <div className="space-y-3 sm:space-y-4 text-gray-300 leading-normal text-sm sm:text-base">
-              {a.paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
+        <div className="mb-s-8">
+          <SectionMeta label={t.sectionLabels.about}>
+            <div className="glass-card rounded-lg p-5 sm:p-6 md:p-8 animate-in fade-in slide-in-from-bottom duration-700">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 text-gradient-brand tracking-wide">
+                {a.heading}
+              </h2>
+              <div className="space-y-3 sm:space-y-4 text-gray-300 leading-normal text-sm sm:text-base">
+                {a.paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
             </div>
-          </div>
+          </SectionMeta>
         </div>
 
         {/* Habilidades */}
-        <div className="mb-10 sm:mb-14">
-          <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
+        <div className="mb-s-8">
+          <SectionMeta label={t.sectionLabels.skills}>
+          <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
             <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{a.skillsHeading}</h3>
-            <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{a.skillsSubtitle}</p>
+            <p className="text-gray-300 text-sm sm:text-base max-w-2xl">{a.skillsSubtitle}</p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
@@ -117,13 +121,15 @@ export default function AboutUnified() {
               )
             })}
           </div>
+          </SectionMeta>
         </div>
 
         {/* Certificações */}
-        <div className="mb-10 sm:mb-14">
-          <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
+        <div className="mb-s-8">
+          <SectionMeta label={t.sectionLabels.certifications}>
+          <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
             <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{a.certsHeading}</h3>
-            <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{a.certsSubtitle}</p>
+            <p className="text-gray-300 text-sm sm:text-base max-w-2xl">{a.certsSubtitle}</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
@@ -147,16 +153,18 @@ export default function AboutUnified() {
               )
             })}
           </div>
+          </SectionMeta>
         </div>
 
         {/* Experiência */}
         <div>
-          <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
+          <SectionMeta label={t.sectionLabels.experience}>
+          <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
             <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{a.experienceHeading}</h3>
-            <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{a.experienceSubtitle}</p>
+            <p className="text-gray-300 text-sm sm:text-base max-w-2xl">{a.experienceSubtitle}</p>
           </div>
 
-          <div className="relative max-w-3xl mx-auto">
+          <div className="relative max-w-3xl">
             {/* Trilho vertical do tempo */}
             <div
               className="absolute left-[23px] sm:left-[27px] top-3 bottom-3 w-px bg-gradient-to-b from-brand via-brand-cyan to-transparent"
@@ -235,16 +243,18 @@ export default function AboutUnified() {
               })}
             </div>
           </div>
+          </SectionMeta>
         </div>
 
         {/* Educação */}
-        <div className="mt-10 sm:mt-14">
-          <div className="text-center mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
+        <div className="mt-s-8">
+          <SectionMeta label={t.sectionLabels.education}>
+          <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom duration-700">
             <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{a.educationHeading}</h3>
-            <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{a.educationSubtitle}</p>
+            <p className="text-gray-300 text-sm sm:text-base max-w-2xl">{a.educationSubtitle}</p>
           </div>
 
-          <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 mb-8 sm:mb-10">
+          <div className="max-w-5xl space-y-4 sm:space-y-6 mb-8 sm:mb-10">
             {education.map((edu, index) => {
               const ed = a.education[edu.id]
               return (
@@ -269,7 +279,7 @@ export default function AboutUnified() {
             })}
           </div>
 
-          <div className="max-w-5xl mx-auto glass-card rounded-lg p-5 sm:p-7 animate-in fade-in slide-in-from-bottom delay-300">
+          <div className="max-w-5xl glass-card rounded-lg p-5 sm:p-7 animate-in fade-in slide-in-from-bottom delay-300">
             <div className="flex flex-col sm:flex-row items-start gap-4">
               <div className="p-2.5 sm:p-3 rounded-lg bg-brand-light/10 border border-brand-light/30 shrink-0">
                 <Languages className="w-5 h-5 sm:w-6 sm:h-6 text-brand-light" />
@@ -287,6 +297,7 @@ export default function AboutUnified() {
               </div>
             </div>
           </div>
+          </SectionMeta>
         </div>
       </div>
     </section>

@@ -17,8 +17,8 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-brand/20 bg-[oklch(0.12_0.02_260)]/60 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+      <div className="page px-s-2 sm:px-s-3 lg:px-s-4 py-s-6">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-s-4">
           <div className="max-w-sm text-center md:text-left">
             <Link href="#home" aria-label="Douglas Brum — Início" className="inline-block">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -74,7 +74,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-brand/10 text-center md:text-left">
+        <div className="mt-s-4 pt-s-3 border-t border-brand/10 text-center md:text-left">
           <p className="text-gray-500 text-xs">
             © {currentYear} Douglas Brum · {t.footer.rights}
           </p>

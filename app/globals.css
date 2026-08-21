@@ -49,6 +49,25 @@
 
   --measure: 68ch; /* largura máxima de parágrafo */
 
+  /*
+    ---- Espaço — grade de 8pt (Fase 2) ----
+    Ritmo vertical: só três valores em todo o site.
+    Entre seções --s-24 (192px desktop / --s-12 mobile)
+    Dentro de seção --s-8 (64px)
+    Entre elementos --s-3 (24px)
+  */
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-6: 48px;
+  --s-8: 64px;
+  --s-12: 96px;
+  --s-16: 128px;
+  --s-24: 192px;
+
+  --page: 1240px; /* largura máxima do conteúdo */
+
   /* ---- Cores da marca (hex cru, para uso fora do Tailwind) ---- */
   --brand-azure: #2563eb;
   --brand-azure-light: #60a5fa;
@@ -184,6 +203,17 @@
 
   --font-heading: var(--f-display);
   --font-mono: var(--f-mono);
+
+  /* Espaço: expõe a grade de 8pt como utilitários Tailwind (p-s-3, gap-s-8, mb-s-24 ...) */
+  --spacing-s-1: var(--s-1);
+  --spacing-s-2: var(--s-2);
+  --spacing-s-3: var(--s-3);
+  --spacing-s-4: var(--s-4);
+  --spacing-s-6: var(--s-6);
+  --spacing-s-8: var(--s-8);
+  --spacing-s-12: var(--s-12);
+  --spacing-s-16: var(--s-16);
+  --spacing-s-24: var(--s-24);
 }
 
 @layer base {
@@ -256,6 +286,14 @@
     font-size: var(--t-base);
     line-height: var(--lh-body);
     max-width: var(--measure);
+  }
+
+  /* --------- Grid "Registro" (spec-design-registro.md, Fase 2) --------- */
+
+  /* Largura máxima do conteúdo — substitui max-w-7xl (1280px) nos containers de seção. */
+  .page {
+    max-width: var(--page);
+    margin-inline: auto;
   }
 
   /* --------- Utilitários da marca (reutilizáveis, sem duplicação) --------- */
