@@ -20,3 +20,7 @@ yarn-debug.log*
 pnpm-debug.log*
 node_modules/
 .pnpm-store/
+
+# specs internas (não versionadas)
+spec-design-registro.md
+spec-portfolio-claude-code.md
