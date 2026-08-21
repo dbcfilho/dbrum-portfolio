@@ -191,13 +191,13 @@ button {
 
 /* ---------- Herói ---------- */
 .hero {
-  min-height: 700px;
+  min-height: 620px;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   align-items: center;
   gap: 9%;
-  padding-top: 105px;
-  padding-bottom: 90px;
+  padding-top: 48px;
+  padding-bottom: 64px;
 }
 .eyebrow,
 .kicker,

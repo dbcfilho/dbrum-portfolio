@@ -5,6 +5,10 @@ import { useI18n } from "@/components/i18n/language-provider"
 
 const CV_URL = "/Douglas-Brum-Desenvolvedor-Backend.pdf"
 
+// Sintaxe Java neutra (não traduzida, como identificadores reais de código).
+const JAVA_CLASS = "Backend"
+const JAVA_INTERFACES = ["Secure", "Scalable"]
+
 export default function Hero() {
   const { t } = useI18n()
   const h = t.hero
@@ -40,16 +44,17 @@ export default function Hero() {
         </div>
         <div className="terminal-body">
           <p>
-            <span className="code-dim">01</span> <span className="code-blue">const</span> backend = {"{"}
+            <span className="code-dim">01</span> <span className="code-blue">public class</span> {JAVA_CLASS}{" "}
+            <span className="code-blue">implements</span> {JAVA_INTERFACES.join(", ")} {"{"}
           </p>
-          {h.terminal.lines.map((line, i) => (
-            <p key={line.key}>
-              <span className="code-dim">{String(i + 2).padStart(2, "0")}</span> {line.key}: <b>&ldquo;{line.value}&rdquo;</b>
-              {i < h.terminal.lines.length - 1 ? "," : ""}
+          {h.terminal.fields.map((field, i) => (
+            <p key={field.name}>
+              <span className="code-dim">{String(i + 2).padStart(2, "0")}</span> <span className="code-blue">String</span>{" "}
+              {field.name} = <b>&ldquo;{field.value}&rdquo;</b>;
             </p>
           ))}
           <p>
-            <span className="code-dim">{String(h.terminal.lines.length + 2).padStart(2, "0")}</span> {"};"}
+            <span className="code-dim">{String(h.terminal.fields.length + 2).padStart(2, "0")}</span> {"}"}
           </p>
           <p className="terminal-result">
             <span>→</span> {h.terminal.result}

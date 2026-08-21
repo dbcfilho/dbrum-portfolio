@@ -24,3 +24,6 @@ node_modules/
 # specs internas (não versionadas)
 spec-design-registro.md
 spec-portfolio-claude-code.md
+
+# pasta doadora de conteúdo (já absorvida no frontend, não deve voltar ao repo)
+new-template/
