@@ -56,7 +56,7 @@ export default function Navigation() {
     >
       <div className="page px-s-2 sm:px-s-3 lg:px-s-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="#home" className="wordmark text-lg flex-shrink-0" aria-label="Douglas Brum — Início">
+          <Link href="#home" className="wordmark text-lg flex-shrink-0 py-2" aria-label="Douglas Brum — Início">
             Douglas Brum
           </Link>
 
@@ -66,13 +66,13 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative text-sm transition-colors ${
+                className={`relative py-2 text-sm transition-colors ${
                   active === item.id ? "text-ledger" : "text-ink-2 hover:text-ledger"
                 }`}
               >
                 {t.nav[item.key]}
                 <span
-                  className={`absolute -bottom-1.5 left-0 h-0.5 bg-ledger transition-all duration-300 ${
+                  className={`absolute bottom-1 left-0 h-0.5 bg-ledger transition-all duration-300 ${
                     active === item.id ? "w-full" : "w-0"
                   }`}
                 />

@@ -63,7 +63,7 @@ export function LanguageSwitcher({ variant = "compact" }: { variant?: "compact" 
         type="button"
         onClick={() => setOpen((v) => !v)}
         className="inline-flex items-center gap-1.5 h-9 px-2.5 rounded-sm text-sm text-ink-2 hover:text-ledger hover:bg-panel transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ledger/50"
-        aria-label={t.langSwitcher.label}
+        aria-label={`${t.langSwitcher.label}: ${LANG_LABELS[lang].short}`}
         aria-haspopup="menu"
         aria-expanded={open}
       >

@@ -146,7 +146,7 @@ export default function Content() {
                       asChild
                       size="sm"
                       variant="outline"
-                      className="w-full border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent transition-all duration-300"
+                      className="w-full border-ink-3 text-ink hover:border-ledger hover:bg-panel bg-transparent transition-all duration-300"
                     >
                       <a
                         href={article.link}

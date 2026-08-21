@@ -107,7 +107,7 @@ export default function Projects() {
                 asChild
                 variant="outline"
                 size="sm"
-                className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full lg:w-auto"
+                className="border-ink-3 text-ink hover:border-ledger hover:bg-panel bg-transparent w-full lg:w-auto"
               >
                 <a href={project.appUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
                   <ExternalLink className="w-4 h-4" />
@@ -120,7 +120,7 @@ export default function Projects() {
                 asChild
                 variant="outline"
                 size="sm"
-                className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full lg:w-auto"
+                className="border-ink-3 text-ink hover:border-ledger hover:bg-panel bg-transparent w-full lg:w-auto"
               >
                 <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
                   <Github className="w-4 h-4" />

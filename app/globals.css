@@ -50,7 +50,7 @@
   /* ---- Cor — direção "Registro" (Fase 3) — tema claro fixo, sem alternância ---- */
   --c-ink: #14161a;
   --c-ink-2: #4a4f55;
-  --c-ink-3: #797f86;
+  --c-ink-3: #5c6268; /* Fase 6: escurecido de #797F86 — 3.90:1 sobre --c-paper falhava AA em texto pequeno (.label) */
   --c-paper: #fafbf9;
   --c-panel: #f0f2ee;
   --c-rule: #d8dbd5;
@@ -112,7 +112,7 @@
   --destructive-foreground: var(--c-paper);
 
   --border: var(--c-rule);
-  --input: var(--c-rule);
+  --input: var(--c-ink-3); /* Fase 6: --c-rule (1.35:1) é fraco demais para o contorno de um campo de formulário (WCAG 1.4.11, 3:1) */
   --ring: var(--c-ledger);
 
   --chart-1: oklch(0.55 0.2 262);

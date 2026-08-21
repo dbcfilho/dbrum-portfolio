@@ -20,7 +20,7 @@ export default function Footer() {
       <div className="page px-s-2 sm:px-s-3 lg:px-s-4 py-s-6">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-s-4">
           <div className="max-w-sm text-center md:text-left">
-            <Link href="#home" aria-label="Douglas Brum — Início" className="wordmark text-base inline-block">
+            <Link href="#home" aria-label="Douglas Brum — Início" className="wordmark text-base inline-block py-2">
               Douglas Brum
             </Link>
             <p className="text-ink-3 text-sm mt-3 leading-relaxed">{t.footer.tagline}</p>
@@ -29,7 +29,7 @@ export default function Footer() {
           <nav className="flex flex-col items-center md:items-start gap-2" aria-label={t.footer.navHeading}>
             <span className="label">{t.footer.navHeading}</span>
             {links.map((l) => (
-              <Link key={l.href} href={l.href} className="text-sm text-ink-3 hover:text-ledger transition-colors">
+              <Link key={l.href} href={l.href} className="text-sm text-ink-3 hover:text-ledger transition-colors py-1">
                 {t.nav[l.key]}
               </Link>
             ))}
@@ -42,7 +42,7 @@ export default function Footer() {
                 href="https://github.com/dbcfilho"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-rule hover:border-ledger hover:bg-panel transition-all"
+                className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-ink-3 hover:border-ledger hover:bg-panel transition-all"
                 aria-label="GitHub"
               >
                 <Github className="w-4 h-4 text-ink-3" />
@@ -51,14 +51,14 @@ export default function Footer() {
                 href="https://www.linkedin.com/in/dbcfilho/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-rule hover:border-ledger hover:bg-panel transition-all"
+                className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-ink-3 hover:border-ledger hover:bg-panel transition-all"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4 text-ink-3" />
               </a>
               <a
                 href="mailto:dbcfilho01@gmail.com"
-                className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-rule hover:border-ledger hover:bg-panel transition-all"
+                className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-ink-3 hover:border-ledger hover:bg-panel transition-all"
                 aria-label="E-mail"
               >
                 <Mail className="w-4 h-4 text-ink-3" />

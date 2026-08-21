@@ -289,7 +289,7 @@ export default function CaseStudies() {
                   asChild
                   variant="outline"
                   size="sm"
-                  className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent"
+                  className="border-ink-3 text-ink hover:border-ledger hover:bg-panel bg-transparent"
                 >
                   <a href={study.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                     <Github className="w-4 h-4" />

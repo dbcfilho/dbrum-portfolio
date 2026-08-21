@@ -15,16 +15,15 @@ export default function Hero() {
   const h = t.hero
   const diagramNodes = [h.diagram.nodes.corefarma, h.diagram.nodes.corefood, h.diagram.nodes.simmias]
 
-  const headerVariants = {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 8 },
-    show: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] as const } },
-  }
-
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-s-8 overflow-x-hidden">
       <div className="page px-s-2 sm:px-s-3 lg:px-s-4 py-s-6 sm:py-s-8 w-full">
-        {/* Cabeçalho reduzido — nome, cargo e status, como cabeçalho de documento */}
-        <motion.div initial="hidden" animate="show" variants={headerVariants} className="text-center mb-s-8 sm:mb-s-12">
+        {/* Cabeçalho reduzido — nome, cargo e status, como cabeçalho de documento.
+            Animação em CSS puro (tw-animate-css), não Framer Motion: o <h1> é o
+            elemento de LCP da página, e uma entrada controlada por JS empurra o
+            paint para depois da hidratação — prefers-reduced-motion já é tratado
+            pela regra global em globals.css. */}
+        <div className="text-center mb-s-8 sm:mb-s-12 animate-in fade-in slide-in-from-top-2 duration-500">
           <span className="inline-flex items-center gap-2 rounded-sm border border-rule px-3 py-1 text-xs sm:text-sm text-ink-2 font-medium mb-s-3">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ledger opacity-75" />
@@ -36,7 +35,7 @@ export default function Hero() {
             <h1 className="wordmark text-2xl sm:text-3xl">Douglas Brum</h1>
             <span className="label">{h.role}</span>
           </div>
-        </motion.div>
+        </div>
 
         {/* Diagrama da plataforma — protagonista da primeira dobra */}
         <div className="max-w-3xl mx-auto mb-s-8 sm:mb-s-12">
@@ -75,7 +74,7 @@ export default function Hero() {
               asChild
               variant="outline"
               size="lg"
-              className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full sm:w-auto"
+              className="border-ink-3 text-ink hover:border-ledger hover:bg-panel bg-transparent w-full sm:w-auto"
             >
               <Link href="#portfolio">{h.ctaSecondary}</Link>
             </Button>
@@ -96,7 +95,7 @@ export default function Hero() {
             {h.stats.map((s) => (
               <div key={s.label} className="glass-card rounded-sm px-3 py-3 text-center">
                 <div className="text-xl sm:text-2xl font-bold text-ink">{s.value}</div>
-                <div className="text-[11px] sm:text-xs text-ink-3 leading-tight mt-0.5">{s.label}</div>
+                <div className="text-xs text-ink-3 leading-tight mt-0.5">{s.label}</div>
               </div>
             ))}
           </div>
@@ -106,7 +105,7 @@ export default function Hero() {
               href="https://github.com/dbcfilho"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-rule hover:border-ledger hover:bg-panel transition-all"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-ink-3 hover:border-ledger hover:bg-panel transition-all"
               aria-label="GitHub"
             >
               <Github className="w-5 h-5 text-ink-2" />
@@ -115,7 +114,7 @@ export default function Hero() {
               href="https://www.linkedin.com/in/dbcfilho/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-rule hover:border-ledger hover:bg-panel transition-all"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-ink-3 hover:border-ledger hover:bg-panel transition-all"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5 text-ink-2" />

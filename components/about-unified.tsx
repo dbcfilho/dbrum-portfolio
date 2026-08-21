@@ -161,7 +161,7 @@ export default function AboutUnified() {
 
           <div className="relative max-w-3xl">
             {/* Trilho vertical do tempo */}
-            <div className="absolute left-[23px] sm:left-[27px] top-3 bottom-3 w-px bg-rule" aria-hidden />
+            <div className="absolute left-s-3 sm:left-[27px] top-3 bottom-3 w-px bg-rule" aria-hidden />
 
             <div className="space-y-5 sm:space-y-6">
               {experiences.map((exp, index) => {

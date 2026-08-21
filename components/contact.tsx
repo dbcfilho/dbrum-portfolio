@@ -148,7 +148,7 @@ export default function Contact() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="border-rule focus:border-ledger"
+                  className="border-ink-3 focus:border-ledger"
                   placeholder={k.form.namePlaceholder}
                 />
               </div>
@@ -164,7 +164,7 @@ export default function Contact() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="border-rule focus:border-ledger"
+                  className="border-ink-3 focus:border-ledger"
                   placeholder={k.form.emailPlaceholder}
                 />
               </div>
@@ -179,7 +179,7 @@ export default function Contact() {
                   type="text"
                   value={formData.company}
                   onChange={handleChange}
-                  className="border-rule focus:border-ledger"
+                  className="border-ink-3 focus:border-ledger"
                   placeholder={k.form.companyPlaceholder}
                 />
               </div>
@@ -195,7 +195,7 @@ export default function Contact() {
                   required
                   value={formData.subject}
                   onChange={handleChange}
-                  className="border-rule focus:border-ledger"
+                  className="border-ink-3 focus:border-ledger"
                   placeholder={k.form.subjectPlaceholder}
                 />
               </div>
@@ -211,7 +211,7 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   rows={6}
-                  className="border-rule focus:border-ledger resize-none"
+                  className="border-ink-3 focus:border-ledger resize-none"
                   placeholder={k.form.messagePlaceholder}
                 />
               </div>
