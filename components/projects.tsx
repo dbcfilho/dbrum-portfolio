@@ -44,6 +44,8 @@ const otherProjects = [
   },
 ] as const
 
+type Project = (typeof projects)[number]
+
 export default function Projects() {
   const { t } = useI18n()
   const p = t.projects
@@ -52,6 +54,84 @@ export default function Projects() {
   const card = {
     hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 24 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
+  }
+
+  const coreonProjects = projects.filter((project) => "coreonProduct" in project && project.coreonProduct)
+  const standaloneProjects = projects.filter((project) => !("coreonProduct" in project && project.coreonProduct))
+
+  const renderProject = (project: Project) => {
+    const info = p.items[project.id]
+    return (
+      <motion.div key={project.id} variants={card} className="py-s-4 first:pt-0 last:pb-0">
+        {(("inDevelopment" in project && project.inDevelopment) || project.featured) && (
+          <div className="mb-1.5">
+            {"inDevelopment" in project && project.inDevelopment ? (
+              <span className="label inline-flex items-center gap-1.5 rounded-sm bg-signal px-2 py-0.5 text-paper">
+                <Clock className="w-3 h-3" />
+                {p.inDevelopment}
+              </span>
+            ) : (
+              project.featured && (
+                <span className="label inline-flex items-center gap-1.5 rounded-sm bg-ledger px-2 py-0.5 text-paper">
+                  <Star className="w-3 h-3 fill-current" />
+                  {p.featuredBadge}
+                </span>
+              )
+            )}
+          </div>
+        )}
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-5">
+          <div className="flex-1 min-w-0">
+            <h4 className="text-lg sm:text-xl font-bold text-ink mb-1.5">{info.title}</h4>
+            <p className="text-ledger font-medium text-sm mb-3">{info.tagline}</p>
+            <p className="text-ink-2 leading-normal mb-4 text-sm sm:text-base">{info.description}</p>
+            <div className="flex flex-wrap gap-2">
+              {project.stack.map((tech) => (
+                <span key={tech} className="label px-2 py-0.5 rounded-sm border border-rule">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 shrink-0">
+            {"liveUrl" in project && project.liveUrl && (
+              <Button asChild size="sm" className="bg-gradient-brand text-paper hover:opacity-90 w-full lg:w-auto">
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                  <Globe className="w-4 h-4" />
+                  {p.viewSite}
+                </a>
+              </Button>
+            )}
+            {"appUrl" in project && project.appUrl && (
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full lg:w-auto"
+              >
+                <a href={project.appUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                  <ExternalLink className="w-4 h-4" />
+                  {p.accessSystem}
+                </a>
+              </Button>
+            )}
+            {"github" in project && project.github && (
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full lg:w-auto"
+              >
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                  <Github className="w-4 h-4" />
+                  {p.viewGithub}
+                </a>
+              </Button>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    )
   }
 
   return (
@@ -70,115 +150,30 @@ export default function Projects() {
         <div className="mb-s-8">
           <SectionMeta label={t.sectionLabels.featured}>
           <h3 className="text-xl sm:text-2xl font-bold text-ink mb-5 sm:mb-6 tracking-wide">{p.featuredTitle}</h3>
+
+          {/* Região comum: produtos Coreon Systems agrupados num bloco só */}
           <motion.div
-            className="space-y-5 sm:space-y-6"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.1 }}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+            className="bg-panel border border-rule rounded-sm px-s-3 sm:px-s-4 mb-s-6"
           >
-            {projects.map((project) => {
-              const info = p.items[project.id]
-              return (
-              <motion.div
-                key={project.id}
-                variants={card}
-                whileHover={reduce ? undefined : { y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                className={`relative glass-card rounded-sm p-5 sm:p-6 transition-colors duration-300 ${
-                  project.featured ? "border-ledger/50" : "hover:border-ledger"
-                }`}
-              >
-                {"inDevelopment" in project && project.inDevelopment ? (
-                  <span className="label absolute -top-3 left-5 inline-flex items-center gap-1.5 rounded-sm bg-signal px-3 py-1 text-paper">
-                    <Clock className="w-3.5 h-3.5" />
-                    {p.inDevelopment}
-                  </span>
-                ) : (
-                  project.featured && (
-                    <span className="label absolute -top-3 left-5 inline-flex items-center gap-1.5 rounded-sm bg-gradient-brand px-3 py-1 text-paper">
-                      <Star className="w-3.5 h-3.5 fill-current" />
-                      {p.featuredBadge}
-                    </span>
-                  )
-                )}
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-5">
-                  <div className="flex-1 min-w-0">
-                    <div className="mb-3 mt-1">
-                      {"coreonProduct" in project && project.coreonProduct && (
-                        <div className="flex items-center gap-2 mb-2">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src="/images/coreon-logo.png" alt="Coreon Systems" className="h-3 w-auto opacity-80" />
-                          <span className="label">{p.coreonProduct}</span>
-                        </div>
-                      )}
-                      <h4 className="text-lg sm:text-xl font-bold text-ink mb-1.5">{info.title}</h4>
-                      <p className="text-ledger font-medium text-sm">{info.tagline}</p>
-                    </div>
-                    <p className="text-ink-2 leading-normal mb-4 text-sm sm:text-base">{info.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.stack.map((tech) => (
-                        <span key={tech} className="label px-2 py-0.5 rounded-sm border border-rule">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-3 shrink-0">
-                    {"liveUrl" in project && project.liveUrl && (
-                      <Button asChild size="sm" className="bg-gradient-brand text-paper hover:opacity-90 w-full lg:w-auto">
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2"
-                        >
-                          <Globe className="w-4 h-4" />
-                          {p.viewSite}
-                        </a>
-                      </Button>
-                    )}
-                    {"appUrl" in project && project.appUrl && (
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full lg:w-auto"
-                      >
-                        <a
-                          href={project.appUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                          {p.accessSystem}
-                        </a>
-                      </Button>
-                    )}
-                    {"github" in project && project.github && (
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full lg:w-auto"
-                      >
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2"
-                        >
-                          <Github className="w-4 h-4" />
-                          {p.viewGithub}
-                        </a>
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-              )
-            })}
+            <div className="py-s-3 border-b border-rule">
+              <span className="label">{p.coreonProduct}</span>
+            </div>
+            <div className="divide-y divide-rule">{coreonProjects.map(renderProject)}</div>
+          </motion.div>
+
+          {/* Soltos, fora do bloco — em papel */}
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+            className="divide-y divide-rule"
+          >
+            {standaloneProjects.map(renderProject)}
           </motion.div>
           </SectionMeta>
         </div>
@@ -192,27 +187,23 @@ export default function Projects() {
         <div className="mb-s-8">
           <SectionMeta label={t.sectionLabels.otherProjects}>
           <h3 className="text-lg sm:text-xl font-bold text-ink mb-4 sm:mb-5 tracking-wide">{p.otherProjectsTitle}</h3>
-          <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+          <div>
             {otherProjects.map((project) => {
               const info = p.items[project.id]
               return (
-                <div key={project.id} className="glass-card rounded-sm p-4 hover:border-ledger transition-colors duration-300">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <h4 className="text-sm sm:text-base font-semibold text-ink truncate">{info.title}</h4>
-                      <p className="text-ledger text-xs sm:text-sm">{info.tagline}</p>
-                    </div>
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={p.viewGithub}
-                      className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-sm text-ink-2 hover:text-ledger hover:bg-panel transition-colors"
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
+                <a
+                  key={project.id}
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project flex items-center justify-between gap-3 py-s-3 first:pt-0 last:pb-0 last:border-b-0"
+                >
+                  <div className="min-w-0">
+                    <h4 className="text-sm sm:text-base font-semibold text-ink truncate">{info.title}</h4>
+                    <p className="text-ink-2 text-xs sm:text-sm">{info.tagline}</p>
                   </div>
-                </div>
+                  <Github className="w-4 h-4 text-ink-3 shrink-0" aria-hidden />
+                </a>
               )
             })}
           </div>

@@ -319,6 +319,51 @@
     height: 1px;
     background: var(--c-rule);
   }
+
+  /* --------- Microinterações (spec Seção 6) --------- */
+
+  /* Linha de registro: fio inferior, sublinha em acento cresce no hover/foco */
+  .project {
+    position: relative;
+    display: block;
+    border-bottom: 1px solid var(--c-rule);
+  }
+  .project::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 1px;
+    width: 0;
+    background: var(--c-ledger);
+    transition: width var(--d-base) var(--e-out);
+  }
+  .project:hover::after,
+  .project:focus-visible::after {
+    width: 100%;
+  }
+
+  /* Botão: deslocamento de 1px, sem escala — aplicado a todo componente Button */
+  [data-slot="button"] {
+    transition:
+      transform var(--d-fast) var(--e-out),
+      background-color var(--d-base) var(--e-out),
+      border-color var(--d-base) var(--e-out),
+      color var(--d-base) var(--e-out),
+      opacity var(--d-base) var(--e-out);
+  }
+  [data-slot="button"]:hover {
+    transform: translateY(-1px);
+  }
+  [data-slot="button"]:active {
+    transform: translateY(0);
+  }
+}
+
+/* Foco visível sempre */
+:focus-visible {
+  outline: 2px solid var(--c-ledger);
+  outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
