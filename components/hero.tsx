@@ -1,10 +1,11 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Github, Linkedin, ArrowRight, Download, ShieldCheck } from "lucide-react"
+import { Github, Linkedin, ArrowRight, Download } from "lucide-react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
 import { useI18n } from "@/components/i18n/language-provider"
+import { PlatformDiagram } from "@/components/platform-diagram"
 
 const CV_URL = "/Douglas-Brum-Desenvolvedor-Backend.pdf"
 
@@ -12,201 +13,115 @@ export default function Hero() {
   const { t } = useI18n()
   const reduce = useReducedMotion()
   const h = t.hero
+  const diagramNodes = [h.diagram.nodes.corefarma, h.diagram.nodes.corefood, h.diagram.nodes.simmias]
 
-  const container = {
-    hidden: {},
-    show: { transition: { staggerChildren: reduce ? 0 : 0.08, delayChildren: 0.05 } },
-  }
-  const item = {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
+  const headerVariants = {
+    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 8 },
+    show: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] as const } },
   }
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-s-8 overflow-x-hidden">
       <div className="page px-s-2 sm:px-s-3 lg:px-s-4 py-s-6 sm:py-s-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-s-4 lg:gap-s-6 items-center">
-          {/* Lado Esquerdo — Conteúdo */}
-          <motion.div className="space-y-5" variants={container} initial="hidden" animate="show">
-            {/* Badge de disponibilidade (prova de confiança) */}
-            <motion.div variants={item}>
-              <span className="inline-flex items-center gap-2 rounded-sm border border-rule px-3 py-1 text-xs sm:text-sm text-ink-2 font-medium">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ledger opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-ledger" />
-                </span>
-                {h.badge}
-              </span>
-            </motion.div>
+        {/* Cabeçalho reduzido — nome, cargo e status, como cabeçalho de documento */}
+        <motion.div initial="hidden" animate="show" variants={headerVariants} className="text-center mb-s-8 sm:mb-s-12">
+          <span className="inline-flex items-center gap-2 rounded-sm border border-rule px-3 py-1 text-xs sm:text-sm text-ink-2 font-medium mb-s-3">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ledger opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-ledger" />
+            </span>
+            {h.badge}
+          </span>
+          <div className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1">
+            <h1 className="wordmark text-2xl sm:text-3xl">Douglas Brum</h1>
+            <span className="label">{h.role}</span>
+          </div>
+        </motion.div>
 
-            <motion.h1 variants={item} className="display text-balance">
-              <span className="text-ink">Douglas Brum</span>
-              <span className="mt-2 block text-2xl sm:text-3xl md:text-4xl font-bold text-ledger">
-                {h.headline}
-              </span>
-            </motion.h1>
-
-            <motion.p
-              variants={item}
-              className="body text-ink-2 max-w-2xl [&_strong]:text-ink [&_strong]:font-semibold"
-              dangerouslySetInnerHTML={{ __html: h.intro }}
-            />
-
-            {/* Botões CTA */}
-            <motion.div variants={item} className="flex flex-col sm:flex-row flex-wrap gap-3 pt-1">
-              <Button
-                asChild
-                size="lg"
-                className="bg-gradient-brand text-paper font-semibold hover:opacity-90 transition-all w-full sm:w-auto group"
-              >
-                <Link href="#contact">
-                  {h.ctaPrimary}
-                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full sm:w-auto"
-              >
-                <Link href="#portfolio">{h.ctaSecondary}</Link>
-              </Button>
-              <Button
-                asChild
-                variant="ghost"
-                size="lg"
-                className="text-ink-2 hover:text-ledger hover:bg-panel w-full sm:w-auto"
-              >
-                <a href={CV_URL} download target="_blank" rel="noopener noreferrer">
-                  <Download className="w-4 h-4 mr-2" />
-                  {h.ctaCv}
-                </a>
-              </Button>
-            </motion.div>
-
-            {/* Métricas de confiança */}
-            <motion.div variants={item} className="grid grid-cols-3 gap-3 pt-4 max-w-md">
-              {h.stats.map((s) => (
-                <div key={s.label} className="glass-card rounded-sm px-3 py-3 text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-ink">{s.value}</div>
-                  <div className="text-[11px] sm:text-xs text-ink-3 leading-tight mt-0.5">{s.label}</div>
-                </div>
-              ))}
-            </motion.div>
-
-            {/* Redes Sociais */}
-            <motion.div variants={item} className="flex gap-3 pt-1">
-              <a
-                href="https://github.com/dbcfilho"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-rule hover:border-ledger hover:bg-panel transition-all"
-                aria-label="GitHub"
-              >
-                <Github className="w-5 h-5 text-ink-2" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/dbcfilho/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-rule hover:border-ledger hover:bg-panel transition-all"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5 text-ink-2" />
-              </a>
-            </motion.div>
-          </motion.div>
-
-          {/* Lado Direito — Terminal de Código */}
-          <motion.div
-            initial={reduce ? { opacity: 0 } : { opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          >
-            <div className="glass-card rounded-sm overflow-hidden">
-              {/* Cabeçalho do Terminal */}
-              <div className="bg-panel px-3 sm:px-4 py-2.5 sm:py-3 flex items-center gap-2 border-b border-rule">
-                <div className="flex gap-1.5 sm:gap-2">
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border border-rule" />
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border border-rule" />
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border border-rule" />
-                </div>
-                <span className="text-[10px] sm:text-xs text-ink-3 ml-2 font-mono">developer-profile.ts</span>
-              </div>
-
-              {/* Conteúdo do Código */}
-              <div className="p-3 sm:p-5 font-mono text-xs leading-relaxed overflow-x-auto">
-                <pre className="text-ink-2">
-                  <code>
-                    <span className="text-ink">const</span>{" "}
-                    <span className="text-ink">developerProfile</span> = {"{\n"}
-                    {"  "}
-                    <span className="text-ink-3">name</span>:{" "}
-                    <span className="text-ledger">&quot;Douglas Brum&quot;</span>,{"\n"}
-                    {"  "}
-                    <span className="text-ink-3">role</span>:{" "}
-                    <span className="text-ledger">&quot;{h.terminal.role}&quot;</span>,{"\n"}
-                    {"  "}
-                    <span className="text-ink-3">company</span>:{" "}
-                    <span className="text-ledger">&quot;Coreon Systems&quot;</span>,{"\n"}
-                    {"  "}
-                    <span className="text-ink-3">location</span>:{" "}
-                    <span className="text-ledger">&quot;{h.terminal.location}&quot;</span>,{"\n"}
-                    {"  "}
-                    <span className="text-ink-3">favoriteStack</span>: [{"\n"}
-                    {"    "}
-                    <span className="text-ledger">&quot;Java + Spring Boot&quot;</span>,{"\n"}
-                    {"    "}
-                    <span className="text-ledger">&quot;TypeScript + NestJS&quot;</span>,{"\n"}
-                    {"    "}
-                    <span className="text-ledger">&quot;PostgreSQL&quot;</span>,{"\n"}
-                    {"    "}
-                    <span className="text-ledger">&quot;Docker&quot;</span>
-                    {"\n"}
-                    {"  "}]{",\n"}
-                    {"  "}
-                    <span className="text-ink-3">currentlyLearning</span>:{" "}
-                    <span className="text-ledger">&quot;{h.terminal.learning}&quot;</span>,{"\n"}
-                    {"  "}
-                    <span className="text-ink-3">openTo</span>: [{"\n"}
-                    {"    "}
-                    <span className="text-ledger">&quot;{h.terminal.openTo[0]}&quot;</span>,{"\n"}
-                    {"    "}
-                    <span className="text-ledger">&quot;{h.terminal.openTo[1]}&quot;</span>
-                    {"\n"}
-                    {"  "}]{",\n"}
-                    {"};"}
-                  </code>
-                </pre>
-              </div>
-            </div>
-
-            {/* Tecnologias */}
-            <div className="mt-3 sm:mt-5 space-y-2">
-              <div className="flex flex-wrap gap-2">
-                {["Java", "Spring Boot", "NestJS", "PostgreSQL"].map((tech) => (
-                  <span key={tech} className="label px-2 py-0.5 rounded-sm border border-rule">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {["Docker", "AWS Fundamentals", "Linux"].map((tech) => (
-                  <span key={tech} className="label px-2 py-0.5 rounded-sm border border-rule">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="label inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm border border-rule">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  {h.secureBadge}
-                </span>
-              </div>
-            </div>
-          </motion.div>
+        {/* Diagrama da plataforma — protagonista da primeira dobra */}
+        <div className="max-w-3xl mx-auto mb-s-8 sm:mb-s-12">
+          <PlatformDiagram
+            coreLabel={h.diagram.coreLabel}
+            coreLines={h.diagram.coreLines}
+            nodes={diagramNodes}
+            reduce={!!reduce}
+          />
         </div>
+
+        {/* Conteúdo de apoio: intro, CTAs, métricas e redes */}
+        <motion.div
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduce ? 0 : 0.4, delay: reduce ? 0 : 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl mx-auto text-center"
+        >
+          <p
+            className="body text-ink-2 mx-auto [&_strong]:text-ink [&_strong]:font-semibold"
+            dangerouslySetInnerHTML={{ __html: h.intro }}
+          />
+
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 mt-s-4">
+            <Button
+              asChild
+              size="lg"
+              className="bg-gradient-brand text-paper font-semibold hover:opacity-90 transition-all w-full sm:w-auto group"
+            >
+              <Link href="#contact">
+                {h.ctaPrimary}
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="border-rule text-ink hover:border-ledger hover:bg-panel bg-transparent w-full sm:w-auto"
+            >
+              <Link href="#portfolio">{h.ctaSecondary}</Link>
+            </Button>
+            <Button
+              asChild
+              variant="ghost"
+              size="lg"
+              className="text-ink-2 hover:text-ledger hover:bg-panel w-full sm:w-auto"
+            >
+              <a href={CV_URL} download target="_blank" rel="noopener noreferrer">
+                <Download className="w-4 h-4 mr-2" />
+                {h.ctaCv}
+              </a>
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 mt-s-6 max-w-md mx-auto">
+            {h.stats.map((s) => (
+              <div key={s.label} className="glass-card rounded-sm px-3 py-3 text-center">
+                <div className="text-xl sm:text-2xl font-bold text-ink">{s.value}</div>
+                <div className="text-[11px] sm:text-xs text-ink-3 leading-tight mt-0.5">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-center gap-3 mt-s-4">
+            <a
+              href="https://github.com/dbcfilho"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-rule hover:border-ledger hover:bg-panel transition-all"
+              aria-label="GitHub"
+            >
+              <Github className="w-5 h-5 text-ink-2" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/dbcfilho/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-sm border border-rule hover:border-ledger hover:bg-panel transition-all"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-5 h-5 text-ink-2" />
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

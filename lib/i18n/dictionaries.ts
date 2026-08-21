@@ -32,6 +32,7 @@ const pt = {
   },
   hero: {
     badge: "Disponível para novas oportunidades",
+    role: "Desenvolvedor Backend",
     headline: "Backend seguro, do banco de dados à API.",
     intro:
       'Construo <strong>APIs robustas e sistemas web</strong> com Java/Spring Boot e Node/NestJS, em ambientes Linux e Docker. O diferencial: uma mentalidade de <strong>cibersegurança</strong> aplicada a cada decisão de arquitetura, para entregar software que dura e em que se pode confiar.',
@@ -43,12 +44,14 @@ const pt = {
       { value: "8", label: "certificações" },
       { value: "2", label: "produtos em produção" },
     ],
-    secureBadge: "Desenvolvimento seguro por natureza",
-    terminal: {
-      role: "Desenvolvedor Backend",
-      location: "Rio de Janeiro, Brasil",
-      learning: "AWS & Cibersegurança",
-      openTo: ["Vagas Backend (CLT ou PJ)", "Trabalho Remoto"],
+    diagram: {
+      coreLabel: "Núcleo",
+      coreLines: ["Java · Spring Boot", "Multi-tenant", "Fiscal · Acesso"],
+      nodes: {
+        corefarma: { title: "Corefarma", lines: ["Farmácia", "SNGPC"], delivery: "ERP + app" },
+        corefood: { title: "Core Food", lines: ["Alimentação", "Fiscal"], delivery: "ERP + app + POS + totem" },
+        simmias: { title: "Simmias", lines: ["Educação", "LGPD"], delivery: "ERP web" },
+      },
     },
   },
   about: {
@@ -334,6 +337,7 @@ const en: Dictionary = {
   },
   hero: {
     badge: "Available for new opportunities",
+    role: "Backend Developer",
     headline: "Secure backend, from the database to the API.",
     intro:
       'I build <strong>robust APIs and web systems</strong> with Java/Spring Boot and Node/NestJS, on Linux and Docker environments. The difference: a <strong>cybersecurity</strong> mindset applied to every architectural decision, to deliver software that lasts and that you can trust.',
@@ -345,12 +349,14 @@ const en: Dictionary = {
       { value: "8", label: "certifications" },
       { value: "2", label: "products in production" },
     ],
-    secureBadge: "Secure development by nature",
-    terminal: {
-      role: "Backend Developer",
-      location: "Rio de Janeiro, Brazil",
-      learning: "AWS & Cybersecurity",
-      openTo: ["Backend Roles (Full-time or Contract)", "Remote Work"],
+    diagram: {
+      coreLabel: "Core",
+      coreLines: ["Java · Spring Boot", "Multi-tenant", "Billing · Access"],
+      nodes: {
+        corefarma: { title: "Corefarma", lines: ["Pharmacy", "SNGPC"], delivery: "ERP + app" },
+        corefood: { title: "Core Food", lines: ["Food service", "Billing"], delivery: "ERP + app + POS + kiosk" },
+        simmias: { title: "Simmias", lines: ["Education", "LGPD"], delivery: "Web ERP" },
+      },
     },
   },
   about: {
@@ -634,6 +640,7 @@ const es: Dictionary = {
   },
   hero: {
     badge: "Disponible para nuevas oportunidades",
+    role: "Desarrollador Backend",
     headline: "Backend seguro, de la base de datos a la API.",
     intro:
       'Construyo <strong>APIs robustas y sistemas web</strong> con Java/Spring Boot y Node/NestJS, en entornos Linux y Docker. La diferencia: una mentalidad de <strong>ciberseguridad</strong> aplicada a cada decisión de arquitectura, para entregar software que perdura y en el que se puede confiar.',
@@ -645,12 +652,14 @@ const es: Dictionary = {
       { value: "8", label: "certificaciones" },
       { value: "2", label: "productos en producción" },
     ],
-    secureBadge: "Desarrollo seguro por naturaleza",
-    terminal: {
-      role: "Desarrollador Backend",
-      location: "Río de Janeiro, Brasil",
-      learning: "AWS y Ciberseguridad",
-      openTo: ["Vacantes Backend (CLT o freelance)", "Trabajo Remoto"],
+    diagram: {
+      coreLabel: "Núcleo",
+      coreLines: ["Java · Spring Boot", "Multi-tenant", "Fiscal · Acceso"],
+      nodes: {
+        corefarma: { title: "Corefarma", lines: ["Farmacia", "SNGPC"], delivery: "ERP + app" },
+        corefood: { title: "Core Food", lines: ["Alimentación", "Fiscal"], delivery: "ERP + app + POS + totem" },
+        simmias: { title: "Simmias", lines: ["Educación", "LGPD"], delivery: "ERP web" },
+      },
     },
   },
   about: {
