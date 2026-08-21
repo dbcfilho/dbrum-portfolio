@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Mail, Linkedin, MapPin, Send } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { useI18n } from "@/components/i18n/language-provider"
+import { SectionMeta } from "@/components/section-meta"
 
 export default function Contact() {
   const { t } = useI18n()
@@ -70,10 +71,11 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-12 sm:py-16 lg:py-20 relative">
+    <section id="contact" className="py-s-12 sm:py-s-24 relative">
       <div className="accent-line absolute top-0 left-0 right-0" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 sm:mb-16 animate-in fade-in slide-in-from-bottom duration-700">
+      <div className="page px-s-2 sm:px-s-3 lg:px-s-4">
+        <SectionMeta label={t.sectionLabels.contact}>
+        <div className="text-center mb-s-8 animate-in fade-in slide-in-from-bottom duration-700">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-brand-light to-brand-cyan bg-clip-text text-transparent">
             {k.heading}
           </h2>
@@ -231,6 +233,7 @@ export default function Contact() {
             </form>
           </div>
         </div>
+        </SectionMeta>
       </div>
     </section>
   )

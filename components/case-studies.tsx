@@ -255,7 +255,7 @@ export default function CaseStudies() {
   }
 
   return (
-    <div className="mt-8 sm:mt-12">
+    <div>
       <div className="text-center mb-6 sm:mb-8">
         <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-wide">{c.heading}</h3>
         <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{c.subtitle}</p>

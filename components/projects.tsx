@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { motion, useReducedMotion } from "framer-motion"
 import CaseStudies from "@/components/case-studies"
 import { useI18n } from "@/components/i18n/language-provider"
+import { SectionMeta } from "@/components/section-meta"
 
 // Dados neutros (stack, URLs, destaque). Textos vêm do dicionário via id.
 const projects = [
@@ -54,15 +55,20 @@ export default function Projects() {
   }
 
   return (
-    <section id="portfolio" className="py-12 sm:py-16 relative">
+    <section id="portfolio" className="py-s-12 sm:py-s-24 relative">
       <div className="accent-line absolute top-0 left-0 right-0" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3 text-gradient-brand tracking-wide">{p.heading}</h2>
-          <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{p.subtitle}</p>
+      <div className="page px-s-2 sm:px-s-3 lg:px-s-4">
+        <div className="mb-s-8">
+          <SectionMeta label={t.sectionLabels.projects}>
+            <div className="text-center">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3 text-gradient-brand tracking-wide">{p.heading}</h2>
+              <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto px-4">{p.subtitle}</p>
+            </div>
+          </SectionMeta>
         </div>
 
-        <div className="mb-10 sm:mb-12">
+        <div className="mb-s-8">
+          <SectionMeta label={t.sectionLabels.featured}>
           <h3 className="text-xl sm:text-2xl font-bold text-white mb-5 sm:mb-6 tracking-wide">{p.featuredTitle}</h3>
           <motion.div
             className="space-y-5 sm:space-y-6"
@@ -183,11 +189,17 @@ export default function Projects() {
               )
             })}
           </motion.div>
+          </SectionMeta>
         </div>
 
-        <CaseStudies />
+        <div className="mb-s-8">
+          <SectionMeta label={t.sectionLabels.caseStudies}>
+            <CaseStudies />
+          </SectionMeta>
+        </div>
 
-        <div className="mt-10 sm:mt-12">
+        <div className="mb-s-8">
+          <SectionMeta label={t.sectionLabels.otherProjects}>
           <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-5 tracking-wide">{p.otherProjectsTitle}</h3>
           <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
             {otherProjects.map((project) => {
@@ -216,6 +228,7 @@ export default function Projects() {
               )
             })}
           </div>
+          </SectionMeta>
         </div>
 
         <div className="text-center mt-6 sm:mt-8">
