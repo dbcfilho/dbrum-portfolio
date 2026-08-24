@@ -50,23 +50,31 @@ export default function Contact() {
 
       <form className="contact-form" onSubmit={handleSubmit}>
         <label>
-          {k.form.name} <span className="required-mark">*</span>
+          <span className="label-row">
+            {k.form.name} <span className="required-mark">*</span>
+          </span>
           <input name="name" required value={formData.name} onChange={handleChange} placeholder={k.form.namePlaceholder} />
         </label>
         <label>
-          {k.form.email} <span className="required-mark">*</span>
+          <span className="label-row">
+            {k.form.email} <span className="required-mark">*</span>
+          </span>
           <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder={k.form.emailPlaceholder} />
         </label>
         <label>
-          {k.form.company}
+          <span className="label-row">{k.form.company}</span>
           <input name="company" value={formData.company} onChange={handleChange} placeholder={k.form.companyPlaceholder} />
         </label>
         <label>
-          {k.form.subject} <span className="required-mark">*</span>
+          <span className="label-row">
+            {k.form.subject} <span className="required-mark">*</span>
+          </span>
           <input name="subject" required value={formData.subject} onChange={handleChange} placeholder={k.form.subjectPlaceholder} />
         </label>
         <label>
-          {k.form.message} <span className="required-mark">*</span>
+          <span className="label-row">
+            {k.form.message} <span className="required-mark">*</span>
+          </span>
           <textarea name="message" required rows={4} value={formData.message} onChange={handleChange} placeholder={k.form.messagePlaceholder} />
         </label>
         <button className="button button-primary" disabled={status === "sending"}>

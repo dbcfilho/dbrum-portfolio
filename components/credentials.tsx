@@ -18,7 +18,37 @@ const education = [
   { id: "uniasselvi", institution: "UNIASSELVI", period: "Ago 2022 – Jul 2025" },
 ] as const
 
-const coreStack = ["Java", "Spring Boot", "Python", "Django", "PostgreSQL", "Docker", "Linux", "AWS"]
+const coreStack = [
+  "Java",
+  "Python",
+  "JavaScript",
+  "TypeScript",
+  "Go",
+  "C/C++",
+  "Flutter",
+  "Spring Boot",
+  "Django",
+  "Node.js",
+  "NestJS",
+  "React",
+  "React Native",
+  "Expo",
+  "Next.js",
+  "Vite",
+  "MySQL",
+  "SQLite",
+  "MongoDB",
+  "PostgreSQL",
+  "Prisma",
+  "Docker",
+  "AWS (Foundations)",
+  "Linux",
+  "Gradle",
+  "RESTful APIs",
+  "HTML",
+  "CSS",
+  "Bootstrap",
+]
 
 export default function Credentials() {
   const { t } = useI18n()
