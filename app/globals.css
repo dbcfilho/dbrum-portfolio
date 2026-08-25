@@ -279,7 +279,6 @@ button {
   background: var(--graphite);
   color: #edf0e8;
   box-shadow: 20px 22px 0 #d9d9d1;
-  transform: rotate(1.5deg);
 }
 .terminal-top {
   display: flex;
@@ -979,11 +978,11 @@ button {
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(14px) rotate(1.5deg);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) rotate(1.5deg);
+    transform: translateY(0);
   }
 }
 @media (prefers-reduced-motion: reduce) {
