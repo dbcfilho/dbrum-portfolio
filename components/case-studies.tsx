@@ -1,16 +1,123 @@
-import { Github } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Diagram } from "@/components/diagram"
+"use client"
 
+import { useState } from "react"
+import { ChevronDown, Github, Globe } from "lucide-react"
+import { Diagram } from "@/components/diagram"
+import { useI18n } from "@/components/i18n/language-provider"
+
+// Dados neutros: id, stack, repositório e diagramas (código Mermaid).
 const caseStudies = [
   {
-    title: "Intelligent Educational Learning Gap Diagnosis Platform",
-    role: "Full Stack Developer & BI Architect",
-    projectType: "Business Intelligence Web System (College Graduation Project)",
-    problem:
-      "Public schools in Brazil often struggle with fragmented data, lack of dashboards, and limited insight into student learning gaps. Educational staff typically rely on spreadsheets or manual processes, making it difficult to identify students at risk, trends in specific subjects or grades, classes with structural performance gaps, and geographical patterns of educational challenges. A centralized BI solution was needed to support data-driven decision-making.",
-    solution:
-      "Designed and implemented a full BI platform with a Django REST API for structured and secure data access, a Vue.js + Vite frontend for fast responsive UI, interactive dashboards built with Plotly.js, geospatial visualizations using Leaflet, JWT-based authentication for protected access, and a synthetic data generator for development and demos. The system allows teachers, coordinators, and administrators to visualize trends, compare performance between classes or schools, and detect learning gaps early.",
+    id: "corefood",
+    stack: ["Java 25", "Spring Boot 4", "Spring Modulith", "PostgreSQL", "Redis", "JWT", "Docker", "Testcontainers"],
+    diagrams: {
+      architecture: `graph TD
+    subgraph Clientes
+        A[App Mobile — Cliente]
+        B[App Mobile — Lojista / Console]
+    end
+
+    subgraph Backend["core-platform — Spring Boot + Modulith"]
+        C[API REST]
+        D[Resolução de Tenant]
+        E[Identity]
+        F[Ordering]
+        G[Payment]
+        H[Loyalty]
+        I[Notification]
+    end
+
+    J[(PostgreSQL\nRLS por tenant)]
+    K[(Redis\ncache)]
+    L[PagBank / PIX]
+    M[Expo Push]
+
+    A -->|HTTPS / REST| C
+    B -->|HTTPS / REST| C
+    C --> D
+    D --> E
+    D --> F
+    D --> G
+    D --> H
+    D --> I
+    E --> J
+    F --> J
+    G --> J
+    H --> J
+    C --> K
+    G -->|Webhook| L
+    I --> M
+    style D fill:#195dff,stroke:#195dff,color:#fff
+    style J fill:#195dff,stroke:#195dff,color:#fff`,
+      erd: `erDiagram
+    TENANT ||--o{ APP_USER : has
+    TENANT ||--o{ CATEGORY : owns
+    TENANT ||--o{ PRODUCT : owns
+    TENANT ||--o{ ORDER_ENTITY : owns
+
+    TENANT {
+        int id PK
+        string name
+        string subdomain
+    }
+
+    APP_USER {
+        int id PK
+        int tenant_id FK
+        string email
+        string role
+    }
+
+    CATEGORY {
+        int id PK
+        int tenant_id FK
+        string name
+        int position
+    }
+
+    PRODUCT {
+        int id PK
+        int tenant_id FK
+        int category_id FK
+        string name
+        decimal price
+        boolean available
+    }
+
+    CATEGORY ||--o{ PRODUCT : contains
+
+    ORDER_ENTITY {
+        int id PK
+        int tenant_id FK
+        int sequential_code
+        string status
+        datetime created_at
+    }
+
+    ORDER_ITEM {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal unit_price
+    }
+
+    ORDER_ENTITY ||--o{ ORDER_ITEM : contains
+    PRODUCT ||--o{ ORDER_ITEM : referenced_by
+
+    PAYMENT {
+        int id PK
+        int order_id FK
+        string method
+        string status
+        string webhook_hash
+    }
+
+    ORDER_ENTITY ||--o| PAYMENT : has`,
+    },
+  },
+  {
+    id: "bi",
     stack: [
       "Django 4",
       "Django REST Framework",
@@ -22,25 +129,12 @@ const caseStudies = [
       "MySQL",
       "SQLite",
       "Python",
-      "Tailwind CSS",
-    ],
-    features: [
-      "JWT-based authentication with token refresh mechanism",
-      "Complete CRUD operations for Schools, Classes, Students, and Teachers",
-      "Interactive dashboards with Plotly.js for performance analysis",
-      "Geospatial analysis using Leaflet and real mapping tiles",
-      "REST API built with Django + DRF for structured data access",
-      "Performance insights via Plotly.js visualizations",
-      "Synthetic dataset generator for testing scenarios",
-      "Responsive, fast frontend using Vue 3 + Vite",
-      "Early-warning insights for at-risk students",
-      "Demographic and geographic pattern analysis",
     ],
     github: "https://github.com/dbcfilho/plataforma-diagnostico",
     diagrams: {
       architecture: `graph TD
     subgraph User
-        A[Browser / Client]
+        A[Browser / Cliente]
     end
 
     subgraph Frontend
@@ -49,7 +143,7 @@ const caseStudies = [
 
     subgraph Backend
         C[Django REST Framework API]
-        D[JWT Authentication]
+        D[Autenticação JWT]
     end
 
     subgraph Database
@@ -106,152 +200,191 @@ const caseStudies = [
     },
   },
   {
-    title: "Culture House — Social Management Platform",
-    role: "Full Stack Developer",
-    projectType: "Social NGO Management System",
-    problem:
-      "NGOs managing social assistance programs need to track assisted individuals, automate communications, and generate comprehensive reports, but lack affordable and scalable technical solutions.",
-    solution:
-      "Built a full-stack web platform using Python/Django with MySQL for data persistence, Docker for containerization, and integrated WhatsApp API for automated birthday messages. Implemented role-based access control, CSV/PDF report generation, and a responsive Bootstrap 5 interface.",
-    stack: ["Python", "Django", "MySQL", "Docker", "Bootstrap 5", "WhatsApp API"],
-    features: [
-      "Individual tracking and case management with comprehensive profiles",
-      "Automated WhatsApp messaging for birthdays and special events",
-      "Statistical report generation in CSV and PDF formats",
-      "Role-based access control for administrators and staff",
-      "Docker Compose deployment for easy setup and scalability",
-    ],
-    github: "https://github.com/dbcfilho/casa-da-cultura-v3",
+    id: "simmias",
+    stack: ["Django 5", "Django REST Framework", "React 18", "Vite", "PostgreSQL", "Baileys", "JWT", "Docker Compose"],
+    liveUrl: "https://simmias.vercel.app",
     diagrams: {
-      architecture: `graph TB
-    A[User Browser] -->|HTTPS| B[Nginx Reverse Proxy]
-    B --> C[Django Application]
-    C --> D[MySQL Database]
-    C --> E[WhatsApp API]
-    C --> F[PDF Generator]
-    C --> G[CSV Exporter]
-    D -->|Data| C
-    E -->|Notifications| H[End Users]
-    style C fill:#8b5cf6,stroke:#a78bfa,color:#fff
-    style D fill:#3b82f6,stroke:#60a5fa,color:#fff`,
+      architecture: `graph TD
+    subgraph LAN["Rede local — sem internet"]
+        U[Navegador — Secretaria / Professor / Direção]
+    end
+
+    N[Nginx — proxy reverso :80]
+    F[Frontend — React + Vite]
+    B[Backend — Django + DRF via gunicorn]
+    K[alertas-cron — verifica faltas, gera aulas]
+    W[Microserviço WhatsApp — Baileys]
+    D[(PostgreSQL)]
+    G[Famílias / Alunos]
+
+    U -->|HTTPS| N
+    N --> F
+    N -->|/api /admin| B
+    B --> D
+    K --> D
+    K -->|mensagens| W
+    B -->|notificações| W
+    W -->|WhatsApp| G
+    style B fill:#195dff,stroke:#195dff,color:#fff
+    style D fill:#195dff,stroke:#195dff,color:#fff`,
       erd: `erDiagram
-    PERSON ||--o{ ATTENDANCE : has
-    PERSON {
+    ALUNO ||--o{ MATRICULA : has
+    TURMA ||--o{ MATRICULA : has
+    TURMA ||--o{ HORARIO_TURMA : has
+    TURMA ||--o{ AULA : has
+    PROFESSOR }o--o{ TURMA : leciona
+    ALUNO ||--o{ FREQUENCIA : has
+    AULA ||--o{ FREQUENCIA : registra
+    ALUNO ||--o{ PASSAPORTE_CULTURAL : has
+    ALUNO ||--o{ ATENDIMENTO_MEDICO : has
+
+    ALUNO {
         int id PK
-        string name
-        date birth_date
-        string phone
-        string address
+        string nome
+        string matricula
     }
-    ATTENDANCE {
+    TURMA {
         int id PK
-        int person_id FK
-        date attendance_date
-        string notes
+        string nome
+    }
+    HORARIO_TURMA {
+        int id PK
+        int turma_id FK
+        int dia_semana
+        time hora_inicio
+    }
+    AULA {
+        int id PK
+        int turma_id FK
+        date data
+        int professor_id FK
         string status
     }
-    PERSON ||--o{ MESSAGE : receives
-    MESSAGE {
+    MATRICULA {
         int id PK
-        int person_id FK
-        string type
-        date sent_date
-        boolean delivered
+        int aluno_id FK
+        int turma_id FK
+        string codigo
+    }
+    PROFESSOR {
+        int id PK
+        string especialidade
+    }
+    FREQUENCIA {
+        int id PK
+        int aula_id FK
+        int aluno_id FK
+        string status
+    }
+    PASSAPORTE_CULTURAL {
+        int id PK
+        int aluno_id FK
+        string raca
+    }
+    ATENDIMENTO_MEDICO {
+        int id PK
+        int aluno_id FK
+        string anotacao
     }`,
     },
   },
-]
+] as const
 
 export default function CaseStudies() {
+  const { t } = useI18n()
+  const c = t.caseStudies
+  const p = t.projects
+  const [openDiagrams, setOpenDiagrams] = useState<boolean[]>(caseStudies.map(() => false))
+
+  const toggleDiagrams = (index: number) => {
+    setOpenDiagrams((prev) => prev.map((v, i) => (i === index ? !v : v)))
+  }
+
   return (
-    <div className="mt-8 sm:mt-12">
-      <div className="text-center mb-6 sm:mb-8">
-        <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
-          Case Studies
-        </h3>
-        <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
-          Deep dives into real-world projects and technical solutions
-        </p>
-      </div>
+    <div style={{ marginTop: 60 }}>
+      <h3 style={{ fontSize: 21, fontWeight: 500, marginBottom: 6 }}>{c.heading}</h3>
+      <p style={{ color: "var(--muted-foreground)", marginTop: 0, marginBottom: 32 }}>{c.subtitle}</p>
 
-      <div className="space-y-6 sm:space-y-8">
-        {caseStudies.map((study, index) => (
-          <div
-            key={study.title}
-            className="glass-card rounded-lg p-5 sm:p-6 animate-in fade-in slide-in-from-bottom"
-            style={{ animationDelay: `${index * 100}ms` }}
-          >
-            {/* Header */}
-            <div className="mb-4">
-              <h4 className="text-xl sm:text-2xl font-bold text-white mb-3">{study.title}</h4>
-              {study.role && <p className="text-gray-300 text-sm sm:text-base mb-2">Role: {study.role}</p>}
-              {study.projectType && (
-                <p className="text-gray-300 text-sm sm:text-base mb-3">Project Type: {study.projectType}</p>
-              )}
-              <div className="flex flex-wrap gap-2 mb-3">
-                {study.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 text-sm rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <Button
-                asChild
-                variant="outline"
-                size="sm"
-                className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent"
-              >
-                <a href={study.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                  <Github className="w-4 h-4" />
-                  View Repository
-                </a>
-              </Button>
+      {caseStudies.map((study, index) => {
+        const s = c.items[study.id]
+        return (
+          <div className="project-card standalone" key={study.id}>
+            <div className="project-head">
+              <h3>{s.title}</h3>
+            </div>
+            {s.role && <p className="project-tagline">{c.roleLabel}: {s.role}</p>}
+            {s.projectType && <p className="project-desc">{c.projectTypeLabel}: {s.projectType}</p>}
+            <div className="tags">
+              {study.stack.map((tech) => (
+                <span key={tech}>{tech}</span>
+              ))}
             </div>
 
-            {/* Problem & Solution */}
-            <div className="grid md:grid-cols-2 gap-4 mb-4">
+            <div className="project-summary">
               <div>
-                <h5 className="text-base font-bold text-purple-400 mb-2">Problem</h5>
-                <p className="text-gray-300 leading-normal text-sm sm:text-base">{study.problem}</p>
+                <h4>{c.problemLabel}</h4>
+                <p style={{ whiteSpace: "pre-line" }}>{s.problem}</p>
               </div>
               <div>
-                <h5 className="text-base font-bold text-blue-400 mb-2">Solution</h5>
-                <p className="text-gray-300 leading-normal text-sm sm:text-base">{study.solution}</p>
+                <h4>{c.solutionLabel}</h4>
+                <p style={{ whiteSpace: "pre-line" }}>{s.solution}</p>
               </div>
             </div>
 
-            {/* Key Features */}
-            <div className="mb-4">
-              <h5 className="text-base font-bold text-white mb-2">Key Features</h5>
-              <ul className="space-y-1.5">
-                {study.features.map((feature, i) => (
-                  <li key={i} className="text-gray-300 text-sm flex items-start">
-                    <span className="text-purple-400 mr-2">•</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <h4 style={{ fontSize: 12, fontFamily: "var(--font-plex-mono), monospace", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 10 }}>
+              {c.featuresLabel}
+            </h4>
+            <ul className="feature-list">
+              {s.features.map((feature, i) => (
+                <li key={i}>{feature}</li>
+              ))}
+            </ul>
 
-            {/* Diagrams */}
             {study.diagrams && (
-              <div className="space-y-4">
-                <div>
-                  <h5 className="text-base font-bold text-white mb-3">System Architecture</h5>
-                  <Diagram code={study.diagrams.architecture} />
-                </div>
-                <div>
-                  <h5 className="text-base font-bold text-white mb-3">Database Schema (ERD)</h5>
-                  <Diagram code={study.diagrams.erd} />
+              <div>
+                <button
+                  className="diagram-toggle"
+                  onClick={() => toggleDiagrams(index)}
+                  aria-expanded={openDiagrams[index]}
+                >
+                  <ChevronDown size={16} />
+                  {openDiagrams[index] ? c.hideDiagrams : c.showDiagrams}
+                </button>
+
+                {openDiagrams[index] && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 8, marginBottom: 16 }}>
+                    <div>
+                      <h5 style={{ fontSize: 13, fontWeight: 500, marginBottom: 8 }}>{c.architectureLabel}</h5>
+                      <Diagram code={study.diagrams.architecture} loadingLabel={c.loadingDiagram} errorLabel={c.diagramError} />
+                    </div>
+                    <div>
+                      <h5 style={{ fontSize: 13, fontWeight: 500, marginBottom: 8 }}>{c.erdLabel}</h5>
+                      <Diagram code={study.diagrams.erd} loadingLabel={c.loadingDiagram} errorLabel={c.diagramError} />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {(("github" in study && study.github) || ("liveUrl" in study && study.liveUrl)) && (
+              <div className="project-foot">
+                <div className="project-links">
+                  {"liveUrl" in study && study.liveUrl && (
+                    <a href={study.liveUrl} target="_blank" rel="noopener noreferrer" className="button button-primary">
+                      <Globe size={15} /> {p.viewSite}
+                    </a>
+                  )}
+                  {"github" in study && study.github && (
+                    <a href={study.github} target="_blank" rel="noopener noreferrer" className="button button-ghost">
+                      <Github size={15} /> {c.viewRepo}
+                    </a>
+                  )}
                 </div>
               </div>
             )}
           </div>
-        ))}
-      </div>
+        )
+      })}
     </div>
   )
 }

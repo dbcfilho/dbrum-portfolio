@@ -2,121 +2,70 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Menu, X, Download } from "lucide-react"
+import { Download, Menu, X } from "lucide-react"
+import { useI18n } from "@/components/i18n/language-provider"
+import { LanguageSwitcher } from "@/components/i18n/language-switcher"
 
 const navItems = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#content", label: "Content" },
-  { href: "#contact", label: "Contact" },
-]
+  { href: "#home", id: "home", key: "home" },
+  { href: "#experience", id: "experience", key: "about" },
+  { href: "#portfolio", id: "portfolio", key: "portfolio" },
+  { href: "#content", id: "content", key: "content" },
+  { href: "#contact", id: "contact", key: "contact" },
+] as const
+
+const CV_URL = "/Douglas-Brum-Desenvolvedor-Backend.pdf"
 
 export default function Navigation() {
+  const { t } = useI18n()
   const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState("home")
 
+  // Scroll-spy: destaca o item da seção visível
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    const sections = navItems
+      .map((i) => document.getElementById(i.id))
+      .filter((el): el is HTMLElement => Boolean(el))
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id)
+        })
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+    )
+
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-[oklch(0.12_0.05_250)]/80 backdrop-blur-md border-b border-purple-500/20" : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link href="#home" className="group flex-shrink-0">
-            <Image
-              src="/images/dbrum-logo.png"
-              alt="Douglas Brum Logo"
-              width={220}
-              height={73}
-              className="transition-transform group-hover:scale-105 h-auto w-[140px] sm:w-[150px] md:w-[160px]"
-              priority
-            />
-          </Link>
+    <header className="site-header">
+      <Link href="#home" className="brand" aria-label="Douglas Brum — Início">
+        <span className="brand-mark">/</span> douglas<span className="brand-dot">.</span>brum
+      </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm text-gray-300 hover:text-purple-400 transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 hover:glow-purple transition-all bg-transparent"
-            >
-              <a
-                href="https://drive.google.com/file/d/1zpvyQ02nPA1HpEHiJemkkSR_uWBcIEQr/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Resume
-              </a>
-            </Button>
-          </div>
+      <button className="menu-trigger" onClick={() => setIsOpen((v) => !v)} aria-label={isOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={isOpen}>
+        {isOpen ? <X /> : <Menu />}
+      </button>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-300 hover:text-purple-400 transition-colors flex-shrink-0"
-            aria-label="Toggle menu"
+      <nav className={isOpen ? "nav open" : "nav"}>
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={() => setIsOpen(false)}
+            style={active === item.id ? { color: "var(--primary)" } : undefined}
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="md:hidden bg-[oklch(0.12_0.05_250)]/95 backdrop-blur-md border-b border-purple-500/20">
-          <div className="px-4 py-4 space-y-3">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="block text-gray-300 hover:text-purple-400 transition-colors py-2"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="w-full border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent"
-            >
-              <a
-                href="https://drive.google.com/file/d/1zpvyQ02nPA1HpEHiJemkkSR_uWBcIEQr/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Download Resume
-              </a>
-            </Button>
-          </div>
-        </div>
-      )}
-    </nav>
+            {t.nav[item.key]}
+          </Link>
+        ))}
+        <a href={CV_URL} download target="_blank" rel="noopener noreferrer" className="cv-link">
+          <Download size={15} /> {t.nav.downloadCv}
+        </a>
+        <LanguageSwitcher />
+      </nav>
+    </header>
   )
 }

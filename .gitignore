@@ -6,6 +6,9 @@ node_modules/
 .next/
 out/
 
+# TypeScript
+*.tsbuildinfo
+
 # env
 .env
 .env.local
@@ -17,3 +20,10 @@ yarn-debug.log*
 pnpm-debug.log*
 node_modules/
 .pnpm-store/
+
+# specs internas (não versionadas)
+spec-design-registro.md
+spec-portfolio-claude-code.md
+
+# pasta doadora de conteúdo (já absorvida no frontend, não deve voltar ao repo)
+new-template/
