@@ -87,10 +87,11 @@ const pt = {
       coreon: {
         role: "Desenvolvedor Backend",
         points: [
-          "Condução técnica de uma empresa de software com dois produtos verticais: Corefarma (ERP para farmácias) e Corefood (plataforma para restaurantes).",
-          "Arquitetura e desenvolvimento do backend de ambos os produtos: NestJS e PostgreSQL no Corefarma, Java e Spring Boot no Corefood.",
-          "Corefarma em produção, cobrindo PDV com emissão de cupom fiscal, controle de estoque, notas fiscais, entregas e integração com o SNGPC para medicamentos controlados.",
-          "Definição de contratos de API em conjunto com o time de frontend e condução técnica de proposta comercial para cliente piloto.",
+          "Arquitetar e desenvolver o backend da plataforma Core, produto white-label multi-vertical em Java 25 e Spring Boot 4, estruturado como monólito modular com Spring Modulith sobre PostgreSQL e Redis.",
+          "Implementar isolamento multi-tenant com Row-Level Security, autenticação com Argon2id, pagamento PIX via PagBank com webhook validado e padrão Outbox para consistência de eventos.",
+          "Sustentar a qualidade com mais de 100 classes de teste e cerca de 540 casos em JUnit 5 e Testcontainers, regras de arquitetura verificadas por ArchUnit e CI no GitHub Actions com testes de contrato a cada push.",
+          "Instrumentar a observabilidade da plataforma com Actuator e Micrometer, expondo métricas ao Prometheus e dashboards no Grafana segmentados por tenant, com regras de alerta para indisponibilidade e falhas de pagamento.",
+          "Desenvolver o frontend de um ERP multi-tenant e multimarca em Next.js 15 e React 19, definindo contratos de API com o time de frontend e documentando em Swagger/OpenAPI.",
         ],
       },
       a4pm: {
@@ -397,10 +398,11 @@ const en: Dictionary = {
       coreon: {
         role: "Backend Developer",
         points: [
-          "Technical lead of a software company with two vertical products: Corefarma (pharmacy ERP) and Corefood (restaurant platform).",
-          "Backend architecture and development for both products: NestJS and PostgreSQL on Corefarma, Java and Spring Boot on Corefood.",
-          "Corefarma running in production, covering point-of-sale with fiscal receipt issuing, inventory control, invoicing, deliveries and integration with SNGPC for controlled medication reporting.",
-          "Defined API contracts alongside the frontend team and led the technical side of a commercial proposal for a pilot client.",
+          "Architect and develop the backend of Core, a multi-vertical white-label platform in Java 25 and Spring Boot 4, structured as a modular monolith with Spring Modulith on top of PostgreSQL and Redis.",
+          "Implement multi-tenant isolation with Row-Level Security, Argon2id authentication, PIX payments via PagBank with signature-verified webhooks, and an Outbox pattern for event consistency.",
+          "Sustain quality with 100+ test classes and around 540 cases in JUnit 5 and Testcontainers, architecture rules enforced by ArchUnit, and GitHub Actions CI running contract tests on every push.",
+          "Instrument platform observability with Actuator and Micrometer, exposing metrics to Prometheus and per-tenant Grafana dashboards, with alert rules for downtime and payment failures.",
+          "Develop the frontend of a multi-tenant, multi-brand ERP in Next.js 15 and React 19, defining API contracts with the frontend team and documenting them in Swagger/OpenAPI.",
         ],
       },
       a4pm: {
@@ -705,10 +707,11 @@ const es: Dictionary = {
       coreon: {
         role: "Desarrollador Backend",
         points: [
-          "Liderazgo técnico de una empresa de software con dos productos verticales: Corefarma (ERP para farmacias) y Corefood (plataforma para restaurantes).",
-          "Arquitectura y desarrollo del backend de ambos productos: NestJS y PostgreSQL en Corefarma, Java y Spring Boot en Corefood.",
-          "Corefarma en producción, cubriendo punto de venta con emisión de comprobante fiscal, control de inventario, facturación, entregas e integración con el SNGPC para medicamentos controlados.",
-          "Definición de contratos de API junto con el equipo de frontend y liderazgo técnico de una propuesta comercial para un cliente piloto.",
+          "Diseñar y desarrollar el backend de Core, plataforma white-label multi-vertical en Java 25 y Spring Boot 4, estructurada como monolito modular con Spring Modulith sobre PostgreSQL y Redis.",
+          "Implementar aislamiento multi-tenant con Row-Level Security, autenticación con Argon2id, pagos PIX vía PagBank con webhooks validados por firma y patrón Outbox para consistencia de eventos.",
+          "Sostener la calidad con más de 100 clases de test y cerca de 540 casos en JUnit 5 y Testcontainers, reglas de arquitectura verificadas con ArchUnit y CI en GitHub Actions con tests de contrato en cada push.",
+          "Instrumentar la observabilidad de la plataforma con Actuator y Micrometer, exponiendo métricas a Prometheus y dashboards en Grafana segmentados por tenant, con reglas de alerta para caídas y fallos de pago.",
+          "Desarrollar el frontend de un ERP multi-tenant y multimarca en Next.js 15 y React 19, definiendo contratos de API con el equipo de frontend y documentándolos en Swagger/OpenAPI.",
         ],
       },
       a4pm: {

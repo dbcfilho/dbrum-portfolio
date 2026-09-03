@@ -4,10 +4,10 @@ import { useI18n } from "@/components/i18n/language-provider"
 
 // Dados neutros (independentes de idioma): chips de tecnologia, empresas, períodos.
 const skillGroups = [
-  { id: "backend", skills: ["Java", "Python", "JavaScript", "TypeScript", "Go", "C/C++"] },
-  { id: "frameworks", skills: ["Spring Boot", "Django", "Node.js", "React"] },
-  { id: "databases", skills: ["MySQL", "SQLite", "MongoDB"] },
-  { id: "infra", skills: ["Docker", "AWS (fundamentos)", "Linux", "RESTful APIs", "HTML", "CSS", "Bootstrap"] },
+  { id: "backend", skills: ["Java", "Python", "JavaScript", "TypeScript", "Go", "C/C++", "SQL"] },
+  { id: "frameworks", skills: ["Spring Boot", "Spring Modulith", "NestJS", "Django", "Next.js", "React", "Node.js"] },
+  { id: "databases", skills: ["PostgreSQL", "Redis", "MySQL", "MongoDB", "SQLite"] },
+  { id: "infra", skills: ["Docker", "Docker Compose", "GitHub Actions", "Nginx", "AWS (fundamentos)", "Linux", "Git"] },
 ] as const
 
 // `end: null` => usa a tradução de "Presente/Present" (cargo em andamento).
