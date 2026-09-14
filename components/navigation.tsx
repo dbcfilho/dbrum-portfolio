@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Download, Menu, X } from "lucide-react"
 import { useI18n } from "@/components/i18n/language-provider"
 import { LanguageSwitcher } from "@/components/i18n/language-switcher"
+import BrummyLaunch from "@/components/brummy/brummy-launch"
 
 const navItems = [
   { href: "#home", id: "home", key: "home" },
@@ -61,6 +62,11 @@ export default function Navigation() {
             {t.nav[item.key]}
           </Link>
         ))}
+
+        {/* Rota própria, não âncora: fica fora de navItems para não entrar no
+            scroll-spy. O clique dá boot antes de trocar de universo. */}
+        <BrummyLaunch label={t.nav.brummy} hint={t.nav.brummyHint} />
+
         <a href={CV_URL} download target="_blank" rel="noopener noreferrer" className="cv-link">
           <Download size={15} /> {t.nav.downloadCv}
         </a>

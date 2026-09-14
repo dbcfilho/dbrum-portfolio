@@ -13,6 +13,8 @@ const pt = {
     contact: "Contato",
     downloadCv: "Baixar CV",
     downloadCvLong: "Baixar Currículo",
+    brummy: "Brummy",
+    brummyHint: "projeto pessoal em desenvolvimento",
   },
   sectionLabels: {
     about: "Sobre",
@@ -324,6 +326,8 @@ const en: Dictionary = {
     contact: "Contact",
     downloadCv: "Download CV",
     downloadCvLong: "Download Résumé",
+    brummy: "Brummy",
+    brummyHint: "personal project in development",
   },
   sectionLabels: {
     about: "About",
@@ -633,6 +637,8 @@ const es: Dictionary = {
     contact: "Contacto",
     downloadCv: "Descargar CV",
     downloadCvLong: "Descargar Currículum",
+    brummy: "Brummy",
+    brummyHint: "proyecto personal en desarrollo",
   },
   sectionLabels: {
     about: "Sobre mí",

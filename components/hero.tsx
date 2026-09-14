@@ -1,7 +1,9 @@
 "use client"
 
+import type { CSSProperties } from "react"
 import { ArrowUpRight, Download } from "lucide-react"
 import { useI18n } from "@/components/i18n/language-provider"
+import { useParallaxScene } from "@/components/parallax-scene"
 
 const CV_URL = "/Douglas-Brum-Desenvolvedor-Backend.pdf"
 
@@ -12,10 +14,14 @@ const JAVA_INTERFACES = ["Secure", "Scalable"]
 export default function Hero() {
   const { t } = useI18n()
   const h = t.hero
+  // Cena do parallax sutil: a cópia quase acompanha a página (3), o terminal
+  // fica um passo atrás (7) e as métricas rolam normal — sem Lenis/GSAP, sem
+  // tocar na rolagem nativa nem nas âncoras.
+  const scene = useParallaxScene<HTMLElement>()
 
   return (
-    <section id="home" className="hero section-shell">
-      <div className="hero-copy">
+    <section id="home" className="hero section-shell" ref={scene}>
+      <div className="hero-copy px-layer" style={{ "--px-depth": 3 } as CSSProperties}>
         <p className="eyebrow">
           <span className="pulse" /> {h.badge}
         </p>
@@ -35,7 +41,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="terminal-card">
+      <div className="terminal-card px-layer" style={{ "--px-depth": 7 } as CSSProperties}>
         <div className="terminal-top">
           <span />
           <span />

@@ -1,0 +1,1405 @@
+/* ==========================================================================
+   Brummy — sistema visual da rota /brummy
+   --------------------------------------------------------------------------
+   Escopado em `.brummy-root`: nada aqui vaza para o portfólio, e o portfólio
+   não impõe nada aqui. Os tokens não foram escolhidos por gosto — saíram do
+   próprio projeto:
+
+     #05050a  fundo do GRUB gerado por boot/make-assets.py  -> (5, 5, 10)
+     #11111b  background do kitty (Catppuccin Mocha base)
+     #cdd6f4  foreground do kitty
+     90,90,140  halo radial do fundo do GRUB
+     #a6e3a1 / #f9e2af  verde e amarelo do Catppuccin, só para estado
+
+   O acento é luz branca, não neon. É o que separa "sistema operacional" de
+   "site cyberpunk".
+   ========================================================================== */
+
+/* O globals.css pinta html/body de bege. Aqui a página é escura de ponta a
+   ponta, inclusive na área de overscroll. Sem :has() nada quebra: o próprio
+   .brummy-root pinta 100dvh. */
+html:has(.brummy-root) {
+  color-scheme: dark;
+  background: #05050a;
+}
+html:has(.brummy-root) body {
+  background: #05050a;
+}
+
+.brummy-root {
+  /* superfícies */
+  --bx-void: #05050a;
+  --bx-base: #08080f;
+  --bx-surface: #0e0e17;
+  --bx-surface-2: #11111b;
+
+  /* linhas */
+  --bx-line: rgba(205, 214, 244, 0.1);
+  --bx-line-2: rgba(205, 214, 244, 0.22);
+  --bx-line-3: rgba(205, 214, 244, 0.4);
+
+  /* Texto — a rampa inteira passa em WCAG AA (4.5:1) sobre a superfície MAIS
+     CLARA da página (--bx-surface-2 #11111b), que é o pior caso:
+       text  #cdd6f4 -> 12.1:1
+       dim   #969db8 ->  6.6:1
+       faint #777e9a ->  4.7:1
+     Rótulos de metadado usam `faint` e continuam legíveis; o que é puramente
+     decorativo (log de boot, arte ASCII) vai com aria-hidden. */
+  --bx-text: #cdd6f4;
+  --bx-dim: #969db8;
+  --bx-faint: #777e9a;
+
+  /* estado */
+  --bx-ok: #a6e3a1;
+  --bx-pending: #f9e2af;
+  --bx-halo: 90, 90, 140;
+
+  /* ritmo */
+  --bx-shell: 1240px;
+  --bx-gutter: 32px;
+  --bx-section: 132px;
+
+  position: relative;
+  z-index: 0;
+  min-height: 100dvh;
+  overflow-x: clip;
+  background: var(--bx-base);
+  color: var(--bx-text);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  line-height: 1.6;
+  isolation: isolate;
+}
+
+.brummy-root ::selection {
+  background: #fff;
+  color: #05050a;
+}
+.brummy-root :focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Fundo: grade de esquemático + halo radial (o mesmo do GRUB) + campo de
+   estrelas. Uma única camada fixa, sem repaint durante o scroll.
+   -------------------------------------------------------------------------- */
+.bx-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(1000px 620px at 50% -8%, rgba(var(--bx-halo), 0.22), transparent 72%),
+    var(--bx-base);
+}
+.bx-backdrop::before,
+.bx-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+/* grade */
+.bx-backdrop::before {
+  background-image:
+    linear-gradient(rgba(205, 214, 244, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(205, 214, 244, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(130% 92% at 50% 0%, #000 0%, transparent 74%);
+  mask-image: radial-gradient(130% 92% at 50% 0%, #000 0%, transparent 74%);
+}
+/* estrelas */
+.bx-backdrop::after {
+  background-image:
+    radial-gradient(circle at 18% 32%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 72% 78%, rgba(255, 255, 255, 0.34) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 46% 12%, rgba(255, 255, 255, 0.24) 0 1px, transparent 1.6px);
+  background-size: 263px 221px, 389px 307px, 173px 331px;
+  opacity: 0.55;
+}
+
+/* --------------------------------------------------------------------------
+   Estrutura
+   -------------------------------------------------------------------------- */
+.bx-shell {
+  width: 100%;
+  max-width: var(--bx-shell);
+  margin-inline: auto;
+  padding-inline: var(--bx-gutter);
+}
+.bx-section {
+  padding-block: var(--bx-section);
+  border-top: 1px solid var(--bx-line);
+}
+.bx-mono {
+  font-family: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+}
+.bx-prose p {
+  margin: 0 0 20px;
+  font-size: 17px;
+  line-height: 1.78;
+  max-width: 62ch;
+}
+.bx-prose p:last-child {
+  margin-bottom: 0;
+}
+.brummy-root code {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.88em;
+  color: #fff;
+  background: rgba(205, 214, 244, 0.08);
+  border: 1px solid var(--bx-line);
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+
+/* cabeçalho de seção: índice + rótulo + régua */
+.bx-head {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 14px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.bx-head-index {
+  color: #fff;
+}
+.bx-head-label {
+  color: var(--bx-dim);
+}
+.bx-head-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--bx-line-2), transparent);
+}
+.bx-section h2 {
+  margin: 0 0 22px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: clamp(26px, 3.3vw, 42px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: #fff;
+  text-wrap: balance;
+}
+.bx-lede {
+  max-width: 64ch;
+  margin: 0 0 56px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--bx-dim);
+}
+
+/* painel com cantos em mira — o detalhe de instrumento, sem exagero */
+.bx-source > div,
+.bx-status > div,
+.bx-what-card,
+.bx-module,
+.bx-stage-body {
+  min-width: 0;
+}
+
+.bx-panel {
+  position: relative;
+  border: 1px solid var(--bx-line);
+  background: var(--bx-surface);
+}
+.bx-panel::before,
+.bx-panel::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--bx-line-3);
+  pointer-events: none;
+}
+.bx-panel::before {
+  top: -1px;
+  left: -1px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.bx-panel::after {
+  right: -1px;
+  bottom: -1px;
+  border-top: 0;
+  border-left: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Cabeçalho da experiência
+   -------------------------------------------------------------------------- */
+.bx-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(8, 8, 15, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--bx-line);
+}
+.bx-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 16px;
+}
+.bx-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: #fff;
+}
+.bx-brand img {
+  width: 34px;
+  height: auto;
+  filter: drop-shadow(0 0 7px rgba(var(--bx-halo), 0.9));
+}
+.bx-brand-name {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.bx-brand-version {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--bx-dim);
+  border: 1px solid var(--bx-line-2);
+  padding: 3px 6px;
+}
+.bx-header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.bx-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bx-dim);
+  transition: color 0.18s ease;
+}
+.bx-back:hover {
+  color: #fff;
+}
+.bx-back svg {
+  transition: transform 0.18s ease;
+}
+.bx-back:hover svg {
+  transform: translateX(-3px);
+}
+.bx-skip {
+  position: absolute;
+  left: -9999px;
+}
+
+/* O seletor de idioma é reaproveitado do portfólio, e o globals.css o pinta
+   para fundo claro. Aqui ele veste o tema do sistema sem virar outro
+   componente — reuso de verdade, não cópia. */
+.brummy-root .language button {
+  border-color: var(--bx-line-2);
+  background: transparent;
+  color: var(--bx-dim);
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 11px;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+.brummy-root .language button:hover {
+  color: #fff;
+  border-color: var(--bx-line-3);
+}
+.brummy-root .language-menu {
+  background: var(--bx-surface-2);
+  border-color: var(--bx-line-2);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.45);
+}
+.brummy-root .language-menu button {
+  border: 0;
+  color: var(--bx-dim);
+}
+.brummy-root .language-menu button:hover,
+.brummy-root .language-menu button[aria-checked="true"] {
+  background: rgba(205, 214, 244, 0.08);
+  color: #fff;
+}
+.bx-skip:focus {
+  left: var(--bx-gutter);
+  top: 12px;
+  z-index: 60;
+  background: #fff;
+  color: #05050a;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   Herói — a tela de boot
+   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   Parallax por camadas
+   --------------------------------------------------------------------------
+   A cena escreve o progresso em --bx-p (0 no topo, 1 ao sair). Cada camada diz
+   o quanto se atrasa em --bx-depth: quanto maior, mais funda. Uso `translate`
+   em vez de `transform` para não brigar com o `scale` da animação do halo.
+   Sem --bx-p (JS desligado ou movimento reduzido) o valor cai para 0 e tudo
+   fica exatamente onde o layout pôs. */
+.bx-layer {
+  translate: 0 calc(var(--bx-p, 0) * var(--bx-depth, 0) * 1vh);
+}
+
+.bx-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-block: clamp(64px, 11vh, 118px) clamp(72px, 12vh, 130px);
+}
+/* campo de estrelas da cena: o mais fundo, quase parado em relação à rolagem */
+.bx-hero-stars {
+  --bx-depth: 34;
+  position: absolute;
+  inset: -46% 0 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 22%, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 78% 64%, rgba(255, 255, 255, 0.4) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 42% 88%, rgba(255, 255, 255, 0.3) 0 1px, transparent 1.6px);
+  background-size: 197px 173px, 311px 259px, 149px 227px;
+  opacity: 0.7;
+}
+
+.bx-hero-tag {
+  --bx-depth: 14;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bx-dim);
+  border: 1px solid var(--bx-line-2);
+  padding: 7px 13px;
+}
+.bx-hero-tag b {
+  color: var(--bx-pending);
+  font-weight: 400;
+}
+.bx-hero-mark {
+  --bx-depth: 22;
+  position: relative;
+  width: min(268px, 54vw);
+  margin: clamp(30px, 5vh, 48px) 0 clamp(28px, 4.5vh, 46px);
+  display: grid;
+  place-items: center;
+}
+.bx-hero-mark img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  /* o brilho vem daqui, não da arte: a forma continua nítida por baixo */
+  filter: drop-shadow(0 0 16px rgba(var(--bx-halo), 0.95)) drop-shadow(0 0 46px rgba(var(--bx-halo), 0.55));
+}
+/* o halo que respira — o mesmo gesto do tema Plymouth do projeto */
+/* o halo herda o deslocamento da marca e soma o seu: fica um passo atrás dela */
+.bx-hero-halo {
+  --bx-depth: 8;
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--bx-halo), 0.38) 0%, transparent 66%);
+  filter: blur(26px);
+  will-change: transform, opacity;
+}
+.bx-hero-text {
+  --bx-depth: 7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bx-hero h1 {
+  margin: 0;
+  max-width: 21ch;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: clamp(30px, 4.6vw, 56px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: #fff;
+  text-wrap: balance;
+}
+.bx-hero-lede {
+  max-width: 58ch;
+  margin: 26px 0 0;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--bx-dim);
+  text-wrap: pretty;
+}
+
+/* barra de progresso do Plymouth: 440px, cantos 5px, gradiente 200 -> 255 */
+.bx-boot {
+  width: min(440px, 100%);
+  margin-top: clamp(40px, 7vh, 66px);
+}
+.bx-boot-dots {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.bx-boot-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.3;
+}
+.bx-boot-bar {
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+.bx-boot-fill {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #c8c8ff, #fff);
+  transform-origin: left center;
+}
+.bx-boot-label {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bx-faint);
+}
+
+/* log de boot — saída literal do install.sh */
+.bx-bootlog {
+  margin-top: 40px;
+  width: min(620px, 100%);
+  text-align: left;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 2;
+  color: var(--bx-faint);
+}
+.bx-bootlog li {
+  list-style: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bx-bootlog li:last-child {
+  color: var(--bx-dim);
+}
+
+/* --------------------------------------------------------------------------
+   01 — o que é
+   -------------------------------------------------------------------------- */
+.bx-what-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--bx-line);
+  border: 1px solid var(--bx-line);
+}
+.bx-what-card {
+  background: var(--bx-base);
+  padding: 34px 28px 38px;
+}
+.bx-what-card h3 {
+  margin: 0 0 16px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.bx-what-card p {
+  margin: 0;
+  color: var(--bx-dim);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* --------------------------------------------------------------------------
+   02 — origem
+   -------------------------------------------------------------------------- */
+.bx-origin {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 60px;
+}
+.bx-meta-col {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 11px;
+  border-top: 1px solid var(--bx-line);
+  padding-top: 20px;
+}
+.bx-meta-col div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.bx-meta-col dt,
+.bx-meta-col .k {
+  color: var(--bx-faint);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.bx-meta-col dd,
+.bx-meta-col .v {
+  margin: 0;
+  color: var(--bx-text);
+}
+
+/* --------------------------------------------------------------------------
+   03 — o que existe hoje
+   -------------------------------------------------------------------------- */
+.bx-modules {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+.bx-module {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 26px 26px;
+  transition:
+    border-color 0.22s ease,
+    background 0.22s ease;
+}
+.bx-module:hover {
+  border-color: var(--bx-line-2);
+  background: var(--bx-surface-2);
+}
+.bx-module-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.bx-module-path {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.bx-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 7px;
+  border: 1px solid currentColor;
+  color: var(--bx-ok);
+}
+.bx-chip.is-pending {
+  color: var(--bx-pending);
+}
+.bx-chip i {
+  width: 5px;
+  height: 5px;
+  background: currentColor;
+  font-style: normal;
+}
+.bx-module h3 {
+  margin: 0 0 10px;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--bx-text);
+}
+.bx-module p {
+  margin: 0 0 20px;
+  color: var(--bx-dim);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.bx-module-meta {
+  margin-top: auto;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--bx-faint);
+  border-top: 1px solid var(--bx-line);
+  padding-top: 14px;
+}
+
+/* terminal — mesma ideia do card do portfólio, outro universo */
+.bx-terminal {
+  margin-top: 18px;
+  background: var(--bx-surface-2);
+}
+.bx-terminal-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--bx-line);
+}
+.bx-terminal-top i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(205, 214, 244, 0.28);
+}
+.bx-terminal-top small {
+  margin-left: auto;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--bx-faint);
+}
+.bx-terminal-body {
+  padding: 24px 22px 26px;
+  overflow-x: auto;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 2;
+}
+.bx-terminal-body dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 26px;
+  margin: 0;
+  min-width: 440px;
+}
+.bx-terminal-body dt {
+  color: #fff;
+}
+.bx-terminal-body dd {
+  margin: 0;
+  color: var(--bx-dim);
+}
+.bx-terminal-prompt {
+  color: var(--bx-ok);
+  margin: 0 0 14px;
+}
+
+/* bloco do que não foi testado */
+.bx-untested {
+  margin-top: 46px;
+  padding: 30px 28px;
+  border: 1px solid var(--bx-line);
+  border-left: 2px solid var(--bx-pending);
+  background: var(--bx-surface);
+}
+.bx-untested h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bx-pending);
+}
+.bx-untested ul {
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 9px;
+  color: var(--bx-text);
+  font-size: 15px;
+}
+.bx-untested li {
+  position: relative;
+  padding-left: 20px;
+}
+.bx-untested li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--bx-pending);
+}
+.bx-untested p {
+  margin: 0;
+  color: var(--bx-dim);
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 68ch;
+}
+
+/* --------------------------------------------------------------------------
+   04 — horizonte
+   -------------------------------------------------------------------------- */
+.bx-timeline {
+  border-top: 1px solid var(--bx-line);
+}
+.bx-stage {
+  display: grid;
+  grid-template-columns: 92px 28px 1fr;
+  align-items: start;
+  gap: 24px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--bx-line);
+}
+.bx-stage-tag {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--bx-dim);
+  padding-top: 2px;
+}
+.bx-stage-mark {
+  display: flex;
+  justify-content: center;
+  padding-top: 7px;
+}
+.bx-stage-mark i {
+  width: 9px;
+  height: 9px;
+  background: var(--bx-line-3);
+}
+.bx-stage.is-done .bx-stage-mark i {
+  background: var(--bx-ok);
+}
+.bx-stage.is-current .bx-stage-mark i {
+  background: var(--bx-pending);
+  box-shadow: 0 0 0 4px rgba(249, 226, 175, 0.14);
+}
+.bx-stage.is-done .bx-stage-tag {
+  color: var(--bx-faint);
+}
+.bx-stage h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--bx-text);
+}
+.bx-stage.is-current h3 {
+  color: #fff;
+}
+.bx-stage.is-current .bx-stage-state {
+  color: var(--bx-pending);
+}
+.bx-stage p {
+  margin: 0;
+  color: var(--bx-dim);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 62ch;
+}
+.bx-stage-state {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bx-faint);
+  margin-top: 4px;
+  display: block;
+}
+
+/* o destino: construir do zero */
+.bx-scratch {
+  position: relative;
+  margin-top: 26px;
+  padding: 52px 44px;
+  overflow: hidden;
+  border: 1px solid var(--bx-line-2);
+  background: var(--bx-surface);
+}
+/* o brilho é uma camada própria para poder se atrasar com a rolagem */
+.bx-scratch-glow {
+  --bx-depth: 24;
+  position: absolute;
+  inset: -40% 0 auto;
+  height: 150%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(760px 420px at 50% 22%, rgba(var(--bx-halo), 0.6), transparent 72%);
+}
+.bx-scratch > *:not(.bx-scratch-glow) {
+  position: relative;
+  z-index: 1;
+}
+
+.bx-scratch-tag {
+  display: inline-block;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid var(--bx-line-3);
+  padding: 6px 11px;
+  margin-bottom: 24px;
+}
+.bx-scratch h3 {
+  margin: 0 0 18px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: clamp(22px, 2.8vw, 34px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #fff;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+.bx-scratch p {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--bx-dim);
+  font-size: 16px;
+  line-height: 1.75;
+}
+.bx-scratch-foot {
+  margin-top: 30px;
+}
+.bx-scratch-pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bx-faint);
+}
+.bx-scratch-pending i {
+  width: 6px;
+  height: 6px;
+  background: var(--bx-faint);
+  font-style: normal;
+}
+
+.bx-inspiration {
+  margin-top: 60px;
+  padding-top: 34px;
+  border-top: 1px solid var(--bx-line);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 60px;
+}
+.bx-inspiration h3 {
+  margin: 0;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bx-dim);
+}
+.bx-inspiration p {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--bx-text);
+}
+
+/* --------------------------------------------------------------------------
+   05 — filosofia
+   -------------------------------------------------------------------------- */
+.bx-philosophy {
+  text-align: center;
+  padding-block: clamp(110px, 16vh, 180px);
+}
+.bx-philosophy ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: clamp(8px, 1.4vh, 16px);
+}
+.bx-philosophy li {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: clamp(26px, 5.4vw, 60px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  color: var(--bx-faint);
+  transition: color 0.5s ease;
+}
+.bx-philosophy li.is-in {
+  color: #fff;
+}
+.bx-philosophy blockquote {
+  margin: clamp(52px, 8vh, 80px) auto 0;
+  max-width: 44ch;
+}
+.bx-philosophy blockquote p {
+  margin: 0 0 14px;
+  font-size: clamp(17px, 2.2vw, 22px);
+  line-height: 1.55;
+  color: var(--bx-dim);
+}
+.bx-philosophy cite {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  font-style: normal;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bx-faint);
+}
+
+/* --------------------------------------------------------------------------
+   06 — status (o painel estilo fastfetch)
+   -------------------------------------------------------------------------- */
+.bx-status {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 44px 40px;
+}
+.bx-ascii {
+  margin: 0;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 9.5px;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #fff;
+  text-shadow: 0 0 14px rgba(var(--bx-halo), 0.9);
+  white-space: pre;
+}
+.bx-status-rows {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 9px 26px;
+  margin: 0;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 13px;
+}
+.bx-status-rows dt {
+  color: var(--bx-faint);
+}
+.bx-status-rows dd {
+  margin: 0;
+  color: var(--bx-text);
+}
+.bx-status-rows dd b {
+  font-weight: 500;
+  color: var(--bx-pending);
+}
+.bx-status-note {
+  margin: 20px 0 0;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--bx-faint);
+}
+.bx-status-mark {
+  display: none;
+  width: 120px;
+  height: auto;
+  filter: drop-shadow(0 0 14px rgba(var(--bx-halo), 0.8));
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   07 — código
+   -------------------------------------------------------------------------- */
+.bx-source {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.bx-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  padding: 14px 20px;
+  border: 1px solid #fff;
+  background: #fff;
+  color: #05050a;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+.bx-button:hover {
+  background: transparent;
+  color: #fff;
+}
+.bx-source-note {
+  margin: 18px 0 0;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--bx-dim);
+}
+.bx-clone {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--bx-line);
+  background: var(--bx-surface-2);
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  overflow-x: auto;
+}
+.bx-clone span {
+  color: var(--bx-ok);
+  flex-shrink: 0;
+}
+.bx-clone code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--bx-text);
+}
+.bx-clone button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  flex-shrink: 0;
+  border: 1px solid var(--bx-line-2);
+  background: transparent;
+  color: var(--bx-dim);
+  font: inherit;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 9px;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+.bx-clone button:hover {
+  color: #fff;
+  border-color: var(--bx-line-3);
+}
+.bx-source-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--bx-line);
+  border: 1px solid var(--bx-line);
+}
+.bx-source-stats > div {
+  background: var(--bx-base);
+  padding: 24px 22px;
+}
+.bx-source-stats strong {
+  display: block;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+.bx-source-stats span {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bx-faint);
+}
+
+/* --------------------------------------------------------------------------
+   Captura de tela (só renderiza quando existir uma de verdade)
+   -------------------------------------------------------------------------- */
+.bx-shot {
+  margin-top: 46px;
+  padding: 10px;
+}
+.bx-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.bx-shot figcaption {
+  margin-top: 12px;
+  padding: 0 6px 4px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bx-faint);
+}
+
+/* --------------------------------------------------------------------------
+   Rodapé
+   -------------------------------------------------------------------------- */
+.bx-footer {
+  border-top: 1px solid var(--bx-line);
+  padding-block: 40px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--bx-faint);
+}
+.bx-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--bx-dim);
+  transition: color 0.18s ease;
+}
+.bx-footer a:hover {
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Movimento — tudo em transform/opacity, tudo desligável
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-bx-js="on"] .bx-reveal {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  html[data-bx-js="on"] .bx-reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.65s cubic-bezier(0.2, 0.7, 0.3, 1),
+      transform 0.65s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+
+  .bx-hero-halo {
+    animation: bx-breathe 6s ease-in-out infinite;
+  }
+  .bx-layer {
+    will-change: translate;
+  }
+  .bx-backdrop::after {
+    animation: bx-twinkle 14s ease-in-out infinite;
+  }
+  .bx-boot-fill {
+    animation: bx-load 2.4s cubic-bezier(0.25, 0.8, 0.35, 1) both;
+  }
+  .bx-boot-dots span {
+    animation: bx-blink 1.5s ease-in-out infinite;
+  }
+  .bx-boot-dots span:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .bx-boot-dots span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .bx-boot-dots span:nth-child(4) {
+    animation-delay: 0.45s;
+  }
+  .bx-boot-dots span:nth-child(5) {
+    animation-delay: 0.6s;
+  }
+}
+
+@keyframes bx-breathe {
+  0%,
+  100% {
+    scale: 1;
+    opacity: 0.62;
+  }
+  50% {
+    scale: 1.07;
+    opacity: 0.95;
+  }
+}
+@keyframes bx-twinkle {
+  0%,
+  100% {
+    opacity: 0.42;
+  }
+  50% {
+    opacity: 0.68;
+  }
+}
+@keyframes bx-load {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes bx-blink {
+  0%,
+  100% {
+    opacity: 0.22;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Responsivo — o mobile é repensado, não comprimido
+   -------------------------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .brummy-root {
+    --bx-section: 96px;
+  }
+  .bx-what-grid,
+  .bx-modules,
+  .bx-source {
+    grid-template-columns: 1fr;
+  }
+  .bx-source {
+    gap: 48px;
+  }
+  .bx-origin,
+  .bx-inspiration {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .bx-meta-col {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  .bx-status {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 36px 26px;
+  }
+  .bx-ascii {
+    display: none;
+  }
+  .bx-status-mark {
+    display: block;
+  }
+  .bx-scratch {
+    padding: 40px 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .brummy-root {
+    --bx-gutter: 20px;
+    --bx-section: 78px;
+  }
+  .bx-header-inner {
+    padding-block: 13px;
+  }
+  .bx-brand-version {
+    display: none;
+  }
+  .bx-back span {
+    display: none;
+  }
+  .bx-hero {
+    padding-block: 52px 64px;
+  }
+  .bx-hero-tag {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    padding: 6px 10px;
+  }
+  .bx-hero-lede,
+  .bx-lede,
+  .bx-prose p {
+    font-size: 16px;
+  }
+  /* o log de boot vira duas linhas curtas: o resto é ruído numa tela estreita */
+  .bx-bootlog {
+    font-size: 10.5px;
+    line-height: 1.9;
+  }
+  .bx-bootlog li:nth-child(n + 4) {
+    display: none;
+  }
+  .bx-what-card {
+    padding: 28px 22px 30px;
+  }
+  .bx-module {
+    padding: 24px 20px;
+  }
+  .bx-module-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .bx-terminal-body {
+    padding: 20px 16px 22px;
+    font-size: 12px;
+    overflow-x: hidden;
+  }
+  .bx-terminal-body dl {
+    grid-template-columns: 1fr;
+    min-width: 0;
+    gap: 0;
+    line-height: 1.7;
+  }
+  .bx-terminal-body dt {
+    margin-top: 14px;
+  }
+  .bx-terminal-body div:first-child dt {
+    margin-top: 0;
+  }
+  .bx-terminal-body dd {
+    padding-left: 13px;
+    border-left: 1px solid var(--bx-line);
+    font-size: 11.5px;
+  }
+  /* a linha do tempo troca a coluna de versão por um cabeçalho */
+  .bx-stage {
+    grid-template-columns: 18px 1fr;
+    gap: 16px;
+    padding: 22px 0;
+  }
+  .bx-stage-tag {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 11px;
+    padding-top: 0;
+    margin-bottom: 4px;
+  }
+  .bx-stage-mark {
+    grid-row: 1;
+    padding-top: 4px;
+    justify-content: flex-start;
+  }
+  .bx-stage-body {
+    grid-column: 2;
+  }
+  .bx-untested,
+  .bx-scratch {
+    padding: 26px 20px;
+  }
+  .bx-source-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .bx-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}

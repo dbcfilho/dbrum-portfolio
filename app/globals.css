@@ -155,6 +155,138 @@ button {
   background: transparent;
 }
 
+/* ---------- Ponte para o Brummy ---------- */
+/* Não é mais um link do portfólio: é a porta de outro universo visual. No
+   hover o chip inteiro escurece — uma prévia de 200ms do que vem depois. */
+.nav a.nav-brummy {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  letter-spacing: 0.02em;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.nav a.nav-brummy i {
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  /* dois satélites: o eco em pixel do anel orbital da logo */
+  box-shadow:
+    6px -3px 0 -1px currentColor,
+    -5px 4px 0 -1px currentColor;
+}
+.nav a.nav-brummy:hover,
+.nav a.nav-brummy:focus-visible {
+  background: var(--graphite);
+  border-color: var(--graphite);
+  color: #fff;
+}
+
+/* ---------- Tela de boot do Brummy ---------- */
+/* Vive aqui, e não em brummy.css, porque precisa existir do lado claro do site:
+   é ela que cobre a troca de universo quando se clica em "Brummy" no header,
+   e é ela de novo como fallback de Suspense da rota. */
+.bx-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.bx-bootscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(760px 480px at 50% 38%, rgba(90, 90, 140, 0.24), transparent 70%),
+    #05050a;
+  animation: bx-boot-in 0.18s ease-out both;
+}
+.bx-bootscreen.is-standalone {
+  position: absolute;
+  min-height: 100dvh;
+}
+.bx-bootscreen-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(440px, 76vw);
+}
+.bx-bootscreen img {
+  width: 92px;
+  height: auto;
+  filter: drop-shadow(0 0 16px rgba(90, 90, 140, 0.95));
+  animation: bx-boot-pulse 1.6s ease-in-out infinite;
+}
+.bx-bootscreen-name {
+  margin: 22px 0 26px;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #cdd6f4;
+}
+.bx-bootscreen-name span {
+  color: #777e9a;
+}
+.bx-bootscreen-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+.bx-bootscreen-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #c8c8ff, #fff);
+  transform-origin: left center;
+  animation: bx-boot-fill 0.9s cubic-bezier(0.3, 0.7, 0.4, 1) both;
+}
+.bx-bootscreen-log {
+  margin: 18px 0 0;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 11px;
+  color: #777e9a;
+}
+@keyframes bx-boot-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes bx-boot-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes bx-boot-pulse {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 /* ---------- Estrutura geral ---------- */
 .section-shell {
   max-width: 1240px;
@@ -900,6 +1032,9 @@ button {
   .nav.open {
     display: flex;
   }
+  .nav a.nav-brummy {
+    margin-top: 4px;
+  }
   .section-shell {
     padding-left: 20px;
     padding-right: 20px;
@@ -966,6 +1101,21 @@ button {
 }
 
 /* ---------- Movimento ---------- */
+/* --------------------------------------------------------------------------
+   Parallax sutil do herói (home)
+   --------------------------------------------------------------------------
+   A cena (`useParallaxScene` em components/parallax-scene.tsx) escreve o
+   progresso em --px-p (0 no topo, 1 ao sair). Cada camada declara o atraso em
+   --px-depth (em vh, não em % da própria altura, para que cópia e terminal se
+   desloquem numa escala comum). Usa `translate` — propriedade independente de
+   `transform` — para não brigar com o `translateY` da animação `rise` acima.
+   Sem --px-p (JS desligado ou movimento reduzido) tudo fica onde o layout
+   pôs. Profundidades pequenas de propósito: o efeito é um atraso de leitura,
+   não uma cena cinematográfica; no progresso máximo o herói já saiu de cena,
+   atrás do header sticky. */
+.px-layer {
+  translate: 0 calc(var(--px-p, 0) * var(--px-depth, 0) * 1vh);
+}
 @media (prefers-reduced-motion: no-preference) {
   .hero-copy,
   .terminal-card {
