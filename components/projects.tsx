@@ -1,112 +1,132 @@
-import { ExternalLink, Github } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import CaseStudies from "@/components/case-studies"
+"use client"
 
-const projects = [
+import { ArrowUpRight, Clock, ExternalLink, Globe, Star } from "lucide-react"
+import CaseStudies from "@/components/case-studies"
+import { useI18n } from "@/components/i18n/language-provider"
+
+// Dados neutros (stack, URLs, destaque). Textos vêm do dicionário via id.
+const coreonProjects = [
   {
-    title: "Culture House - Social Management Platform",
-    tagline: "Social Project Management System",
-    description:
-      "Web platform designed to help NGOs manage social assistance records efficiently. It tracks individuals and their interactions, automates WhatsApp messages for birthdays and special dates, and generates comprehensive CSV and PDF statistical reports. This project showcases full-stack development, database modeling, role-based access control, and containerization.",
-    stack: ["Python", "Django 4+", "MySQL 8+", "Bootstrap 5", "Docker", "Docker Compose"],
-    github: "https://github.com/dbcfilho/casa-da-cultura-v3",
+    id: "corefarma",
+    featured: true,
+    stack: ["TypeScript", "NestJS", "Node.js", "React", "PostgreSQL", "Prisma", "Supabase", "Nginx", "Swagger", "Winston"],
+    liveUrl: "https://corefarma.com",
+    appUrl: "https://app.corefarma.com",
   },
   {
-    title: "Product Management CRUD",
-    tagline: "Java & Spring Boot Application",
-    description:
-      "Robust CRUD application for managing products with a clean, intuitive web interface. Demonstrates backend architecture with Spring Boot, persistence with relational databases, and server-side rendering with Thymeleaf. Built with enterprise-grade patterns and best practices for maintainability.",
-    stack: ["Java", "Spring Boot", "Thymeleaf", "SQL", "REST APIs"],
-    github: "https://github.com/dbcfilho/CRUD-Java",
+    id: "corefood",
+    featured: true,
+    inDevelopment: true,
+    stack: ["Java", "Spring Boot", "PostgreSQL", "Redis", "Docker", "Multi-tenant", "Row-Level Security", "JWT"],
   },
+] as const
+
+const standaloneProjects = [
   {
-    title: "User Registration Platform",
-    tagline: "Full-Stack Node, React & MySQL",
-    description:
-      "Complete web application for user registration with full CRUD operations. Uses a modern three-tier architecture with a Node.js backend API, React frontend for dynamic UI, and MySQL database for data persistence. Highlights ability to integrate multiple technologies into a cohesive, working system.",
-    stack: ["Node.js", "Express.js", "React", "MySQL", "REST APIs"],
-    github: "https://github.com/dbcfilho/User-registration",
+    id: "simmias",
+    featured: true,
+    stack: ["Django 5", "Django REST Framework", "React 18", "Vite", "PostgreSQL", "Baileys", "Docker Compose"],
+    liveUrl: "https://simmias.vercel.app",
   },
-]
+] as const
+
+const otherProjects = [
+  { id: "crudjava", github: "https://github.com/dbcfilho/CRUD-Java" },
+  { id: "userreg", github: "https://github.com/dbcfilho/User-registration" },
+] as const
+
+type CoreonProject = (typeof coreonProjects)[number]
+type StandaloneProject = (typeof standaloneProjects)[number]
 
 export default function Projects() {
-  return (
-    <section id="portfolio" className="py-12 sm:py-16 relative">
-      <div className="accent-line absolute top-0 left-0 right-0" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-12 animate-in fade-in slide-in-from-bottom duration-700">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-wide">
-            Portfolio
-          </h2>
-          <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto px-4">
-            Real-world applications solving practical problems with clean, maintainable code
-          </p>
-        </div>
+  const { t } = useI18n()
+  const p = t.projects
 
-        <div className="mb-10 sm:mb-12">
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-5 sm:mb-6 tracking-wide">Highlighted Projects</h3>
-          <div className="space-y-5 sm:space-y-6">
-            {projects.map((project, index) => (
-              <div
-                key={project.title}
-                className="glass-card rounded-lg p-5 sm:p-6 hover:border-purple-500/50 transition-all duration-300 animate-in fade-in slide-in-from-bottom"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-5">
-                  <div className="flex-1 min-w-0">
-                    <div className="mb-3">
-                      <h4 className="text-lg sm:text-xl font-bold text-white mb-1.5">{project.title}</h4>
-                      <p className="text-purple-400 font-medium text-sm">{project.tagline}</p>
-                    </div>
-                    <p className="text-gray-300 leading-normal mb-4 text-sm sm:text-base">{project.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.stack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2.5 py-1 text-xs rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-3 shrink-0">
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 bg-transparent w-full lg:w-auto"
-                    >
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2"
-                      >
-                        <Github className="w-4 h-4" />
-                        View on GitHub
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
+  const renderProject = (project: CoreonProject | StandaloneProject, className: string) => {
+    const info = p.items[project.id]
+    return (
+      <div className={className} key={project.id}>
+        {(("inDevelopment" in project && project.inDevelopment) || ("featured" in project && project.featured)) && (
+          <div className="project-badges">
+            {"inDevelopment" in project && project.inDevelopment ? (
+              <span className="project-badge dev">
+                <Clock size={12} /> {p.inDevelopment}
+              </span>
+            ) : (
+              "featured" in project &&
+              project.featured && (
+                <span className="project-badge">
+                  <Star size={12} /> {p.featuredBadge}
+                </span>
+              )
+            )}
+          </div>
+        )}
+        <div className="project-head">
+          <h3>{info.title}</h3>
+        </div>
+        <p className="project-tagline">{info.tagline}</p>
+        <p className="project-desc">{info.description}</p>
+        <div className="tags">
+          {project.stack.map((tech) => (
+            <span key={tech}>{tech}</span>
+          ))}
+        </div>
+        <div className="project-foot">
+          <div className="project-links">
+            {"liveUrl" in project && project.liveUrl && (
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="button button-primary">
+                <Globe size={15} /> {p.viewSite}
+              </a>
+            )}
+            {"appUrl" in project && project.appUrl && (
+              <a href={project.appUrl} target="_blank" rel="noopener noreferrer" className="button button-ghost">
+                <ExternalLink size={15} /> {p.accessSystem}
+              </a>
+            )}
           </div>
         </div>
+      </div>
+    )
+  }
 
-        <CaseStudies />
-
-        <div className="text-center mt-6 sm:mt-8">
-          <a
-            href="https://github.com/dbcfilho"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors text-sm"
-          >
-            <ExternalLink className="w-4 h-4" />
-            More projects on GitHub
-          </a>
+  return (
+    <section id="portfolio" className="section-shell content-section">
+      <div className="section-heading">
+        <span className="section-index">02</span>
+        <div>
+          <h2>{p.heading}</h2>
+          <p>{p.subtitle}</p>
         </div>
+      </div>
+
+      {/* Região comum: produtos Coreon Systems agrupados */}
+      <div className="projects-group">
+        <div className="projects-group-label">
+          <span className="mini-label">{p.coreonProduct}</span>
+        </div>
+        {coreonProjects.map((project) => renderProject(project, "project-card"))}
+      </div>
+
+      {/* Soltos, fora do bloco */}
+      {standaloneProjects.map((project) => renderProject(project, "project-card standalone"))}
+
+      <CaseStudies />
+
+      <h3 style={{ margin: "60px 0 20px", fontSize: 21, fontWeight: 500 }}>{p.otherProjectsTitle}</h3>
+      <div className="other-projects">
+        {otherProjects.map((project) => {
+          const info = p.items[project.id]
+          return (
+            <a key={project.id} href={project.github} target="_blank" rel="noopener noreferrer" className="other-project-row">
+              <div>
+                <h4>{info.title}</h4>
+                <p>{info.tagline}</p>
+              </div>
+              <ArrowUpRight size={18} />
+            </a>
+          )
+        })}
       </div>
     </section>
   )

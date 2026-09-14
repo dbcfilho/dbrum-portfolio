@@ -1,62 +1,70 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Space_Grotesk, Inter } from "next/font/google"
+import { DM_Sans, IBM_Plex_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { Toaster } from "@/components/ui/toaster"
+import { LanguageProvider } from "@/components/i18n/language-provider"
 import "./globals.css"
 
-// <CHANGE> Updated fonts to Space Grotesk for headings and Inter for body
-const spaceGrotesk = Space_Grotesk({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-heading",
+  variable: "--font-dm-sans",
   display: "swap",
 })
 
-const inter = Inter({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-body",
+  weight: ["400", "500", "600"],
+  variable: "--font-plex-mono",
   display: "swap",
 })
 
-// <CHANGE> Updated metadata for SEO optimization
 export const metadata: Metadata = {
-  title: "Douglas Brum | Backend & Cybersecurity Developer",
+  metadataBase: new URL("https://dbrum.com.br"),
+  title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
   description:
-    "Backend developer focused on building robust APIs and web systems using Java/Spring Boot and Python/Django. Strong interest in cybersecurity and secure application design.",
+    "Desenvolvedor backend focado em APIs robustas e sistemas web com Java/Spring Boot e Node/NestJS. Backend do Corefarma (ERP para farmácias) e do Corefood na Coreon Systems. Interesse em cibersegurança e design de aplicações seguras.",
   keywords: [
-    "Backend Developer",
+    "Desenvolvedor Backend",
     "Java",
     "Spring Boot",
     "Python",
     "Django",
-    "Cybersecurity",
-    "Software Engineer",
+    "Cibersegurança",
+    "Engenheiro de Software",
     "Douglas Brum",
+    "Coreon Systems",
+    "NestJS",
+    "PostgreSQL",
+    "Multi-tenant",
   ],
   authors: [{ name: "Douglas Brum" }],
   creator: "Douglas Brum",
+  alternates: {
+    canonical: "https://dbrum.com.br",
+  },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "pt_BR",
     url: "https://dbrum.com.br",
-    title: "Douglas Brum | Backend & Cybersecurity Developer",
+    title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
     description:
-      "Backend developer focused on building robust APIs and web systems with a strong interest in cybersecurity.",
-    siteName: "Douglas Brum Portfolio",
+      "Desenvolvedor backend focado em APIs robustas e sistemas web com Java/Spring Boot e Node/NestJS. Backend do Corefarma (ERP para farmácias) e do Corefood na Coreon Systems. Interesse em cibersegurança e design de aplicações seguras.",
+    siteName: "Douglas Brum Portfólio",
+    images: [
+      {
+        url: "/images/dbrum-logo.png",
+        width: 945,
+        height: 300,
+        alt: "Douglas Brum — Desenvolvedor Backend & Cibersegurança",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Douglas Brum | Backend & Cybersecurity Developer",
+    title: "Douglas Brum | Desenvolvedor Backend & Cibersegurança",
     description:
-      "Backend developer focused on building robust APIs and web systems with a strong interest in cybersecurity.",
-  },
-  icons: {
-    icon: [
-      {
-        url: "/images/ico.png",
-        type: "image/png",
-      },
-    ],
+      "Desenvolvedor backend focado em APIs robustas e sistemas web com Java/Spring Boot e Node/NestJS. Backend do Corefarma (ERP para farmácias) e do Corefood na Coreon Systems. Interesse em cibersegurança e design de aplicações seguras.",
+    images: ["/images/dbrum-logo.png"],
   },
 }
 
@@ -66,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="scroll-smooth dark">
+    <html lang="pt-BR">
       <head>
         <script
           type="application/ld+json"
@@ -76,7 +84,7 @@ export default function RootLayout({
               "@type": "Person",
               name: "Douglas Brum",
               alternateName: "dbrum_dev",
-              jobTitle: "Backend & Cybersecurity-Oriented Developer",
+              jobTitle: "Desenvolvedor Backend com Foco em Cibersegurança",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Duque de Caxias",
@@ -89,9 +97,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${spaceGrotesk.variable} ${inter.variable} font-body antialiased`}>
-        {children}
-        <Toaster />
+      <body className={`${dmSans.variable} ${plexMono.variable} antialiased`}>
+        <LanguageProvider>{children}</LanguageProvider>
         <Analytics />
       </body>
     </html>
