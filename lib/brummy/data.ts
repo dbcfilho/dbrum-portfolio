@@ -1,10 +1,15 @@
 /**
  * Fatos do Brummy Linux — fonte única, não traduzida.
  *
- * Tudo aqui foi conferido no repositório em 14/09/2026 (commit b2e463c).
+ * Tudo aqui foi conferido no repositório em 25/09/2026 (commit 74445b5).
  * Números são contagens reais: `git ls-files | wc -l`, `wc -l`, e as listas de
  * `packages/*.packages`. Se o repositório mudar, atualize este arquivo — nenhum
  * componente inventa valor.
+ *
+ * Como cada número é medido (para a próxima atualização bater com esta):
+ *   trackedFiles  git ls-files | wc -l
+ *   codeLines     git ls-files | grep -E '\.(sh|lua|py)$|^bin/|^install\.sh$' | xargs wc -l
+ *   packages      linhas não vazias e não comentadas de todos os packages/*.packages
  */
 
 export const BRUMMY_REPO = "https://github.com/dbcfilho/brummy-linux"
@@ -33,7 +38,7 @@ export const BRUMMY_SCRATCH_REPO = ""
 export const BRUMMY_SCREENSHOT: { src: string; width: number; height: number } | null = null
 
 export const BRUMMY_FACTS = {
-  version: "v1.1a",
+  version: "v1.4",
   status: "EXPERIMENTAL",
   license: "MIT",
   base: "Arch Linux",
@@ -45,21 +50,21 @@ export const BRUMMY_FACTS = {
   files: "nautilus",
   theme: "WhiteSur-Dark",
   font: "JetBrains Mono Nerd Font",
-  packages: 179,
-  trackedFiles: 99,
-  codeLines: 1702,
+  packages: 186,
+  trackedFiles: 113,
+  codeLines: 2835,
   profiles: "desktop · thinkpad · general",
 } as const
 
 /**
- * Saída real do `install.sh`. Não é traduzida de propósito: é o que o programa
- * imprime, e ele imprime em português. A linha final do script ainda diz "v0.1"
- * (string desatualizada no repositório), então ela fica de fora daqui.
+ * Saída real do `install.sh`, na ordem em que ele imprime. Não é traduzida de
+ * propósito: é o que o programa imprime, e ele imprime em português.
  */
 export const BOOT_LOG = [
-  "==> [brummy] checando base...",
   "==> [brummy] perfil auto-detectado: desktop",
+  "==> [brummy] checando base...",
   "==> [brummy] instalando pacotes...",
+  "==> [brummy] snapshots (/ em btrfs: snapper + snap-pac + grub-btrfs)...",
   "==> [brummy] linkando configs (com backup)...",
   "==> [brummy] perfil Hyprland: desktop (monitores + GPU)...",
   "==> [brummy] boot: Plymouth + GRUB com a logo...",
@@ -69,11 +74,15 @@ export const BOOT_LOG = [
 export const BRUMMY_HELP = [
   { cmd: "brummy help", desc: "mostra isso (descobrível, sem decorar)" },
   { cmd: "brummy update", desc: "atualiza sistema + repuxa links do repo" },
-  { cmd: "brummy theme", desc: "mostra/edita o tema (default: WhiteSur-Dark)" },
+  { cmd: "brummy theme", desc: "mostra/edita o tema (default: WhiteSur-Dark + accent azul)" },
   { cmd: "brummy apps", desc: "lista atalhos principais" },
   { cmd: "brummy doctor", desc: "checa se tudo está instalado" },
   { cmd: "brummy wallpaper", desc: "troca o papel de parede padrão" },
-  { cmd: "brummy hide", desc: "esconde apps do launcher" },
+  { cmd: "brummy hide", desc: "esconde/traz de volta apps no launcher" },
+  { cmd: "brummy fix", desc: "conserta links de config quebrados (não entra na sessão?)" },
+  { cmd: "brummy snapshot", desc: "pontos de restauração (btrfs)" },
+  { cmd: "brummy uninstall", desc: "desfaz os links e devolve os backups das suas configs" },
+  { cmd: "brummy bars", desc: "barras de título clicáveis (hyprbars)" },
 ] as const
 
 /**
@@ -101,13 +110,16 @@ export const BRUMMY_ASCII = String.raw`                     ▄
 
 /** Caminhos e metadados dos módulos — os textos vêm do dicionário por `id`. */
 export const BRUMMY_MODULES = [
-  { id: "installer", path: "install.sh", meta: "384 linhas · 3 perfis", state: "ok" },
-  { id: "lua", path: "config/hypr/hyprland.lua", meta: "267 linhas · validado", state: "ok" },
-  { id: "cli", path: "bin/brummy", meta: "158 linhas · 7 subcomandos", state: "ok" },
-  { id: "packages", path: "packages/", meta: "120 base · 25 dev · 19 AUR · 13 laptop", state: "ok" },
+  { id: "installer", path: "install.sh", meta: "497 linhas · 3 perfis", state: "ok" },
+  { id: "lua", path: "config/hypr/hyprland.lua", meta: "340 linhas · validado a cada push", state: "ok" },
+  { id: "ci", path: ".github/workflows/", meta: "check.sh · verify-config nos 3 perfis", state: "ok" },
+  { id: "cli", path: "bin/brummy", meta: "399 linhas · 11 subcomandos", state: "ok" },
+  { id: "packages", path: "packages/", meta: "123 base · 25 dev · 12 laptop · 4 btrfs · 22 AUR", state: "ok" },
+  { id: "snapshots", path: "docs/snapshots.md", meta: "snapper · snap-pac · grub-btrfs", state: "pending" },
+  { id: "bars", path: "docs/janelas-clicaveis.md", meta: "hyprbars · SUPER+M minimiza", state: "pending" },
   { id: "boot", path: "boot/", meta: "Plymouth + GRUB · make-assets.py", state: "ok" },
-  { id: "iso", path: "iso/", meta: "esqueleto · nunca construído", state: "pending" },
-  { id: "vm", path: "tools/vm.sh", meta: "242 linhas · QEMU + KVM", state: "ok" },
+  { id: "iso", path: "iso/", meta: "construída no CI · ainda não instalada", state: "pending" },
+  { id: "vm", path: "tools/vm.sh", meta: "276 linhas · QEMU + KVM", state: "ok" },
 ] as const
 
 export type BrummyModuleId = (typeof BRUMMY_MODULES)[number]["id"]
@@ -117,8 +129,11 @@ export const BRUMMY_STAGES = [
   { id: "v1", tag: "v1", state: "done" },
   { id: "v11", tag: "v1.1", state: "done" },
   { id: "v11a", tag: "v1.1a", state: "done" },
-  { id: "v12", tag: "v1.2", state: "current" },
-  { id: "v13", tag: "v1.3", state: "next" },
+  { id: "v12", tag: "v1.2", state: "done" },
+  { id: "v13", tag: "v1.3", state: "done" },
+  { id: "v14", tag: "v1.4", state: "done" },
+  { id: "v14a", tag: "v1.4a", state: "current" },
+  { id: "hw", tag: "hardware", state: "next" },
 ] as const
 
 export type BrummyStageId = (typeof BRUMMY_STAGES)[number]["id"]

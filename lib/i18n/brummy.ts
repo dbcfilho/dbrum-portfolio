@@ -21,7 +21,7 @@ const pt = {
   meta: {
     title: "Brummy, um sistema Linux que eu construo por prazer | Douglas Brum",
     description:
-      "Brummy Linux é um projeto pessoal e experimental: hoje uma camada própria sobre Arch Linux e Hyprland, com instalador, configuração em Lua e boot próprio. Em desenvolvimento, sem prazo.",
+      "Brummy Linux é um projeto pessoal e experimental: hoje uma camada própria sobre Arch Linux e Hyprland, com instalador, ISO live, configuração em Lua e boot próprio. Em desenvolvimento, sem prazo.",
   },
   header: {
     back: "Portfólio",
@@ -51,7 +51,7 @@ const pt = {
       },
       {
         k: "Onde está",
-        body: "Na `v1.1a`. O instalador roda e a configuração do Hyprland passou na validação dentro de uma VM. A ISO é esqueleto: nunca foi construída uma vez sequer.",
+        body: "Na `v1.4`. O instalador completo rodou numa VM limpa, a configuração do Hyprland é validada a cada push, e a primeira ISO live saiu inteira do GitHub Actions. Ninguém instalou a partir dela ainda.",
       },
     ],
   },
@@ -65,7 +65,7 @@ const pt = {
     ],
     meta: [
       { k: "começo", v: "uma pasta de dotfiles" },
-      { k: "hoje", v: "99 arquivos versionados" },
+      { k: "hoje", v: "113 arquivos versionados" },
       { k: "motivo", v: "curiosidade" },
     ],
   },
@@ -80,15 +80,15 @@ const pt = {
       },
       lua: {
         title: "Configuração em Lua",
-        body: "O Hyprland aposenta o formato `.conf` na 0.57, então migrei a configuração inteira para Lua. O primeiro boot numa VM cuspiu 19 erros na tela; depois da migração, `hyprland --verify-config` responde `config ok`.",
+        body: "O Hyprland aposenta o formato `.conf` na 0.57, então migrei a configuração inteira para Lua. O primeiro boot numa VM cuspiu 19 erros na tela; depois da migração, `hyprland --verify-config` responde `config ok`. Hoje o mesmo teste roda no GitHub a cada push, para os três perfis de máquina.",
       },
       cli: {
         title: "O comando",
-        body: "A parte descobrível do sistema: um comando `brummy` com sete subcomandos. O `doctor` confere uns sessenta binários, a versão do Hyprland, o cursor, o tema escuro e o wallpaper, e avisa o que está faltando.",
+        body: "A parte descobrível do sistema: um comando `brummy` com onze subcomandos. O `doctor` confere uns sessenta binários, links de configuração quebrados, o que o AUR deixou de instalar, os snapshots, o tema escuro e o wallpaper, e avisa o que está faltando.",
       },
       packages: {
         title: "Pacotes declarados",
-        body: "179 pacotes em seis listas de texto puro. É a fonte única: o instalador e a ISO leem exatamente os mesmos arquivos, então não existe uma segunda lista pra sair de sincronia.",
+        body: "186 pacotes em oito listas de texto puro. É a fonte única: o instalador e a ISO leem exatamente os mesmos arquivos, então não existe uma segunda lista pra sair de sincronia.",
       },
       boot: {
         title: "O boot",
@@ -96,7 +96,19 @@ const pt = {
       },
       iso: {
         title: "ISO live com Calamares",
-        body: "Esqueleto de uma ISO que já é o Brummy, montada com `archiso` dentro de um container Docker, com instalador gráfico. Os scripts existem e passam no `bash -n`. Nunca foi construída.",
+        body: "Uma ISO que já é o Brummy, montada com `archiso` dentro de um container Docker, com instalador gráfico. Saiu inteira na quarta build no GitHub Actions. A primeira parou num modo de boot que o archiso já tinha aposentado, a segunda no multilib, e a terceira numa regra da imagem Docker que sumia com arquivos. Ainda não instalei a partir dela.",
+      },
+      ci: {
+        title: "Checagem a cada push",
+        body: "Cansei de descobrir erro de configuração só na hora do login. Agora, a cada push, o GitHub roda o `check.sh` (shellcheck, JSON, Lua, os subcomandos) e o `hyprland --verify-config` num container Arch. Se eu errar uma opção, o commit fica vermelho antes de chegar em qualquer máquina.",
+      },
+      snapshots: {
+        title: "Snapshots antes de atualizar",
+        body: "Arch é rolling, e um dia uma atualização vai quebrar a sessão. Com `/` em btrfs, o instalador liga snapper, snap-pac e grub-btrfs: todo `pacman` tira um snapshot antes e outro depois, e dá pra voltar a um estado que funcionava direto pelo menu do GRUB. Ainda não testei a volta num disco de verdade.",
+      },
+      bars: {
+        title: "Janelas clicáveis",
+        body: "Queria poder fechar uma janela com o mouse sem abrir mão do tiling. Com o plugin hyprbars, cada janela ganha as três bolinhas à esquerda, e o botão amarelo guarda a janela numa gaveta, porque o Hyprland não tem minimizar. Escrevi a configuração lendo o código do plugin e ela passa nos testes, mas ainda não vi as barras desenhando numa sessão real.",
       },
       vm: {
         title: "A VM de teste",
@@ -107,13 +119,13 @@ const pt = {
     untestedLabel: "Não testado",
     untestedHeading: "O que ainda não foi testado",
     untested: [
-      "o `./install.sh` completo, do começo ao fim",
-      "o boot gráfico pelo greetd",
-      "Waybar, tema, cursor e wallpaper numa máquina real",
-      "a primeira build da ISO",
+      "a instalação a partir da ISO, do boot ao primeiro login",
+      "as barras de título desenhando numa sessão real",
+      "snapshots e rollback num disco btrfs de verdade",
+      "o hardware real: o T430 e o desktop com a RX 6600 XT",
     ],
     untestedNote:
-      "A validação feita até aqui cobre a configuração do Hyprland, e só ela. O resto é código que eu escrevi, li e conferi, mas que ainda não rodou inteiro.",
+      "O que já foi validado: o `install.sh` inteiro numa VM limpa, a configuração do Hyprland a cada push e a build da ISO. O resto é código que eu escrevi, li e conferi, mas que ainda não rodou inteiro.",
   },
   horizon: {
     label: "Horizonte",
@@ -123,8 +135,11 @@ const pt = {
       v1: { title: "Base montada", body: "Instalador, perfis de máquina, bundle de desenvolvimento e boot com a logo." },
       v11: { title: "Primeiro boot analisado", body: "Configuração migrada para Lua, wallpaper e tema escuro corrigidos, launcher sem apps parasitas." },
       v11a: { title: "Configuração validada", body: "`hyprland --verify-config` rodando na VM: `config ok`." },
-      v12: { title: "Instalador ponta a ponta", body: "Rodar o `install.sh` inteiro numa máquina e sobreviver ao reboot." },
-      v13: { title: "A primeira ISO", body: "Construir a ISO live e instalar o Brummy a partir dela." },
+      v12: { title: "Instalador ponta a ponta", body: "O `install.sh` inteiro rodou numa VM limpa e sobreviveu ao reboot. Veio junto a checagem a cada push." },
+      v13: { title: "Janelas clicáveis", body: "Barras de título com botões em cima do tiling, e minimizar de verdade." },
+      v14: { title: "A primeira ISO", body: "A ISO live com instalador gráfico, construída no GitHub Actions." },
+      v14a: { title: "Instalar pela ISO", body: "Dar boot na ISO, instalar pelo Calamares e subir o sistema instalado." },
+      hw: { title: "Hardware de verdade", body: "O instalador no T430 e no desktop, fora da VM." },
     } satisfies Record<BrummyStageId, Stage>,
     stateLabels: { done: "feito", current: "agora", next: "a seguir", horizon: "horizonte" },
     scratch: {
@@ -150,7 +165,7 @@ const pt = {
     heading: "Status do sistema",
     rows: [
       { k: "sistema", v: "Brummy Linux" },
-      { k: "versão", v: "v1.1a" },
+      { k: "versão", v: "v1.4" },
       { k: "estado", v: "em desenvolvimento" },
       { k: "base", v: "Arch Linux" },
       { k: "compositor", v: "Hyprland 0.56.2 · Wayland" },
@@ -159,8 +174,8 @@ const pt = {
       { k: "terminal", v: "kitty" },
       { k: "tema", v: "WhiteSur-Dark" },
       { k: "fonte", v: "JetBrains Mono Nerd Font" },
-      { k: "pacotes", v: "179 declarados" },
-      { k: "repositório", v: "99 arquivos · ~1.700 linhas" },
+      { k: "pacotes", v: "186 declarados" },
+      { k: "repositório", v: "113 arquivos · ~2.800 linhas" },
       { k: "licença", v: "MIT" },
     ],
     note: "Os números vêm do repositório, não de estimativa.",
@@ -170,7 +185,7 @@ const pt = {
     heading: "O código está aberto",
     body: "Tudo que está descrito aqui pode ser lido, clonado e criticado. Se você abrir e achar que alguma decisão está errada, provavelmente está. É assim que eu estou aprendendo.",
     cta: "Ver no GitHub",
-    ctaNote: "MIT · sem releases ainda: a primeira sai quando a ISO for construída.",
+    ctaNote: "MIT · sem releases ainda: a ISO sai como artefato do GitHub Actions até ser testada.",
     cloneLabel: "clonar",
     copy: "Copiar",
     copied: "Copiado",
@@ -189,7 +204,7 @@ const en: BrummyDictionary = {
   meta: {
     title: "Brummy, a Linux system I build for the joy of it | Douglas Brum",
     description:
-      "Brummy Linux is a personal, experimental project: today an opinionated layer over Arch Linux and Hyprland, with its own installer, Lua configuration and boot splash. In development, no deadline.",
+      "Brummy Linux is a personal, experimental project: today an opinionated layer over Arch Linux and Hyprland, with its own installer, live ISO, Lua configuration and boot splash. In development, no deadline.",
   },
   header: {
     back: "Portfolio",
@@ -219,7 +234,7 @@ const en: BrummyDictionary = {
       },
       {
         k: "Where it stands",
-        body: "At `v1.1a`. The installer runs and the Hyprland configuration passes validation inside a VM. The ISO is a skeleton: it has never been built even once.",
+        body: "At `v1.4`. The full installer ran on a clean VM, the Hyprland configuration is validated on every push, and the first live ISO came out whole from GitHub Actions. Nobody has installed from it yet.",
       },
     ],
   },
@@ -233,7 +248,7 @@ const en: BrummyDictionary = {
     ],
     meta: [
       { k: "start", v: "a folder of dotfiles" },
-      { k: "today", v: "99 versioned files" },
+      { k: "today", v: "113 versioned files" },
       { k: "reason", v: "curiosity" },
     ],
   },
@@ -248,15 +263,15 @@ const en: BrummyDictionary = {
       },
       lua: {
         title: "Configuration in Lua",
-        body: "Hyprland retires the `.conf` format in 0.57, so I migrated the whole configuration to Lua. The first boot in a VM threw 19 errors on screen; after the migration, `hyprland --verify-config` answers `config ok`.",
+        body: "Hyprland retires the `.conf` format in 0.57, so I migrated the whole configuration to Lua. The first boot in a VM threw 19 errors on screen; after the migration, `hyprland --verify-config` answers `config ok`. Today the same check runs on GitHub on every push, for all three machine profiles.",
       },
       cli: {
         title: "The command",
-        body: "The discoverable half of the system: a `brummy` command with seven subcommands. `doctor` checks around sixty binaries, the Hyprland version, the cursor, the dark theme and the wallpaper, and tells me what is missing.",
+        body: "The discoverable half of the system: a `brummy` command with eleven subcommands. `doctor` checks around sixty binaries, broken config links, whatever the AUR failed to install, the snapshots, the dark theme and the wallpaper, and tells me what is missing.",
       },
       packages: {
         title: "Declared packages",
-        body: "179 packages across six plain-text lists. It is the single source: the installer and the ISO read exactly the same files, so there is no second list to drift out of sync.",
+        body: "186 packages across eight plain-text lists. It is the single source: the installer and the ISO read exactly the same files, so there is no second list to drift out of sync.",
       },
       boot: {
         title: "The boot",
@@ -264,7 +279,19 @@ const en: BrummyDictionary = {
       },
       iso: {
         title: "Live ISO with Calamares",
-        body: "Skeleton of an ISO that already is Brummy, assembled with `archiso` inside a Docker container, with a graphical installer. The scripts exist and pass `bash -n`. It has never been built.",
+        body: "An ISO that already is Brummy, assembled with `archiso` inside a Docker container, with a graphical installer. It came out whole on the fourth build in GitHub Actions. The first one died on a boot mode archiso had already retired, the second on multilib, and the third on a rule in the Docker image that made files disappear. I have not installed from it yet.",
+      },
+      ci: {
+        title: "Checks on every push",
+        body: "I got tired of finding configuration mistakes only at login time. Now, on every push, GitHub runs `check.sh` (shellcheck, JSON, Lua, the subcommands) and `hyprland --verify-config` in an Arch container. If I get an option wrong, the commit turns red before it reaches any machine.",
+      },
+      snapshots: {
+        title: "Snapshots before updating",
+        body: "Arch is rolling, and some day an update will break the session. With `/` on btrfs, the installer turns on snapper, snap-pac and grub-btrfs: every `pacman` run takes a snapshot before and after, and you can go back to a state that worked straight from the GRUB menu. I have not tested the way back on a real disk yet.",
+      },
+      bars: {
+        title: "Clickable windows",
+        body: "I wanted to close a window with the mouse without giving up tiling. With the hyprbars plugin, every window gets the three dots on the left, and the yellow one tucks the window into a drawer, because Hyprland has no minimise. I wrote the configuration by reading the plugin's code and it passes the tests, but I have not seen the bars drawing in a real session yet.",
       },
       vm: {
         title: "The test VM",
@@ -275,13 +302,13 @@ const en: BrummyDictionary = {
     untestedLabel: "Untested",
     untestedHeading: "What has not been tested yet",
     untested: [
-      "the full `./install.sh`, start to finish",
-      "the graphical boot through greetd",
-      "Waybar, theme, cursor and wallpaper on real hardware",
-      "the first ISO build",
+      "installing from the ISO, from boot to first login",
+      "the title bars drawing in a real session",
+      "snapshots and rollback on an actual btrfs disk",
+      "real hardware: the T430 and the desktop with the RX 6600 XT",
     ],
     untestedNote:
-      "The validation done so far covers the Hyprland configuration, and only that. The rest is code I wrote, read and checked, but that has not run end to end.",
+      "What has been validated: the whole `install.sh` on a clean VM, the Hyprland configuration on every push, and the ISO build. The rest is code I wrote, read and checked, but that has not run end to end.",
   },
   horizon: {
     label: "Horizon",
@@ -291,8 +318,11 @@ const en: BrummyDictionary = {
       v1: { title: "Base assembled", body: "Installer, machine profiles, development bundle and boot splash with the logo." },
       v11: { title: "First boot analysed", body: "Configuration migrated to Lua, wallpaper and dark theme fixed, launcher cleared of stray apps." },
       v11a: { title: "Configuration validated", body: "`hyprland --verify-config` running in the VM: `config ok`." },
-      v12: { title: "Installer end to end", body: "Run the whole `install.sh` on a machine and survive the reboot." },
-      v13: { title: "The first ISO", body: "Build the live ISO and install Brummy from it." },
+      v12: { title: "Installer end to end", body: "The whole `install.sh` ran on a clean VM and survived the reboot. Checks on every push came with it." },
+      v13: { title: "Clickable windows", body: "Title bars with buttons on top of the tiling, and a real minimise." },
+      v14: { title: "The first ISO", body: "The live ISO with a graphical installer, built in GitHub Actions." },
+      v14a: { title: "Install from the ISO", body: "Boot the ISO, install through Calamares and bring up the installed system." },
+      hw: { title: "Real hardware", body: "The installer on the T430 and on the desktop, outside the VM." },
     },
     stateLabels: { done: "done", current: "now", next: "next", horizon: "horizon" },
     scratch: {
@@ -318,7 +348,7 @@ const en: BrummyDictionary = {
     heading: "System status",
     rows: [
       { k: "system", v: "Brummy Linux" },
-      { k: "version", v: "v1.1a" },
+      { k: "version", v: "v1.4" },
       { k: "state", v: "in development" },
       { k: "base", v: "Arch Linux" },
       { k: "compositor", v: "Hyprland 0.56.2 · Wayland" },
@@ -327,8 +357,8 @@ const en: BrummyDictionary = {
       { k: "terminal", v: "kitty" },
       { k: "theme", v: "WhiteSur-Dark" },
       { k: "font", v: "JetBrains Mono Nerd Font" },
-      { k: "packages", v: "179 declared" },
-      { k: "repository", v: "99 files · ~1,700 lines" },
+      { k: "packages", v: "186 declared" },
+      { k: "repository", v: "113 files · ~2,800 lines" },
       { k: "licence", v: "MIT" },
     ],
     note: "The numbers come from the repository, not from an estimate.",
@@ -338,7 +368,7 @@ const en: BrummyDictionary = {
     heading: "The code is open",
     body: "Everything described here can be read, cloned and criticised. If you open it and think some decision is wrong, it probably is. That is how I am learning.",
     cta: "View on GitHub",
-    ctaNote: "MIT · no releases yet: the first one ships when the ISO is built.",
+    ctaNote: "MIT · no releases yet: the ISO ships as a GitHub Actions artifact until it is tested.",
     cloneLabel: "clone",
     copy: "Copy",
     copied: "Copied",
@@ -355,7 +385,7 @@ const es: BrummyDictionary = {
   meta: {
     title: "Brummy, un sistema Linux que construyo por gusto | Douglas Brum",
     description:
-      "Brummy Linux es un proyecto personal y experimental: hoy una capa propia sobre Arch Linux y Hyprland, con instalador, configuración en Lua y arranque propio. En desarrollo, sin plazo.",
+      "Brummy Linux es un proyecto personal y experimental: hoy una capa propia sobre Arch Linux y Hyprland, con instalador, ISO live, configuración en Lua y arranque propio. En desarrollo, sin plazo.",
   },
   header: {
     back: "Portafolio",
@@ -385,7 +415,7 @@ const es: BrummyDictionary = {
       },
       {
         k: "Dónde está",
-        body: "En `v1.1a`. El instalador corre y la configuración de Hyprland pasa la validación dentro de una VM. La ISO es un esqueleto: nunca se construyó ni una sola vez.",
+        body: "En `v1.4`. El instalador completo corrió en una VM limpia, la configuración de Hyprland se valida en cada push, y la primera ISO live salió entera de GitHub Actions. Nadie instaló desde ella todavía.",
       },
     ],
   },
@@ -399,7 +429,7 @@ const es: BrummyDictionary = {
     ],
     meta: [
       { k: "inicio", v: "una carpeta de dotfiles" },
-      { k: "hoy", v: "99 archivos versionados" },
+      { k: "hoy", v: "113 archivos versionados" },
       { k: "motivo", v: "curiosidad" },
     ],
   },
@@ -414,15 +444,15 @@ const es: BrummyDictionary = {
       },
       lua: {
         title: "Configuración en Lua",
-        body: "Hyprland retira el formato `.conf` en la 0.57, así que migré toda la configuración a Lua. El primer arranque en una VM escupió 19 errores en pantalla; tras la migración, `hyprland --verify-config` responde `config ok`.",
+        body: "Hyprland retira el formato `.conf` en la 0.57, así que migré toda la configuración a Lua. El primer arranque en una VM escupió 19 errores en pantalla; tras la migración, `hyprland --verify-config` responde `config ok`. Hoy la misma prueba corre en GitHub en cada push, para los tres perfiles de máquina.",
       },
       cli: {
         title: "El comando",
-        body: "La parte descubrible del sistema: un comando `brummy` con siete subcomandos. `doctor` revisa unos sesenta binarios, la versión de Hyprland, el cursor, el tema oscuro y el fondo, y avisa qué falta.",
+        body: "La parte descubrible del sistema: un comando `brummy` con once subcomandos. `doctor` revisa unos sesenta binarios, enlaces de configuración rotos, lo que el AUR no logró instalar, los snapshots, el tema oscuro y el fondo, y avisa qué falta.",
       },
       packages: {
         title: "Paquetes declarados",
-        body: "179 paquetes en seis listas de texto plano. Es la fuente única: el instalador y la ISO leen exactamente los mismos archivos, así que no hay una segunda lista que se desincronice.",
+        body: "186 paquetes en ocho listas de texto plano. Es la fuente única: el instalador y la ISO leen exactamente los mismos archivos, así que no hay una segunda lista que se desincronice.",
       },
       boot: {
         title: "El arranque",
@@ -430,7 +460,19 @@ const es: BrummyDictionary = {
       },
       iso: {
         title: "ISO live con Calamares",
-        body: "Esqueleto de una ISO que ya es Brummy, armada con `archiso` dentro de un contenedor Docker, con instalador gráfico. Los scripts existen y pasan `bash -n`. Nunca se construyó.",
+        body: "Una ISO que ya es Brummy, armada con `archiso` dentro de un contenedor Docker, con instalador gráfico. Salió entera en la cuarta construcción en GitHub Actions. La primera se cayó en un modo de arranque que archiso ya había retirado, la segunda en el multilib, y la tercera en una regla de la imagen de Docker que hacía desaparecer archivos. Todavía no instalé desde ella.",
+      },
+      ci: {
+        title: "Revisión en cada push",
+        body: "Me cansé de descubrir errores de configuración recién al iniciar sesión. Ahora, en cada push, GitHub corre el `check.sh` (shellcheck, JSON, Lua, los subcomandos) y `hyprland --verify-config` en un contenedor Arch. Si me equivoco en una opción, el commit queda en rojo antes de llegar a cualquier máquina.",
+      },
+      snapshots: {
+        title: "Snapshots antes de actualizar",
+        body: "Arch es rolling, y algún día una actualización va a romper la sesión. Con `/` en btrfs, el instalador activa snapper, snap-pac y grub-btrfs: cada `pacman` toma un snapshot antes y otro después, y se puede volver a un estado que funcionaba directo desde el menú de GRUB. Todavía no probé la vuelta en un disco de verdad.",
+      },
+      bars: {
+        title: "Ventanas clicables",
+        body: "Quería poder cerrar una ventana con el mouse sin renunciar al tiling. Con el plugin hyprbars, cada ventana gana los tres puntos a la izquierda, y el amarillo guarda la ventana en un cajón, porque Hyprland no tiene minimizar. Escribí la configuración leyendo el código del plugin y pasa las pruebas, pero todavía no vi las barras dibujando en una sesión real.",
       },
       vm: {
         title: "La VM de prueba",
@@ -441,13 +483,13 @@ const es: BrummyDictionary = {
     untestedLabel: "Sin probar",
     untestedHeading: "Lo que todavía no se probó",
     untested: [
-      "el `./install.sh` completo, de principio a fin",
-      "el arranque gráfico por greetd",
-      "Waybar, tema, cursor y fondo en una máquina real",
-      "la primera construcción de la ISO",
+      "la instalación desde la ISO, del arranque al primer inicio de sesión",
+      "las barras de título dibujando en una sesión real",
+      "snapshots y rollback en un disco btrfs de verdad",
+      "el hardware real: la T430 y el desktop con la RX 6600 XT",
     ],
     untestedNote:
-      "La validación hecha hasta acá cubre la configuración de Hyprland, y solo eso. El resto es código que escribí, leí y revisé, pero que todavía no corrió entero.",
+      "Lo que ya se validó: el `install.sh` entero en una VM limpia, la configuración de Hyprland en cada push y la construcción de la ISO. El resto es código que escribí, leí y revisé, pero que todavía no corrió entero.",
   },
   horizon: {
     label: "Horizonte",
@@ -457,8 +499,11 @@ const es: BrummyDictionary = {
       v1: { title: "Base armada", body: "Instalador, perfiles de máquina, paquete de desarrollo y arranque con el logo." },
       v11: { title: "Primer arranque analizado", body: "Configuración migrada a Lua, fondo y tema oscuro corregidos, lanzador sin apps parásitas." },
       v11a: { title: "Configuración validada", body: "`hyprland --verify-config` corriendo en la VM: `config ok`." },
-      v12: { title: "Instalador de punta a punta", body: "Correr el `install.sh` entero en una máquina y sobrevivir al reinicio." },
-      v13: { title: "La primera ISO", body: "Construir la ISO live e instalar Brummy desde ella." },
+      v12: { title: "Instalador de punta a punta", body: "El `install.sh` entero corrió en una VM limpia y sobrevivió al reinicio. Con él llegó la revisión en cada push." },
+      v13: { title: "Ventanas clicables", body: "Barras de título con botones sobre el tiling, y un minimizar de verdad." },
+      v14: { title: "La primera ISO", body: "La ISO live con instalador gráfico, construida en GitHub Actions." },
+      v14a: { title: "Instalar desde la ISO", body: "Arrancar la ISO, instalar con Calamares y levantar el sistema instalado." },
+      hw: { title: "Hardware de verdad", body: "El instalador en la T430 y en el desktop, fuera de la VM." },
     },
     stateLabels: { done: "hecho", current: "ahora", next: "sigue", horizon: "horizonte" },
     scratch: {
@@ -484,7 +529,7 @@ const es: BrummyDictionary = {
     heading: "Estado del sistema",
     rows: [
       { k: "sistema", v: "Brummy Linux" },
-      { k: "versión", v: "v1.1a" },
+      { k: "versión", v: "v1.4" },
       { k: "estado", v: "en desarrollo" },
       { k: "base", v: "Arch Linux" },
       { k: "compositor", v: "Hyprland 0.56.2 · Wayland" },
@@ -493,8 +538,8 @@ const es: BrummyDictionary = {
       { k: "terminal", v: "kitty" },
       { k: "tema", v: "WhiteSur-Dark" },
       { k: "fuente", v: "JetBrains Mono Nerd Font" },
-      { k: "paquetes", v: "179 declarados" },
-      { k: "repositorio", v: "99 archivos · ~1.700 líneas" },
+      { k: "paquetes", v: "186 declarados" },
+      { k: "repositorio", v: "113 archivos · ~2.800 líneas" },
       { k: "licencia", v: "MIT" },
     ],
     note: "Los números salen del repositorio, no de una estimación.",
@@ -504,7 +549,7 @@ const es: BrummyDictionary = {
     heading: "El código está abierto",
     body: "Todo lo descrito acá se puede leer, clonar y criticar. Si lo abrís y te parece que alguna decisión está mal, probablemente lo esté. Así es como estoy aprendiendo.",
     cta: "Ver en GitHub",
-    ctaNote: "MIT · todavía sin releases: la primera sale cuando se construya la ISO.",
+    ctaNote: "MIT · todavía sin releases: la ISO sale como artefacto de GitHub Actions hasta que se pruebe.",
     cloneLabel: "clonar",
     copy: "Copiar",
     copied: "Copiado",
